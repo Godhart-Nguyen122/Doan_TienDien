@@ -1,6 +1,8 @@
 
 package Controller.LoginController;
 
+import Controller.DAO.LoginDAO;
+
 public class LoginController {
     
     public boolean login(String userName, String passWord) throws Exception{

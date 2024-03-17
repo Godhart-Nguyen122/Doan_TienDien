@@ -18,8 +18,6 @@ public class SimpleTitleBar extends javax.swing.JPanel {
 
     public SimpleTitleBar() {
         initComponents();
-        ImageIcon imageTien = new ImageIcon("src/Icon/LogoApp.png");
-        Logo.setIcon(imageTien);
     }
 
     public void init(JFrame fram) {
@@ -29,7 +27,7 @@ public class SimpleTitleBar extends javax.swing.JPanel {
         resize.setMaximumSize(Toolkit.getDefaultToolkit().getScreenSize());
         resize.registerComponent(fram);
         initMoving(fram);
-        simpleButtonBar11.initEvent(fram);
+        simpleButtonBar.initEvent(fram);
     }
 
     private void initMoving(JFrame fram) {
@@ -74,11 +72,13 @@ public class SimpleTitleBar extends javax.swing.JPanel {
         panelMove = new javax.swing.JPanel();
         Logo = new javax.swing.JLabel();
         Name = new javax.swing.JLabel();
-        simpleButtonBar11 = new Component.SimpleButtonBar1();
+        simpleButtonBar = new Component.SimpleButtonBar();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         panelMove.setOpaque(false);
+
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/LogoUngDung_30x30.png"))); // NOI18N
 
         Name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Name.setText("CTY Điện lực");
@@ -92,8 +92,8 @@ public class SimpleTitleBar extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Name, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                .addGap(733, 733, 733))
+                .addComponent(Name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(781, 781, 781))
         );
         panelMoveLayout.setVerticalGroup(
             panelMoveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,15 +108,14 @@ public class SimpleTitleBar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelMove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(simpleButtonBar11, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(simpleButtonBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelMove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(simpleButtonBar11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(simpleButtonBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,6 +123,6 @@ public class SimpleTitleBar extends javax.swing.JPanel {
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel Name;
     private javax.swing.JPanel panelMove;
-    private Component.SimpleButtonBar1 simpleButtonBar11;
+    private Component.SimpleButtonBar simpleButtonBar;
     // End of variables declaration//GEN-END:variables
 }

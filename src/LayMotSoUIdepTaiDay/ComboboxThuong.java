@@ -51,7 +51,7 @@ public class ComboboxThuong<E> extends JComboBox<E> {
         this.lineColor = lineColor;
     }
 
-    private String labeText = "";
+    private String labeText = "Label";
     private Color lineColor = new Color(3, 155, 216);
     private boolean mouseOver;
 

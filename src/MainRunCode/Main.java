@@ -1,7 +1,7 @@
 package MainRunCode;
 
 import View.Login.Login;
-import View.Admin.MainAdminView;
+import View.AdminView.MainAdminView;
 
 public class Main {
     private MainAdminView MF = new MainAdminView();
