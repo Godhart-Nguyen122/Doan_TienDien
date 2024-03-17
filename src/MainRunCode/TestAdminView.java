@@ -1,6 +1,7 @@
 package MainRunCode;
 
 import View.AdminView.MainAdminView;
+import java.text.ParseException;
 public class TestAdminView {
     private MainAdminView MF = new MainAdminView();
     public void MainFormLoadding() {
@@ -9,7 +10,7 @@ public class TestAdminView {
         MF.setVisible(true);
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         new TestAdminView().MainFormLoadding();
     }
 }

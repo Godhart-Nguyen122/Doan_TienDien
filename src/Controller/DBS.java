@@ -9,7 +9,7 @@ public class DBS {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionURL = "jdbc:sqlserver://localhost:1433;databaseName=TinhTienDien;encrypt=false;";
         String username = "sa";
-        String password = "123456";
+        String password = "12345";
         //12345
         Connection con = DriverManager.getConnection(connectionURL, username, password);
         return con;

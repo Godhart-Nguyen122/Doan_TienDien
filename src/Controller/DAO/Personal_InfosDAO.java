@@ -37,7 +37,7 @@ public class Personal_InfosDAO {
     }
     
     public void AddDAO(Personal_Infos Ps){
-        String SQL = "INSERT INTO [dbo].[PERSON_INFO]\n" +
+        String SQL = "INSERT INTO [dbo].[PERSON_INFOS]\n" +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             Connection con = new DBS().getConnection();
