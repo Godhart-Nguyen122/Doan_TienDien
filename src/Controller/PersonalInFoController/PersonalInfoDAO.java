@@ -1,6 +1,6 @@
 package Controller.PersonalInFoController;
 
-import Database.DBS;
+import Controller.DBS;
 import Model.ChuHo;
 import Model.Personalinfo;
 import java.sql.Connection;

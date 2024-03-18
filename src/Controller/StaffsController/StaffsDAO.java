@@ -1,7 +1,7 @@
 
 package Controller.StaffsController;
 
-import Database.DBS;
+import Controller.DBS;
 import Model.Staff;
 import java.util.ArrayList;
 import java.util.List;

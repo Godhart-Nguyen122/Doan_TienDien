@@ -1,6 +1,6 @@
 package Controller.ThongTinSDController;
 
-import Database.DBS;
+import Controller.DBS;
 import Model.ThongTinSuDung;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

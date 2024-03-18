@@ -1,7 +1,7 @@
 
 package Controller.InvoicesController;
 
-import Database.DBS;
+import Controller.DBS;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
