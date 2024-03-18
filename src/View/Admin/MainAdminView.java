@@ -311,77 +311,125 @@ public final class MainAdminView extends javax.swing.JFrame {
 
     
     private void DSChuHoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DSChuHoButtonActionPerformed
+            TrangChuButton.Reset();
+            ThongTinChungButton.Reset();
             DSChuHoButton.Nhan();
-            PhanQuyenButton.Reset();
             DsNhanVienButton.Reset();
+            ThongTinSDDienButton.Reset();
             HoaDonDienButton.Reset();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Reset();
+            ThongTinButton.Reset();
             this.setForm(new DSChuHoView(this));
             CapNhatBangTrangThai();
     }//GEN-LAST:event_DSChuHoButtonActionPerformed
 
     private void PhanQuyenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhanQuyenButtonActionPerformed
+            TrangChuButton.Reset();
+            ThongTinChungButton.Reset();
             DSChuHoButton.Reset();
-            PhanQuyenButton.Reset();
             DsNhanVienButton.Reset();
+            ThongTinSDDienButton.Reset();
             HoaDonDienButton.Reset();
-            ThongTinButton.Nhan();
+            PhanQuyenButton.Nhan();
+            PhanCongButton.Reset();
+            ThongTinButton.Reset();
             this.setForm(new QLPQTaiKhoan(this));
             CapNhatBangTrangThai();
     }//GEN-LAST:event_PhanQuyenButtonActionPerformed
 
     private void DsNhanVienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DsNhanVienButtonActionPerformed
+            TrangChuButton.Reset();
+            ThongTinChungButton.Reset();
             DSChuHoButton.Reset();
-            PhanQuyenButton.Reset();
             DsNhanVienButton.Nhan();
+            ThongTinSDDienButton.Reset();
             HoaDonDienButton.Reset();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Reset();
+            ThongTinButton.Reset();
             CapNhatBangTrangThai();
     }//GEN-LAST:event_DsNhanVienButtonActionPerformed
 
     private void HoaDonDienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoaDonDienButtonActionPerformed
+            TrangChuButton.Reset();
+            ThongTinChungButton.Reset();
             DSChuHoButton.Reset();
-            PhanQuyenButton.Reset();
             DsNhanVienButton.Reset();
+            ThongTinSDDienButton.Reset();
             HoaDonDienButton.Nhan();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Reset();
+            ThongTinButton.Reset();
             this.setForm(new DSHoaDonView());
             CapNhatBangTrangThai();
     }//GEN-LAST:event_HoaDonDienButtonActionPerformed
 
     private void ThongTinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongTinButtonActionPerformed
+            TrangChuButton.Reset();
+            ThongTinChungButton.Reset();
             DSChuHoButton.Reset();
-            PhanQuyenButton.Reset();
             DsNhanVienButton.Reset();
+            ThongTinSDDienButton.Reset();
             HoaDonDienButton.Reset();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Reset();
             ThongTinButton.Nhan();
             this.setForm(new ThongTinView(this));
             CapNhatBangTrangThai();
     }//GEN-LAST:event_ThongTinButtonActionPerformed
 
     private void PhanCongButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhanCongButtonActionPerformed
+            TrangChuButton.Reset();
+            ThongTinChungButton.Reset();
             DSChuHoButton.Reset();
-            PhanQuyenButton.Reset();
             DsNhanVienButton.Reset();
+            ThongTinSDDienButton.Reset();
             HoaDonDienButton.Reset();
-            ThongTinButton.Nhan();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Nhan();
+            ThongTinButton.Reset();
             this.setForm(new DSPhanCong(this));
             CapNhatBangTrangThai();
     }//GEN-LAST:event_PhanCongButtonActionPerformed
 
     private void ThongTinChungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongTinChungButtonActionPerformed
+            TrangChuButton.Reset();
+            ThongTinChungButton.Nhan();
             DSChuHoButton.Reset();
-            PhanQuyenButton.Reset();
             DsNhanVienButton.Reset();
+            ThongTinSDDienButton.Reset();
             HoaDonDienButton.Reset();
-            ThongTinButton.Nhan();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Reset();
+            ThongTinButton.Reset();
+            ThongTinButton.Reset();
              this.setForm(new QuanLyThongTinChung(this));
             CapNhatBangTrangThai();
     }//GEN-LAST:event_ThongTinChungButtonActionPerformed
 
     private void TrangChuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrangChuButtonActionPerformed
-        // TODO add your handling code here:
+            TrangChuButton.Nhan();
+            ThongTinChungButton.Reset();
+            DSChuHoButton.Reset();
+            DsNhanVienButton.Reset();
+            ThongTinSDDienButton.Reset();
+            HoaDonDienButton.Reset();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Reset();
+            ThongTinButton.Reset();
     }//GEN-LAST:event_TrangChuButtonActionPerformed
 
     private void ThongTinSDDienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongTinSDDienButtonActionPerformed
-        // TODO add your handling code here:
+            TrangChuButton.Reset();
+            ThongTinChungButton.Reset();
+            DSChuHoButton.Reset();
+            DsNhanVienButton.Reset();
+            ThongTinSDDienButton.Nhan();
+            HoaDonDienButton.Reset();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Reset();
+            ThongTinButton.Reset();
     }//GEN-LAST:event_ThongTinSDDienButtonActionPerformed
     
      
