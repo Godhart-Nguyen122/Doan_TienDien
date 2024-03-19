@@ -340,8 +340,8 @@ public final class MainAdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_ThongTinSDDienBtActionPerformed
 
     private void QLPhanQuyenTKBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLPhanQuyenTKBtActionPerformed
-        ButtonNhan(QLPhanQuyenTKBt);
-        CapNhatBangTrangThai();
+            ButtonNhan(QLPhanQuyenTKBt);
+            CapNhatBangTrangThai();
     }//GEN-LAST:event_QLPhanQuyenTKBtActionPerformed
     
      

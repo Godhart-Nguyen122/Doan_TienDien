@@ -25,6 +25,26 @@ public class DSTaiKhoanPhanQuyen {
         this.ListAccount = ListAccount;
     }
     
+    public void Add(Accounts Acc){
+        new AccountsDAO().AddDAO(Acc);
+        ListAccount.add(Acc);
+    }
+    
+    public void Delete(String CCCD){
+        new AccountsDAO().DeleteDAO(CCCD);
+        Accounts Acc = SearchObjAccount(CCCD);
+        int index = ListAccount.indexOf(Acc);
+        Acc.setStatus(true);
+        ListAccount.set(index, Acc);
+    }
+    
+    public void Update(Accounts Acc){
+        new AccountsDAO().UpdateDAO(Acc);
+        Accounts Acc_Cu = SearchObjAccount(Acc.getCCCD());
+        int index = ListAccount.indexOf(Acc_Cu);
+        ListAccount.set(index, Acc);        
+    }
+    
     //Số lượng chủ hộ
     public int CustomerQuantity(){
         int num = 0;
@@ -43,5 +63,12 @@ public class DSTaiKhoanPhanQuyen {
                 num++;
         }
         return num;        
+    }
+    
+    public Accounts SearchObjAccount(String CCCD){
+        for(Accounts Acc : ListAccount)
+            if(Acc.getCCCD().equals(CCCD))
+                return Acc;
+        return null;
     }
 }

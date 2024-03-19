@@ -32,13 +32,17 @@ public class DSThongTinChung {
     
     public void Update_NoCCCD(Personal_Infos Ps){
         new Personal_InfosDAO().Update_NoCCCDDAO(Ps);
-        ListPersonal_Infos.set(ListPersonal_Infos.indexOf(Ps), Ps);
+        Personal_Infos Ps_Cu = SearchObjCCCD(Ps.getCCCD());
+        int index = ListPersonal_Infos.indexOf(Ps_Cu);
+        ListPersonal_Infos.set(index, Ps);
     }
     
     public void UpdateCCCD(String CCCD_Cu, String CCCD_Moi){
         new Personal_InfosDAO().UpdateCCCDDAO(CCCD_Cu, CCCD_Moi);
         Personal_Infos Ps = SearchObjCCCD(CCCD_Cu);
-        ListPersonal_Infos.set(ListPersonal_Infos.indexOf(Ps), Ps);        
+        int index = ListPersonal_Infos.indexOf(Ps);
+        Ps.setCCCD(CCCD_Moi);
+        ListPersonal_Infos.set(index, Ps);        
     }
     
     public Personal_Infos SearchObjCCCD(String CCCD){

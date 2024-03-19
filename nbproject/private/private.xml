@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/NMCNPM/Doan_TienDien/src/View/Admin/MainAdminView.java</file>
+            <file>file:/C:/Project_coding/Doan_TienDien/src/Controller/DAO/AccountsDAO.java</file>
+            <file>file:/C:/Project_coding/Doan_TienDien/src/Controller/QLPhanQuyenTKController/DSTaiKhoanPhanQuyen.java</file>
+            <file>file:/C:/Project_coding/Doan_TienDien/src/MainRunCode/TestAdminView.java</file>
+            <file>file:/C:/Project_coding/Doan_TienDien/src/Model/Accounts.java</file>
         </group>
     </open-files>
 </project-private>

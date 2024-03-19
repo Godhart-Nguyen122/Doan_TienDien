@@ -5,8 +5,6 @@ import Model.Personal_Infos;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Personal_InfosDAO {
     private List<Personal_Infos> ListPersonal_InfosDAO = new ArrayList<>();
@@ -55,24 +53,23 @@ public class Personal_InfosDAO {
             int rowsAffected = rs.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Đã thêm người dùng vào hệ thống!!!");
-                ListPersonal_InfosDAO.add(Ps);
             } else {
                 System.out.println("Lỗi không thể thêm người dùng vào hệ thống!!!");
             }            
             
         } catch (Exception ex) {
-            Logger.getLogger(Personal_InfosDAO.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Lỗi hệ thống!!! (Personal_InfosDAO) - AddDAO");
         }
     }
     
     public void Update_NoCCCDDAO(Personal_Infos Ps){
         String SQL = "UPDATE [dbo].[PERSON_INFOS]\n" +
-                     "SET [Firstname] = ?\n" +
-                     "	  [Lastname] = ?\n" +
-                     "	  [Middlename] = ?\n" +
-                     "	  [DOB] = ?\n" +
-                     "	  [Address] = ?\n" +
-                     "	  [Phone] = ?\n" +
+                     "SET [Firstname] = ?,\n" +
+                     "	  [Lastname] = ?,\n" +
+                     "	  [Middlename] = ?,\n" +
+                     "	  [DOB] = ?,\n" +
+                     "	  [Address] = ?,\n" +
+                     "	  [Phone] = ?,\n" +
                      "	  [Sex] = ?\n" +
                      "    WHERE [CCCD] = ?";
       try {
