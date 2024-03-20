@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DSTaiKhoanPhanQuyen {
-    private List<Accounts> ListAccount;
+    private static List<Accounts> ListAccount;
 
     public DSTaiKhoanPhanQuyen(){
         try {
@@ -17,20 +17,20 @@ public class DSTaiKhoanPhanQuyen {
         }
     }
     
-    public List<Accounts> getListAccount() {
+    public static List<Accounts> getListAccount() {
         return ListAccount;
     }
 
-    public void setListAccount(List<Accounts> ListAccount) {
-        this.ListAccount = ListAccount;
+    public static void setListAccount(List<Accounts> ListAccount) {
+        DSTaiKhoanPhanQuyen.ListAccount = ListAccount;
     }
     
-    public void Add(Accounts Acc){
+    public static void Add(Accounts Acc){
         new AccountsDAO().AddDAO(Acc);
         ListAccount.add(Acc);
     }
     
-    public void Delete(String CCCD){
+    public static void  Delete(String CCCD){
         new AccountsDAO().DeleteDAO(CCCD);
         Accounts Acc = SearchObjAccount(CCCD);
         int index = ListAccount.indexOf(Acc);
@@ -38,7 +38,7 @@ public class DSTaiKhoanPhanQuyen {
         ListAccount.set(index, Acc);
     }
     
-    public void Update(Accounts Acc){
+    public static void Update(Accounts Acc){
         new AccountsDAO().UpdateDAO(Acc);
         Accounts Acc_Cu = SearchObjAccount(Acc.getCCCD());
         int index = ListAccount.indexOf(Acc_Cu);
@@ -46,7 +46,7 @@ public class DSTaiKhoanPhanQuyen {
     }
     
     //Số lượng chủ hộ
-    public int CustomerQuantity(){
+    public static int CustomerQuantity(){
         int num = 0;
         for(Accounts Acc : ListAccount){
             if(Acc.getPrivilege() == 0)
@@ -56,7 +56,7 @@ public class DSTaiKhoanPhanQuyen {
     }
     
     //Số lượng nhân viên
-    public int StaffQuantity(){
+    public static int StaffQuantity(){
         int num = 0;
         for(Accounts Acc : ListAccount){
             if(Acc.getPrivilege() == 1)
@@ -65,7 +65,7 @@ public class DSTaiKhoanPhanQuyen {
         return num;        
     }
     
-    public Accounts SearchObjAccount(String CCCD){
+    public static Accounts SearchObjAccount(String CCCD){
         for(Accounts Acc : ListAccount)
             if(Acc.getCCCD().equals(CCCD))
                 return Acc;

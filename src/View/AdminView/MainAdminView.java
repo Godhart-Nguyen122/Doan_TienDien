@@ -2,6 +2,7 @@ package View.AdminView;
 
 import Controller.QLPhanQuyenTKController.DSTaiKhoanPhanQuyen;
 import LayMotSoUIdepTaiDay.ButtonMenu;
+import View.AdminView.QLThongTinChungView.QLTTChungMainView;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.text.DecimalFormat;
@@ -326,6 +327,7 @@ public final class MainAdminView extends javax.swing.JFrame {
 
     private void QLThongTinChungBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLThongTinChungBtActionPerformed
             ButtonNhan(QLThongTinChungBt);
+            this.setForm(new QLTTChungMainView());
             CapNhatBangTrangThai();
     }//GEN-LAST:event_QLThongTinChungBtActionPerformed
 

@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DSThongTinChung {
-    private List<Personal_Infos> ListPersonal_Infos;
+    private static List<Personal_Infos> ListPersonal_Infos;
 
     public DSThongTinChung(){
         try {
@@ -17,27 +17,27 @@ public class DSThongTinChung {
         }
     }
 
-    public List<Personal_Infos> getListPersonal_Infos() {
+    public static List<Personal_Infos> getListPersonal_Infos() {
         return ListPersonal_Infos;
     }
 
-    public void setListPersonal_Infos(List<Personal_Infos> ListPersonal_Infos) {
-        this.ListPersonal_Infos = ListPersonal_Infos;
+    public static void setListPersonal_Infos(List<Personal_Infos> ListPersonal_Infos) {
+        DSThongTinChung.ListPersonal_Infos = ListPersonal_Infos;
     }
     
-    public void Add(Personal_Infos Ps){
+    public static void Add(Personal_Infos Ps){
         new Personal_InfosDAO().AddDAO(Ps);
         ListPersonal_Infos.add(Ps);
     }
     
-    public void Update_NoCCCD(Personal_Infos Ps){
+    public static void Update_NoCCCD(Personal_Infos Ps){
         new Personal_InfosDAO().Update_NoCCCDDAO(Ps);
         Personal_Infos Ps_Cu = SearchObjCCCD(Ps.getCCCD());
         int index = ListPersonal_Infos.indexOf(Ps_Cu);
         ListPersonal_Infos.set(index, Ps);
     }
     
-    public void UpdateCCCD(String CCCD_Cu, String CCCD_Moi){
+    public static void UpdateCCCD(String CCCD_Cu, String CCCD_Moi){
         new Personal_InfosDAO().UpdateCCCDDAO(CCCD_Cu, CCCD_Moi);
         Personal_Infos Ps = SearchObjCCCD(CCCD_Cu);
         int index = ListPersonal_Infos.indexOf(Ps);
@@ -45,7 +45,7 @@ public class DSThongTinChung {
         ListPersonal_Infos.set(index, Ps);        
     }
     
-    public Personal_Infos SearchObjCCCD(String CCCD){
+    public static Personal_Infos SearchObjCCCD(String CCCD){
         for(Personal_Infos Ps : ListPersonal_Infos){
             if(Ps.getCCCD().equals(CCCD))
                 return Ps;
