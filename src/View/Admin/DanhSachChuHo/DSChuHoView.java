@@ -57,7 +57,7 @@ public class DSChuHoView extends javax.swing.JPanel {
 
     public void ShowThongTinTuDBS(){
         List<ChuHo> dsChuHo = new DSChuHoController().getDsChuHo();   
-        DefaultTableModel model = (DefaultTableModel) BangDSChuHo.getModel();    
+        DefaultTableModel model = (DefaultTableModel) BangDSChuHo.getModel();  
         model.setRowCount(0);    
         for(ChuHo chuHo : dsChuHo){
             Object[] rowData = {

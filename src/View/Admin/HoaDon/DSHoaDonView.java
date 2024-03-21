@@ -21,10 +21,14 @@ public class DSHoaDonView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         TimKiemTF = new javax.swing.JTextField();
         TimKiemBT = new LayMotSoUIdepTaiDay.ButtonThuong();
         ScrollPane = new javax.swing.JScrollPane();
         BangDSChuHo = new LayMotSoUIdepTaiDay.BangDanhSach();
+        comboboxThuong1 = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        checkBox3 = new LayMotSoUIdepTaiDay.CheckBox();
+        checkBox4 = new LayMotSoUIdepTaiDay.CheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -67,27 +71,54 @@ public class DSHoaDonView extends javax.swing.JPanel {
         });
         ScrollPane.setViewportView(BangDSChuHo);
 
+        comboboxThuong1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Id", "Ngày nhập hóa đơn", "Tiền giảm dần ", "Tiền tăng dàn " }));
+
+        checkBox3.setBackground(new java.awt.Color(153, 153, 153));
+        checkBox3.setText("Chưa thanh toán ");
+
+        checkBox4.setBackground(new java.awt.Color(153, 153, 153));
+        checkBox4.setText("Đã thanh toán");
+        checkBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBox4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ScrollPane)
+            .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboboxThuong1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(checkBox3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboboxThuong1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(96, 96, 96)
-                .addComponent(ScrollPane))
+                    .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -96,11 +127,19 @@ public class DSHoaDonView extends javax.swing.JPanel {
         
     }//GEN-LAST:event_TimKiemBTActionPerformed
 
+    private void checkBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkBox4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LayMotSoUIdepTaiDay.BangDanhSach BangDSChuHo;
     private javax.swing.JScrollPane ScrollPane;
     private LayMotSoUIdepTaiDay.ButtonThuong TimKiemBT;
     private javax.swing.JTextField TimKiemTF;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private LayMotSoUIdepTaiDay.CheckBox checkBox3;
+    private LayMotSoUIdepTaiDay.CheckBox checkBox4;
+    private LayMotSoUIdepTaiDay.ComboboxThuong comboboxThuong1;
     // End of variables declaration//GEN-END:variables
 }

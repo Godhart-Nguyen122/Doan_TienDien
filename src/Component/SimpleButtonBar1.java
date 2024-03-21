@@ -11,20 +11,39 @@ public class SimpleButtonBar1 extends javax.swing.JPanel {
     public SimpleButtonBar1() {
         initComponents();
         setOpaque(false);
-        
+        cmdResize.setIcon(iconRestore.toIcon());
         cmdMinimize.setIcon(iconMinimize.toIcon());
         cmdMinimize.setFont(cmdMinimize.getFont().deriveFont(0, 3));
     }
 
     public void initEvent(JFrame fram) {
-
+        fram.addWindowStateListener(new WindowStateListener() {
+            @Override
+            public void windowStateChanged(WindowEvent we) {
+                if (we.getNewState() == JFrame.MAXIMIZED_BOTH) {
+                    cmdResize.setIcon(iconMax.toIcon());
+                } else if (we.getNewState() == JFrame.NORMAL) {
+                    cmdResize.setIcon(iconRestore.toIcon());
+                }
+            }
+        });
+       
         cmdMinimize.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 fram.setState(JFrame.ICONIFIED);
             }
         });
-      
+        cmdResize.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (fram.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
+                    fram.setExtendedState(JFrame.NORMAL);
+                } else {
+                    fram.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -36,6 +55,7 @@ public class SimpleButtonBar1 extends javax.swing.JPanel {
         iconMinimize = new javaswingdev.GoogleMaterialIcon();
         iconRestore = new javaswingdev.GoogleMaterialIcon();
         cmdMinimize = new Component.Buttont();
+        cmdResize = new Component.Buttont();
 
         iconClose.setColor1(new java.awt.Color(111, 111, 111));
         iconClose.setColor2(new java.awt.Color(215, 215, 215));
@@ -62,16 +82,20 @@ public class SimpleButtonBar1 extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(cmdMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdResize, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cmdMinimize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(cmdResize, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Component.Buttont cmdMinimize;
+    private Component.Buttont cmdResize;
     private javaswingdev.GoogleMaterialIcon iconClose;
     private javaswingdev.GoogleMaterialIcon iconMax;
     private javaswingdev.GoogleMaterialIcon iconMinimize;

@@ -217,34 +217,45 @@
                       <Component id="OkButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel9" alignment="1" min="-2" pref="61" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" alignment="1" min="-2" pref="61" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel6" alignment="0" pref="61" max="32767" attributes="0"/>
-                                      <Component id="jLabel4" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="jLabel7" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                          <Component id="cccdTF2" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                          <Component id="cccdTF1" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
-                                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel9" alignment="1" min="-2" pref="61" max="-2" attributes="0"/>
+                                          <Component id="jLabel8" alignment="1" min="-2" pref="61" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabel6" alignment="0" pref="61" max="32767" attributes="0"/>
+                                              <Component id="jLabel4" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Component id="PwTF" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="TrangThaiTF" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
-                                  <Component id="cccdTF" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="AcountTF" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
-                              <Component id="cccdTF3" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="gioiTinhCB" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                              <Component id="CccdTf" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                              <Component id="HoTf" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="TenlotTf" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="TenTf" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="cccdTF" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="DiachiTf" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                                  <Component id="SdtTf" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -260,22 +271,22 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cccdTF2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="CccdTf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cccdTF1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="HoTf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="PwTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TenlotTf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="TrangThaiTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TenTf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -284,17 +295,22 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="AcountTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="DiachiTf" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cccdTF3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="SdtTf" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <Component id="gioiTinhCB" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="OkButton" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace pref="78" max="32767" attributes="0"/>
+                  <EmptySpace pref="64" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -302,7 +318,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="cccdTF">
         </Component>
-        <Component class="javax.swing.JTextField" name="AcountTF">
+        <Component class="javax.swing.JTextField" name="DiachiTf">
         </Component>
         <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="OkButton">
           <Properties>
@@ -312,11 +328,11 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="PwTF">
+        <Component class="javax.swing.JTextField" name="TenlotTf">
         </Component>
-        <Component class="javax.swing.JTextField" name="TrangThaiTF">
+        <Component class="javax.swing.JTextField" name="TenTf">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TrangThaiTFActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TenTfActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -339,34 +355,53 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="T&#xea;n:"/>
+            <Property name="text" type="java.lang.String" value="T&#xea;n l&#xf3;t :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ng&#xe0;y Sinh:"/>
+            <Property name="text" type="java.lang.String" value="T&#xea;n :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="cccdTF1">
+        <Component class="javax.swing.JTextField" name="HoTf">
         </Component>
-        <Component class="javax.swing.JTextField" name="cccdTF2">
+        <Component class="javax.swing.JTextField" name="CccdTf">
         </Component>
-        <Component class="javax.swing.JTextField" name="cccdTF3">
+        <Component class="javax.swing.JTextField" name="SdtTf">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a Ch&#x1ec9;:"/>
+            <Property name="text" type="java.lang.String" value="Ng&#xe0;y Sinh:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="S&#x110;T:"/>
+            <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a Ch&#x1ec9;:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh:"/>
+            <Property name="text" type="java.lang.String" value="S&#x110;T:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="gioiTinhCB">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="Nam"/>
+                <StringItem index="1" value="N&#x1eef; "/>
+                <StringItem index="2" value=" "/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
