@@ -9,6 +9,7 @@ public class Staff {
     private String Address;
     private String Phone;
     private Date DOB;
+    private String phai;
 
     public String getCCCD() {
         return CCCD;
@@ -20,6 +21,14 @@ public class Staff {
 
     public String getUsername() {
         return Username;
+    }
+
+    public String getPhai() {
+        return phai;
+    }
+
+    public void setPhai(String phai) {
+        this.phai = phai;
     }
 
     public void setUsername(String Username) {
@@ -59,4 +68,12 @@ public class Staff {
     }
     
     public Staff(){};
+
+    public String getAccount() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getPassword() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

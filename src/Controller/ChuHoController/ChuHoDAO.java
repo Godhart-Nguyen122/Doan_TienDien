@@ -19,10 +19,10 @@ public class ChuHoDAO {
     public List<ChuHo> getAll() throws Exception{
         Lammoi();
         String SQL = "SELECT P.CCCD, P.Username, P.DOB, P.Address, P.Phone, A.Account_Username, A.Account_Password\n" +
-                     "FROM [dbo].[PERSON_INFO] AS P\n" +
-                     "JOIN [dbo].[ACCOUNT] AS A\n" +
+                     "FROM [dbo].[PERSON_INFOS] AS P\n" +
+                     "JOIN [dbo].[ACCOUNTS] AS A\n" +
                      "ON P.CCCD = A.CCCD\n" +
-                     "WHERE A.Privilege = 0 AND A.Da_Xoa = 0";
+                     "WHERE A.Privilege = 1 AND A.Status = 0";
         try(
             Connection con = new DBS().getConnection();
             Statement stmt = con.createStatement();

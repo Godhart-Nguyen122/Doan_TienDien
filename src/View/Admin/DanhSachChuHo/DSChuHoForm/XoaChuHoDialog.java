@@ -7,11 +7,11 @@ import View.Admin.MainAdminView;
 import javax.swing.JOptionPane;
 
 public class XoaChuHoDialog extends javax.swing.JDialog {
-    private MainAdminView mainNhanVienView;
+    private MainAdminView mainAdminView;
     private DSChuHoView dSChuHoView;
     public XoaChuHoDialog(MainAdminView Frame, DSChuHoView FrameChuHoView, boolean modal) {
         initComponents();
-        this.mainNhanVienView = Frame;
+        this.mainAdminView = Frame;
         this.dSChuHoView = FrameChuHoView;
         this.setSize(400, 175);
         this.setResizable(false);
@@ -104,8 +104,8 @@ public class XoaChuHoDialog extends javax.swing.JDialog {
                 new DSChuHoController().XoaChuHo(cccdTf.getText());
                 JOptionPane.showMessageDialog(this, "Đã xóa chủ hộ có CCCD: " + cccdTf.getText() + " thành công!");
 
-                mainNhanVienView.CapNhatBangTrangThai();
-                mainNhanVienView.setForm(new DSChuHoView(mainNhanVienView));
+                mainAdminView.CapNhatBangTrangThai();
+                mainAdminView.setForm(new DSChuHoView(mainAdminView));
 
                 this.dispose();
             }

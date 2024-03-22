@@ -7,6 +7,7 @@ import Controller.ChuHoController.DSChuHoController;
 import Controller.InvoicesController.InvoiceController;
 import Controller.StaffsController.DSStaffsController;
 import LayMotSoUIdepTaiDay.ButtonMenu;
+import View.Admin.DSNhanVien.DSNhanVienView;
 import View.Admin.DanhSachChuHo.DSChuHoView;
 import View.Admin.DanhSachChuHo.DSChuHoForm.ThemChuHoDialog;
 import View.Admin.DanhSachPhanCong.DSPhanCong;
@@ -131,6 +132,11 @@ public final class MainAdminView2 extends javax.swing.JFrame {
         DsNhanVienButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/8.png"))); // NOI18N
         DsNhanVienButton.setText("Danh sách nhân viên ");
         DsNhanVienButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        DsNhanVienButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DsNhanVienButtonMouseClicked(evt);
+            }
+        });
         DsNhanVienButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DsNhanVienButtonActionPerformed(evt);
@@ -348,6 +354,7 @@ public final class MainAdminView2 extends javax.swing.JFrame {
             PhanQuyenButton.Reset();
             PhanCongButton.Reset();
             ThongTinButton.Reset();
+//            this.setForm(new DSNhanVienView(this));
             CapNhatBangTrangThai();
     }//GEN-LAST:event_DsNhanVienButtonActionPerformed
 
@@ -431,6 +438,20 @@ public final class MainAdminView2 extends javax.swing.JFrame {
             PhanCongButton.Reset();
             ThongTinButton.Reset();
     }//GEN-LAST:event_ThongTinSDDienButtonActionPerformed
+
+    private void DsNhanVienButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DsNhanVienButtonMouseClicked
+        TrangChuButton.Reset();
+            ThongTinChungButton.Reset();
+            DSChuHoButton.Reset();
+            DsNhanVienButton.Nhan();
+            ThongTinSDDienButton.Reset();
+            HoaDonDienButton.Reset();
+            PhanQuyenButton.Reset();
+            PhanCongButton.Reset();
+            ThongTinButton.Reset();
+//            this.setForm(new DSNhanVienView(this));
+            CapNhatBangTrangThai();
+    }//GEN-LAST:event_DsNhanVienButtonMouseClicked
     
      
     public void setForm(JComponent com){

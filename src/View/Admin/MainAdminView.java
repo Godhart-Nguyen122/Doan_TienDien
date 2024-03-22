@@ -2,6 +2,7 @@ package View.Admin;
 
 import Controller.QLPhanQuyenTKController.DSTaiKhoanPhanQuyen;
 import LayMotSoUIdepTaiDay.ButtonMenu;
+import View.Admin.DSNhanVien.DSNhanVienView;
 import View.Admin.DanhSachChuHo.DSChuHoView;
 import View.Admin.DanhSachPhanCong.DSPhanCong;
 import View.Admin.HoaDon.DSHoaDonView;
@@ -314,6 +315,7 @@ public final class MainAdminView extends javax.swing.JFrame {
 
     private void DsNhanVienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DsNhanVienBtActionPerformed
             ButtonNhan(DsNhanVienBt);
+            this.setForm(new DSNhanVienView(this));
             CapNhatBangTrangThai();
     }//GEN-LAST:event_DsNhanVienBtActionPerformed
 
