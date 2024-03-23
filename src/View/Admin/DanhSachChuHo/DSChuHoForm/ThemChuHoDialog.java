@@ -219,7 +219,7 @@ public class ThemChuHoDialog extends javax.swing.JDialog {
             if (confirm == JOptionPane.YES_OPTION) {
                 ChuHo chuHo;
                 chuHo = new ChuHo(CccdTF.getText(), HoTenTF.getText(), DiaChiTF.getText(), SdtTF.getText(), new java.sql.Date(DobDC.getDate().getTime()));
-                new DSChuHoController().ThemChuHo(chuHo, AccountTF.getText(), PassTF.getText(), cccdNVTF.getText());
+//                new DSChuHoController().ThemChuHo(chuHo, AccountTF.getText(), PassTF.getText(), cccdNVTF.getText());
                 JOptionPane.showMessageDialog(this, "Đã thêm tài khoản của chủ hộ có CCCD: " + CccdTF.getText());
             
                 mainNhanVienView.CapNhatBangTrangThai();

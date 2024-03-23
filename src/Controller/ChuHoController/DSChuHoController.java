@@ -2,6 +2,7 @@
 package Controller.ChuHoController;
 
 import Model.ChuHo;
+import Model.Customers;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class DSChuHoController {
-    private List<ChuHo> dsChuHo;
+    private List<Customers> dsChuHo;
 
     public void refresh(){
         this.dsChuHo.clear();
@@ -26,11 +27,11 @@ public class DSChuHoController {
         }
     }
     
-    public List<ChuHo> getDsChuHo() {
+    public List<Customers> getDsChuHo() {
         return dsChuHo;
     }
 
-    public void setDsChuHo(List<ChuHo> dsChuHo) {
+    public void setDsChuHo(List<Customers> dsChuHo) {
         this.dsChuHo = dsChuHo;
     }
     
@@ -65,8 +66,8 @@ public class DSChuHoController {
         }
     }
     
-    public ChuHo LayThongTinChuHoQuaCCCD(String CCCD){
-        for(ChuHo chuHo : dsChuHo){
+    public Customers LayThongTinChuHoQuaCCCD(String CCCD){
+        for(Customers chuHo : dsChuHo){
             if(chuHo.getCCCD().equals(CCCD)){
                 return chuHo;
             }
@@ -74,15 +75,15 @@ public class DSChuHoController {
         return null;
     }
     
-    public void ThemChuHo (ChuHo chuHo, String Username, String Pass, String CCCD_NV){
-        dsChuHo.add(chuHo);
-
-        try {
-            new ChuHoDAO().ThemChuHoDAO(chuHo, Username, Pass, CCCD_NV);
-        } catch (Exception ex) {
-            Logger.getLogger(DSChuHoController.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Lỗi ở method ThemChuHo!");
-        }
+    public void ThemChuHo (Customers chuHo, String Username, String Pass, String CCCD_NV){
+//        dsChuHo.add(chuHo);
+//
+//        try {
+//            new ChuHoDAO().ThemChuHoDAO(chuHo, Username, Pass, CCCD_NV);
+//        } catch (Exception ex) {
+//            Logger.getLogger(DSChuHoController.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("Lỗi ở method ThemChuHo!");
+//        }
     }
     
     public void XoaChuHo(String CCCD_ChuHo){

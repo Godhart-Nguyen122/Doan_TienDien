@@ -4,6 +4,7 @@ import Controller.ChuHoController.DSChuHoController;
 import Controller.PersonalInFoController.DSPersonalInfoController;
 import Controller.ThongTinSDController.DSThongTinSDController;
 import Model.ChuHo;
+import Model.Customers;
 import Model.Personalinfo;
 import Model.ThongTinSuDung;
 import com.toedter.calendar.JDateChooser;
@@ -99,8 +100,8 @@ public class CheckTruongDuLieu {
     }
     
     public boolean KtraTonTaiAccountUsername(String Account_ChuHo){
-        for(ChuHo chuHo : new DSChuHoController().getDsChuHo()){
-            if(chuHo.getAccount().equals(Account_ChuHo))
+        for(Customers chuHo : new DSChuHoController().getDsChuHo()){
+            if(chuHo.getAccount_username().equals(Account_ChuHo))
                 return false;
         }
         return true;

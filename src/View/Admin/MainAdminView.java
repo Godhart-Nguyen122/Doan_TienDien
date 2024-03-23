@@ -308,7 +308,7 @@ public final class MainAdminView extends javax.swing.JFrame {
     
     private void DSChuHoBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DSChuHoBtActionPerformed
             ButtonNhan(DSChuHoBt);
-//            this.setForm(new DSChuHoView(this));
+            this.setForm(new DSChuHoView(this));
             CapNhatBangTrangThai();
             
     }//GEN-LAST:event_DSChuHoBtActionPerformed

@@ -2,6 +2,7 @@ package Controller.ChuHoController;
 
 import Controller.DBS;
 import Model.ChuHo;
+import Model.Customers;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
@@ -10,35 +11,38 @@ import java.util.logging.Logger;
 
 public class ChuHoDAO {
     
-    private List<ChuHo>lstChuHo=new ArrayList<>();
+    private List<Customers>lstChuHo=new ArrayList<>();
     
     public void Lammoi(){
         lstChuHo.clear();
     }
     
-    public List<ChuHo> getAll() throws Exception{
+    public List<Customers> getAll() throws Exception{
         Lammoi();
-        String SQL = "SELECT P.CCCD, P.Username, P.DOB, P.Address, P.Phone, A.Account_Username, A.Account_Password\n" +
-                     "FROM [dbo].[PERSON_INFOS] AS P\n" +
-                     "JOIN [dbo].[ACCOUNTS] AS A\n" +
-                     "ON P.CCCD = A.CCCD\n" +
-                     "WHERE A.Privilege = 1 AND A.Status = 0";
+
+        String SQL = "SELECT \n" +
+                    "a.CCCD, Firstname, Lastname, Middlename, DOB, p.Address,p.Phone, a.Account_Username, a.Account_Password \n" +
+                    "FROM CUSTOMERS c\n" +
+                    "JOIN ACCOUNTS a ON c.Account_Customer=a.Account_Username\n" +
+                    "JOIN PERSON_INFOS p ON a.CCCD=p.CCCD\n" +
+                    "WHERE a.Status='0' AND a.Privilege='1';";
         try(
             Connection con = new DBS().getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
         ){
             while(rs.next()){
-                ChuHo chuHo = new ChuHo();
-                chuHo.setCCCD(rs.getString("CCCD"));
-                chuHo.setUsername(rs.getString("Username"));
-                chuHo.setAddress(rs.getString("Address"));
-                chuHo.setPhone(rs.getString("Phone"));
-                chuHo.setDOB(rs.getDate("DOB"));
-                chuHo.setAccount(rs.getString("Account_Username"));
-                chuHo.setPassword(rs.getString("Account_Password"));
-                
-                lstChuHo.add(chuHo);
+                Customers customer = new Customers();
+                customer.setCCCD(rs.getString("CCCD"));
+                customer.setFirstname(rs.getString("Firstname"));
+                customer.setLastname(rs.getString("Lastname"));
+                customer.setMiddleName(rs.getString("Middlename"));
+                customer.setDOB(rs.getDate("DOB"));
+                customer.setAddress(rs.getString("Address"));
+                customer.setPhone(rs.getString("Phone"));
+                customer.setAccount_username(rs.getString("Account_Username"));
+                customer.setPassword(rs.getString("Account_Password"));
+                lstChuHo.add(customer);
             }
         }
         
