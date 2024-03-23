@@ -10,7 +10,10 @@ public class Staff {
     private String Phone;
     private Date DOB;
     private String phai;
-
+    private String Account;
+    private String Password;
+    
+    
     public String getCCCD() {
         return CCCD;
     }
@@ -70,10 +73,22 @@ public class Staff {
     public Staff(){};
 
     public String getAccount() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return Account;
+    }
+
+    public void setAccount(String Account) {
+        this.Account = Account;
     }
 
     public String getPassword() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return Password;
     }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
+
+    
+    
+    
 }

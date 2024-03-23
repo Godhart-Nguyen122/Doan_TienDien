@@ -6,11 +6,6 @@ package View.Admin.DSNhanVien;
 
 import Controller.NVController.DSNVController;
 import Model.Staff;
-import View.Admin.DSNhanVien.dialog.CNAccountNV;
-import View.Admin.DSNhanVien.dialog.CNCCCDNV;
-import View.Admin.DSNhanVien.dialog.CNThongTinNV;
-import View.Admin.DSNhanVien.dialog.ThemNV;
-import View.Admin.DSNhanVien.dialog.XoaNV;
 import View.Admin.MainAdminView;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,6 +25,7 @@ public class DSNhanVienView extends javax.swing.JPanel {
     
     private MainAdminView mainAdminView = new MainAdminView();
     private Staff nv;
+    private List<Staff> nvs;
     
     public Staff getNV() {
         return nv;
@@ -54,8 +50,7 @@ public class DSNhanVienView extends javax.swing.JPanel {
                     int selectedRow = BangDSNhanVien.getSelectedRow();
                     Staff nv = new DSNVController().LayThongTinNVQuaCCCD((String) BangDSNhanVien.getValueAt(selectedRow, 0));
                     if (selectedRow != -1 && nv != null) { 
-                        // Lấy dữ liệu từ hàng đó và xử lý dữ liệu   
-                        CapNhatCombobox.setEnabled(true);
+                        // Lấy dữ liệu từ hàng đó và xử lý dữ liệu
                         setNV(nv);              
                         TimKiemTF.setText(nv.getUsername());
                     }
@@ -74,48 +69,30 @@ public class DSNhanVienView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ThemBT = new LayMotSoUIdepTaiDay.ButtonThuong();
-        CapNhatBT = new LayMotSoUIdepTaiDay.ButtonThuong();
         ScrollPane = new javax.swing.JScrollPane();
         BangDSNhanVien = new LayMotSoUIdepTaiDay.BangDanhSach();
         TimKiemBT = new LayMotSoUIdepTaiDay.ButtonThuong();
         TimKiemTF = new javax.swing.JTextField();
-        LamMoiBT = new LayMotSoUIdepTaiDay.ButtonThuong();
-        CapNhatCombobox = new LayMotSoUIdepTaiDay.ComboboxThuong();
-        XoaBT = new LayMotSoUIdepTaiDay.ButtonThuong();
-
-        ThemBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Isert_icon.png"))); // NOI18N
-        ThemBT.setText("Thêm ");
-        ThemBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ThemBTActionPerformed(evt);
-            }
-        });
-
-        CapNhatBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/6.png"))); // NOI18N
-        CapNhatBT.setText("Cập nhật");
-        CapNhatBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CapNhatBTActionPerformed(evt);
-            }
-        });
+        TKCombobox = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        LocCombobox = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        LamMoiBT2 = new LayMotSoUIdepTaiDay.ButtonThuong();
 
         BangDSNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CCCD", "Họ và tên", "Ngày sinh", "Địa chỉ", "SĐT"
+                "CCCD", "Họ và tên", "Phái", "Ngày sinh", "Địa chỉ", "SĐT", "Account", "Password"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, true, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -140,26 +117,24 @@ public class DSNhanVienView extends javax.swing.JPanel {
         TimKiemTF.setBackground(new java.awt.Color(231, 231, 231));
         TimKiemTF.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        LamMoiBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Refresh.png"))); // NOI18N
-        LamMoiBT.setText("Làm mới");
-        LamMoiBT.addActionListener(new java.awt.event.ActionListener() {
+        TKCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CCCD", "Họ tên", "Account" }));
+        TKCombobox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TKCombobox.setLineColor(new java.awt.Color(0, 153, 255));
+
+        LocCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nam và nữ", "Nam", "Nữ" }));
+        LocCombobox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LocCombobox.setLineColor(new java.awt.Color(0, 153, 255));
+        LocCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LamMoiBTActionPerformed(evt);
+                LocComboboxActionPerformed(evt);
             }
         });
 
-        CapNhatCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cập nhật thông tin", "Cập nhật Account", "Cập nhật CCCD" }));
-        CapNhatCombobox.setSelectedItem(null
-        );
-        CapNhatCombobox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        CapNhatCombobox.setLabeText("(Chọn loại cập nhật)");
-        CapNhatCombobox.setLineColor(new java.awt.Color(0, 153, 255));
-
-        XoaBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/delete_icon.png"))); // NOI18N
-        XoaBT.setText("Xóa");
-        XoaBT.addActionListener(new java.awt.event.ActionListener() {
+        LamMoiBT2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Refresh.png"))); // NOI18N
+        LamMoiBT2.setText("Làm mới");
+        LamMoiBT2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                XoaBTActionPerformed(evt);
+                LamMoiBT2ActionPerformed(evt);
             }
         });
 
@@ -169,118 +144,74 @@ public class DSNhanVienView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(TKCombobox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TimKiemTF, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ThemBT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(XoaBT, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(CapNhatCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CapNhatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LamMoiBT, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
-            .addComponent(ScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(LocCombobox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(37, 37, 37)
+                .addComponent(LamMoiBT2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(XoaBT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ThemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LamMoiBT, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CapNhatBT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CapNhatCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, Short.MAX_VALUE)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LamMoiBT2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TKCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LocCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ThemBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThemBTActionPerformed
-        showThemNhanVienDialog();
-    }//GEN-LAST:event_ThemBTActionPerformed
-
-    private void XoaBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XoaBTActionPerformed
-        showXoaNhanVienDialog();
-    }//GEN-LAST:event_XoaBTActionPerformed
-
-    private void LamMoiBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiBTActionPerformed
-        
-        mainAdminView.setForm(new DSNhanVienView(mainAdminView));
-    }//GEN-LAST:event_LamMoiBTActionPerformed
-
-    private void CapNhatBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapNhatBTActionPerformed
-        Object selected = CapNhatCombobox.getSelectedItem();
-        if(!(BangDSNhanVien.getSelectionModel().isSelectionEmpty()) && (selected != null)){          
-            if(selected.equals("Cập nhật thông tin")){
-                showCapNhatThongTinNVDialog();
-            }else if(selected.equals("Cập nhật Account")){
-                showCapNhatAccountNVDialog();
-            }else if(selected.equals("Cập nhật CCCD")){
-                showCapNhatCCCDNVDialog();
-            }                       
-        }else{
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên cần cập nhật và loại cập nhật trên bảng!!!");
-        }
-    }//GEN-LAST:event_CapNhatBTActionPerformed
-
     private void TimKiemBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimKiemBTActionPerformed
+        TKTable();
+    }//GEN-LAST:event_TimKiemBTActionPerformed
+
+    private void LamMoiBT2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiBT2ActionPerformed
+        ShowThongTinTuDBS();
+        this.TimKiemTF.setText("");
+    }//GEN-LAST:event_LamMoiBT2ActionPerformed
+
+    private void LocComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocComboboxActionPerformed
+        LocTable();
+    }//GEN-LAST:event_LocComboboxActionPerformed
+    
+    public void ShowThongTinTuDBS(){
+        this.nvs = new DSNVController().getDsNV();   
+        setTable();
+    }
+    
+    public void TKTable(){
         String key = TimKiemTF.getText().trim();
         if(key.isEmpty()){
             JOptionPane.showMessageDialog(this, "Vui lòng không được bỏ trống!");            
         }else{
             System.out.println(""+key);
-            new Controller.NVController.DSNVController().TimKiemNV(key, BangDSNhanVien); 
+            nvs = new Controller.NVController.DSNVController().TimKiemNV(key, (String) this.TKCombobox.getSelectedItem()); 
         }
-    }//GEN-LAST:event_TimKiemBTActionPerformed
-
-    private void showThemNhanVienDialog() {
-        ThemNV themNV = new ThemNV(mainAdminView, true);
-        themNV.setVisible(true);
+        setTable();
     }
     
-    private void showXoaNhanVienDialog() {
-        XoaNV xoaNV = new XoaNV(mainAdminView, this, true);
-        xoaNV.setVisible(true);
-    }
-    
-    private void showCapNhatThongTinNVDialog() {
-        CNThongTinNV capNhatNV = new CNThongTinNV(mainAdminView, this, true);
-        capNhatNV.setVisible(true);
-    }
-    
-    private void showCapNhatAccountNVDialog() {
-        CNAccountNV capNhatNV = new CNAccountNV(mainAdminView, this, true);
-        capNhatNV.setVisible(true);
-    }
-    
-    private void showCapNhatCCCDNVDialog() {
-        CNCCCDNV capNhatNV = new CNCCCDNV(mainAdminView, this, true);
-        capNhatNV.setVisible(true);
-    }
-   
-    
-    public void ShowThongTinTuDBS(){
-        List<Staff> dsNV = new DSNVController().getDsNV();   
+    public void setTable(){
         DefaultTableModel model = (DefaultTableModel) BangDSNhanVien.getModel();  
         model.setRowCount(0);    
-        for(Staff nv : dsNV){
+        for(Staff nv : nvs){
             Object[] rowData = {
-                nv.getCCCD(), nv.getUsername(), nv.getDOB(), 
-                nv.getAddress(), nv.getPhone()
+                nv.getCCCD(), nv.getUsername(), nv.getPhai(), nv.getDOB(),
+                nv.getAddress(), nv.getPhone(), nv.getAccount(), nv.getPassword()
             };
 
             model.addRow(rowData);
@@ -288,17 +219,33 @@ public class DSNhanVienView extends javax.swing.JPanel {
         model.fireTableDataChanged();
     }
     
-   
+    public void LocTable(){
+        String key = (String) this.LocCombobox.getSelectedItem();
+        DefaultTableModel model = (DefaultTableModel) BangDSNhanVien.getModel();  
+        model.setRowCount(0); 
+        if(key.equals("Nam và nữ")) setTable();
+        for(Staff nv : nvs){
+            if(nv.getPhai().equalsIgnoreCase(key)){
+                Object[] rowData = {
+                    nv.getCCCD(), nv.getUsername(), nv.getPhai(), nv.getDOB(),
+                    nv.getAddress(), nv.getPhone(), nv.getAccount(), nv.getPassword()
+                };
+                model.addRow(rowData);
+            }
+        }
+        
+        model.fireTableDataChanged();
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LayMotSoUIdepTaiDay.BangDanhSach BangDSNhanVien;
-    private LayMotSoUIdepTaiDay.ButtonThuong CapNhatBT;
-    private LayMotSoUIdepTaiDay.ComboboxThuong CapNhatCombobox;
     private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBT;
+    private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBT1;
+    private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBT2;
+    private LayMotSoUIdepTaiDay.ComboboxThuong LocCombobox;
     private javax.swing.JScrollPane ScrollPane;
-    private LayMotSoUIdepTaiDay.ButtonThuong ThemBT;
+    private LayMotSoUIdepTaiDay.ComboboxThuong TKCombobox;
     private LayMotSoUIdepTaiDay.ButtonThuong TimKiemBT;
     private javax.swing.JTextField TimKiemTF;
-    private LayMotSoUIdepTaiDay.ButtonThuong XoaBT;
     // End of variables declaration//GEN-END:variables
 }
