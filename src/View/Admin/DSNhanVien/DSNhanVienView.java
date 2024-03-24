@@ -103,6 +103,7 @@ public class DSNhanVienView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        BangDSNhanVien.setEnabled(false);
         BangDSNhanVien.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(BangDSNhanVien);
 
@@ -120,6 +121,11 @@ public class DSNhanVienView extends javax.swing.JPanel {
         TKCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CCCD", "Họ tên", "Account" }));
         TKCombobox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TKCombobox.setLineColor(new java.awt.Color(0, 153, 255));
+        TKCombobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TKComboboxActionPerformed(evt);
+            }
+        });
 
         LocCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nam và nữ", "Nam", "Nữ" }));
         LocCombobox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -188,6 +194,10 @@ public class DSNhanVienView extends javax.swing.JPanel {
     private void LocComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocComboboxActionPerformed
         LocTable();
     }//GEN-LAST:event_LocComboboxActionPerformed
+
+    private void TKComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKComboboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TKComboboxActionPerformed
     
     public void ShowThongTinTuDBS(){
         this.nvs = new DSNVController().getDsNV();   
@@ -239,8 +249,6 @@ public class DSNhanVienView extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LayMotSoUIdepTaiDay.BangDanhSach BangDSNhanVien;
-    private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBT;
-    private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBT1;
     private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBT2;
     private LayMotSoUIdepTaiDay.ComboboxThuong LocCombobox;
     private javax.swing.JScrollPane ScrollPane;

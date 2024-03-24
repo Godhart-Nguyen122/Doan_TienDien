@@ -2,7 +2,7 @@ package View.Admin.ThongTinSuDungDien;
 
 import Controller.ChuHoController.DSChuHoController;
 import Controller.ThongTinSDController.DSThongTinSDController;
-import Model.ChuHo;
+import Model.Customers;
 import Model.ThongTinSuDung;
 import View.Admin.MainAdminView;
 import View.Admin.ThongTinSuDungDien.ThongTinSDDienForm.CapNhatCongToDien;

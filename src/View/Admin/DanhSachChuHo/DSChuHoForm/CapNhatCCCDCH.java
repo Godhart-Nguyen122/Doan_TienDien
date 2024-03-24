@@ -4,22 +4,24 @@ import Component.CheckTruongDuLieu;
 import Controller.ChuHoController.DSChuHoController;
 import Controller.NVController.DSNVController;
 import View.Admin.DSNhanVien.DSNhanVienView;
+import View.Admin.DanhSachChuHo.DSChuHoView;
 import View.Admin.MainAdminView;
 import javax.swing.JOptionPane;
 
 public class CapNhatCCCDCH extends javax.swing.JDialog {
     private MainAdminView mainAdminView;
-    private DSNhanVienView dSNVView;
-    public CapNhatCCCDCH(MainAdminView Frame, DSNhanVienView FrameNVView, boolean modal) {
+    private DSChuHoView  dSChuHoView;
+    
+    public CapNhatCCCDCH(MainAdminView Frame, DSChuHoView FrameNVView, boolean modal) {
         initComponents();
         this.mainAdminView = Frame;
-        this.dSNVView = FrameNVView;
+        this.dSChuHoView = FrameNVView;
         this.setResizable(false);
         this.setTitle("Cập nhật CCCD chủ hộ");
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
         this.setLocationRelativeTo(null);
         
-        CCCDcuTF.setText(dSNVView.getNV().getCCCD());
+        CCCDcuTF.setText(dSChuHoView.getChuHo().getCCCD());
         CCCDcuTF.setEnabled(false);
     }
 
@@ -152,19 +154,17 @@ public class CapNhatCCCDCH extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "CCCD đã tồn tại!!!");
         }
         else {  
+            String tenchuho = dSChuHoView.getChuHo().getLastname()+" "+dSChuHoView.getChuHo().getMiddleName()+" "+dSChuHoView.getChuHo().getFirstname();
             int confirm = JOptionPane.showConfirmDialog(
                 this,
-                "Xác nhận lại một lần nữa bạn có CHẮC CHẮN muốn cập nhật CCCD chủ hộ có tên: " + dSNVView.getNV().getUsername()+ " không?",
+                "Xác nhận lại một lần nữa bạn có CHẮC CHẮN muốn cập nhật CCCD chủ hộ có tên: " + tenchuho+ " không?",
             "Xác nhận cập nhật",
             JOptionPane.YES_NO_OPTION
             );
 
             if (confirm == JOptionPane.YES_OPTION) {
-
-                JOptionPane.showMessageDialog(this, "Đã cập nhật CCCD của chủ hộ có tên: " + dSNVView.getNV().getUsername());
-                
-                new DSNVController().CapNhatCCCDChuHo(dSNVView.getNV(), CCCDMoiTF.getText());
-                
+                new DSChuHoController().CapNhatCCCDChuHo(dSChuHoView.getChuHo(), CCCDMoiTF.getText());
+                JOptionPane.showMessageDialog(this, "Đã cập nhật CCCD của chủ hộ có tên: " + tenchuho);  
                 mainAdminView.setForm(new DSNhanVienView(mainAdminView));
                 
                 this.dispose();          

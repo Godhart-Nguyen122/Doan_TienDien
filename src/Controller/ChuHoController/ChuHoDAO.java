@@ -1,7 +1,6 @@
 package Controller.ChuHoController;
 
 import Controller.DBS;
-import Model.ChuHo;
 import Model.Customers;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ChuHoDAO {
         Lammoi();
 
         String SQL = "SELECT \n" +
-                    "a.CCCD, Firstname, Lastname, Middlename, DOB, p.Address,p.Phone, a.Account_Username, a.Account_Password \n" +
+                    "a.CCCD, Firstname, Lastname, Middlename, DOB, p.Address,p.Phone, a.Account_Username, a.Account_Password, p.Sex \n" +
                     "FROM CUSTOMERS c\n" +
                     "JOIN ACCOUNTS a ON c.Account_Customer=a.Account_Username\n" +
                     "JOIN PERSON_INFOS p ON a.CCCD=p.CCCD\n" +
@@ -42,6 +41,7 @@ public class ChuHoDAO {
                 customer.setPhone(rs.getString("Phone"));
                 customer.setAccount_username(rs.getString("Account_Username"));
                 customer.setPassword(rs.getString("Account_Password"));
+                customer.setSex(rs.getBoolean("Sex"));
                 lstChuHo.add(customer);
             }
         }
@@ -49,32 +49,33 @@ public class ChuHoDAO {
         return lstChuHo;
     }
     
-    public void ThemChuHoDAO(ChuHo chuHo, String Username, String Pass, String CCCD_NV) throws Exception{
-        String SQL1 = "INSERT INTO [dbo].[PERSON_INFO]\n" + 
-                      "VALUES(?, ?, ?, ?, ?)";
+    public void ThemChuHoDAO(Customers chuHo, String Username, String Pass,int id_nv) throws Exception{
+        String SQL1 = "INSERT INTO PERSON_INFOS (CCCD, Firstname, Lastname, Middlename, DOB, Address, Phone, Sex) "
+                       +"VALUES (?,?,?,?,?,?,?,?)";
+    
         
-        String SQL2 = "INSERT INTO [dbo].[ACCOUNT]\n" +
-                      "VALUES(?, ?, ?, 0, 0)";
+        String SQL2 = "INSERT INTO ACCOUNTS (Account_Username, CCCD, Account_Password, Privilege, Status)\n" +
+                        "VALUES (?, ?, ?, '1', '0');";
         
-        String SQL3 = "INSERT INTO [dbo].[CHUHO]\n" +
-                      "VALUES(?, ?)";
+        String SQL3 = "INSERT INTO CUSTOMERS (ID_Staff, Account_Customer)\n" +
+                       "VALUES (?, ?);";
         
-        String SQL4 = "SELECT S.ID_Staffs " +
-                      "FROM [dbo].[PERSON_INFO] AS P " +
-                      "JOIN [dbo].[ACCOUNT] AS A " +
-                      "ON P.CCCD = A.CCCD " +
-                      "JOIN [dbo].[STAFFS] AS S " +
-                      "ON S.CCCD = A.CCCD " +
-                      "WHERE P.CCCD = ?";
-        
+//        String SQL4 = "SELECT S.ID_Staffs " +
+//                      "FROM [dbo].[PERSON_INFO] AS P " +
+//                      "JOIN [dbo].[ACCOUNT] AS A " +
+//                      "ON P.CCCD = A.CCCD " +
+//                      "JOIN [dbo].[STAFFS] AS S " +
+//                      "ON S.CCCD = A.CCCD " +
+//                      "WHERE P.CCCD = ?";
+//        
         Connection con = new DBS().getConnection();
-        PreparedStatement stmt4 = con.prepareStatement(SQL4);
-        stmt4.setString(1, CCCD_NV);
+//        PreparedStatement stmt4 = con.prepareStatement(SQL4);
+//        stmt4.setString(1, CCCD_NV);
 
-        ResultSet rs4 = stmt4.executeQuery();
+//        ResultSet rs4 = stmt4.executeQuery();
 
-        if (rs4.next()) {
-             String ID_Staffs = rs4.getString("ID_Staffs");
+//        if (rs4.next()) {
+//             String ID_Staffs = rs4.getString("ID_Staffs");
             try(
                 PreparedStatement rs1 = con.prepareStatement(SQL1);
                 PreparedStatement rs2 = con.prepareStatement(SQL2);
@@ -83,19 +84,22 @@ public class ChuHoDAO {
             ){
                 //PERSONAL_INFO
                 rs1.setString(1, chuHo.getCCCD());
-                rs1.setString(2, chuHo.getUsername());
-                rs1.setDate(3, chuHo.getDOB());
-                rs1.setString(4, chuHo.getAddress());
-                rs1.setString(5, chuHo.getPhone());
+                rs1.setString(2, chuHo.getFirstname());
+                rs1.setString(3, chuHo.getLastname());
+                rs1.setString(4, chuHo.getMiddleName());
+                rs1.setDate(5, chuHo.getDOB());
+                rs1.setString(6, chuHo.getPhone());
+                rs1.setString(7, chuHo.getAddress());
+                rs1.setBoolean(8, chuHo.isSex());
   
                 //ACCOUNT
-                rs2.setString(1, chuHo.getCCCD());
+                rs2.setString(1, chuHo.getAccount_username());
                 rs2.setString(2, Username);
                 rs2.setString(3, Pass);  
             
                 //CHUHO
-                rs3.setString(1, chuHo.getCCCD());
-                rs3.setString(2, ID_Staffs);
+                rs3.setInt(1, id_nv);
+                rs3.setString(2, chuHo.getAccount_username());
                 
                 int rowsAffected1 = rs1.executeUpdate();
                 int rowsAffected2 = rs2.executeUpdate();
@@ -106,9 +110,9 @@ public class ChuHoDAO {
                         System.out.println("Lỗi không thể thêm tài khoản vào hệ thống!!!");
                 }
         }
-        } else {
-            System.out.println("Lỗi không tìm được nhân viên!!!");
-        }     
+//        } else {
+//            System.out.println("Lỗi không tìm được nhân viên!!!");
+//        }     
     }
     
     public void XoaChuHoDAO(String CCCD_ChuHo){
@@ -132,46 +136,43 @@ public class ChuHoDAO {
         }
     }
     
-    public void CapNhatThongTinChuHoDAO(ChuHo chuHo){
-        String SQL = "UPDATE [dbo].[PERSON_INFO]\n" +
-                     "SET Username = ?,\n" +
-                     "DOB = ?,\n" +
-                     "Address = ?,\n" +
-                     "Phone = ?\n" +
-                     "WHERE [CCCD] = ?";
+    public void CapNhatThongTinChuHoDAO(Customers chuHo){
+        String SQL = "UPDATE PERSON_INFOS SET Firstname=?, Lastname=?,"
+                + " Middlename=?, DOB=?, Address=?, Phone=?, Sex=? WHERE CCCD=? ";
         try {
             Connection con = new DBS().getConnection();
             PreparedStatement stmt = con.prepareStatement(SQL);
             
-            stmt.setString(1, chuHo.getUsername());
-            stmt.setDate(2, chuHo.getDOB());
-            stmt.setString(3, chuHo.getAddress());
-            stmt.setString(4, chuHo.getPhone());
-            stmt.setString(5, chuHo.getCCCD());
+            stmt.setString(1, chuHo.getFirstname());
+            stmt.setString(2, chuHo.getLastname());
+            stmt.setString(3, chuHo.getMiddleName());
+            stmt.setDate(4, chuHo.getDOB());
+            stmt.setString(5, chuHo.getAddress());
+            stmt.setString(6, chuHo.getPhone());
+            stmt.setBoolean(7, chuHo.isSex());
+            stmt.setString(8, chuHo.getCCCD());
 
             int affectedRows = stmt.executeUpdate();
         
             if (affectedRows > 0) {
                 System.out.println("Thông báo hệ thống đã cập nhật chủ hộ có CCCD: " + chuHo.getCCCD() + " thành công!");
             } else {
-                System.out.println("cập nhật chủ hộ có CCCD: " + chuHo.getCCCD() + " trên hệ thống thất bại!!!");
+                System.out.println("Cập nhật chủ hộ có CCCD: " + chuHo.getCCCD() + " trên hệ thống thất bại!!!");
             }
         } catch (Exception ex) {
             Logger.getLogger(ChuHoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
     
-    public void CapNhatAccountChuHoDAO(ChuHo chuHo, String Account, String Password){
-        String SQL1 = "UPDATE [dbo].[ACCOUNT]\n" +
-                     "SET [Account_Username] = ?,\n" +
-                     "[Account_Password] = ?\n" +
-                     "WHERE [CCCD] = ?";
+    public void CapNhatAccountChuHoDAO(Customers chuHo, String Account, String Password){
+        String SQL1 = "UPDATE ACCOUNTS SET Account_Username=?, Account_Password=? WHERE CCCD=?";
+
         try {
             Connection con = new DBS().getConnection();
             PreparedStatement stmt = con.prepareStatement(SQL1);
             
-            stmt.setString(1, Account);
-            stmt.setString(2, Password);
+            stmt.setString(1, chuHo.getAccount_username());
+            stmt.setString(2, chuHo.getPassword());
             stmt.setString(3, chuHo.getCCCD());
 
             int affectedRows = stmt.executeUpdate();
@@ -186,14 +187,8 @@ public class ChuHoDAO {
         }        
     }
     
-    public void CapNhatCCCDChuHoDAO(ChuHo chuHo, String CCCD_Moi){
-        String SQL = "UPDATE [dbo].[PERSON_INFO]\n" +
-                     "SET [CCCD] = ?\n" +
-                     "WHERE [CCCD] = ?\n" +
-                     "\n" +
-                     "UPDATE [dbo].[CHUHO]\n" +
-                     "SET [CCCD] = ?\n" +
-                     "WHERE [CCCD] = ?";
+    public void CapNhatCCCDChuHoDAO(Customers chuHo, String CCCD_Moi){
+        String SQL = "UPDATE PERSON_INFOS SET CCCD=? WHERE CCCD=? ";
         
         try {
             Connection con = new DBS().getConnection();
@@ -201,16 +196,13 @@ public class ChuHoDAO {
             
             stmt.setString(1, CCCD_Moi);
             stmt.setString(2, chuHo.getCCCD());
-            
-            stmt.setString(3, CCCD_Moi);
-            stmt.setString(4, chuHo.getCCCD());
 
             int affectedRows = stmt.executeUpdate();
-        
+            String tenchuho=chuHo.getLastname()+" "+chuHo.getMiddleName()+" "+chuHo.getFirstname();
             if (affectedRows > 0) {
-                System.out.println("Thông báo hệ thống đã cập nhật thành công CCCD chủ hộ có tên: " + chuHo.getUsername());
+                System.out.println("Thông báo hệ thống đã cập nhật thành công CCCD chủ hộ có tên: " + tenchuho);
             } else {
-                System.out.println("Cập nhật CCCD chủ hộ có tên: " + chuHo.getUsername() + " trên hệ thống thất bại!!!");
+                System.out.println("Cập nhật CCCD chủ hộ có tên: " + tenchuho + " trên hệ thống thất bại!!!");
             }
         } catch (Exception ex) {
             Logger.getLogger(ChuHoDAO.class.getName()).log(Level.SEVERE, null, ex);

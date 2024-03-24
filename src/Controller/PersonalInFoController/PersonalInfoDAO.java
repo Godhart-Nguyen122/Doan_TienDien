@@ -1,8 +1,8 @@
 package Controller.PersonalInFoController;
 
 import Controller.DBS;
-import Model.ChuHo;
-import Model.Personalinfo;
+import Model.Customers;
+import Model.Personal_Infos;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,24 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalInfoDAO {
-    private List<Personalinfo> lstPerson = new ArrayList<>();
+    private List<Personal_Infos> lstPerson = new ArrayList<>();
     
-    public List<Personalinfo> getAll() throws Exception{
+    public List<Personal_Infos> getAll() throws Exception{
         String SQL = "SELECT *\n" +
-                     "FROM [dbo].[PERSON_INFO]";
+                     "FROM [dbo].[PERSON_INFOS]";
         try(
             Connection con = new DBS().getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
         ){
             while(rs.next()){
-                Personalinfo ps = new Personalinfo();
+                Personal_Infos ps = new Personal_Infos();
                 ps.setCCCD(rs.getString("CCCD"));
-                ps.setUsername(rs.getString("Username"));
-                ps.setAddress(rs.getString("Address"));
-                ps.setPhone(rs.getString("Phone"));
+                ps.setCCCD(rs.getString("Firstname"));
+                ps.setCCCD(rs.getString("Lastname"));
+                ps.setCCCD(rs.getString("Middlename"));
                 ps.setDOB(rs.getDate("DOB"));
-                
+                ps.setCCCD(rs.getString("Address"));
+                ps.setCCCD(rs.getString("Phone"));
+                ps.setCCCD(rs.getString("Sex"));
                 lstPerson.add(ps);
             }
         }
@@ -35,11 +37,11 @@ public class PersonalInfoDAO {
         return lstPerson;
     }
 
-    public List<Personalinfo> getLstPerson() {
+    public List<Personal_Infos> getLstPerson() {
         return lstPerson;
     }
 
-    public void setLstPerson(List<Personalinfo> lstPerson) {
+    public void setLstPerson(List<Personal_Infos> lstPerson) {
         this.lstPerson = lstPerson;
     }
 }

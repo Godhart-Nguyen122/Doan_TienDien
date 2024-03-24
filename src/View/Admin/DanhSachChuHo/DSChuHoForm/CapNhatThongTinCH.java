@@ -3,9 +3,10 @@ package View.Admin.DanhSachChuHo.DSChuHoForm;
 import Component.CheckTruongDuLieu;
 import Controller.ChuHoController.DSChuHoController;
 import Controller.PersonalInFoController.DSPersonalInfoController;
-import Model.ChuHo;
+import Model.Customers;
 import View.Admin.DanhSachChuHo.DSChuHoView;
 import View.Admin.MainAdminView;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 
@@ -22,11 +23,12 @@ public class CapNhatThongTinCH extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         
         CccdTF.setText(dSChuHoView.getChuHo().getCCCD());
-        HoTenTF.setText(dSChuHoView.getChuHo().getUsername());
+        
+        HoTenTF.setText(dSChuHoView.getChuHo().getLastname()+" "+dSChuHoView.getChuHo().getMiddleName()+" "+dSChuHoView.getChuHo().getFirstname());
         DobDC.setDate(dSChuHoView.getChuHo().getDOB());
         DiaChiTF.setText(dSChuHoView.getChuHo().getAddress());
         SdtTF.setText(dSChuHoView.getChuHo().getPhone());
-        
+        cbSex.setSelectedIndex(dSChuHoView.getChuHo().isSex() ? 1:0);
         CccdTF.setEnabled(false);
         CccdTF.setEditable(false);
     }
@@ -47,6 +49,8 @@ public class CapNhatThongTinCH extends javax.swing.JDialog {
         CccdTF = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         DobDC = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+        cbSex = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,30 +91,39 @@ public class CapNhatThongTinCH extends javax.swing.JDialog {
         DobDC.setDateFormatString("yyyy / MM / dd");
         DobDC.setMinSelectableDate(new java.util.Date(-62135791121000L));
 
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Giới tính:");
+        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        cbSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam ", "Nữ " }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cccdLbl)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(OkBT, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(HuyBT, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(DiaChiTF, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                        .addComponent(HoTenTF, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                        .addComponent(SdtTF, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                        .addComponent(CccdTF, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                        .addComponent(DobDC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(cccdLbl))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(OkBT, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(55, 55, 55)
+                            .addComponent(HuyBT, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(DiaChiTF, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(HoTenTF, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(SdtTF, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(CccdTF, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(DobDC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,18 +142,22 @@ public class CapNhatThongTinCH extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(DobDC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(DiaChiTF, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(SdtTF, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SdtTF, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OkBT)
                     .addComponent(HuyBT))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -163,8 +180,14 @@ public class CapNhatThongTinCH extends javax.swing.JDialog {
             );
 
             if (confirm == JOptionPane.YES_OPTION) {
-                ChuHo chuHo;
-                chuHo = new ChuHo(CccdTF.getText(), HoTenTF.getText(), DiaChiTF.getText(), SdtTF.getText(), new java.sql.Date(DobDC.getDate().getTime()));
+                Customers chuHo;
+                String [] hovaten=HoTenTF.getText().split(" ");
+                if(hovaten.length==2){
+                    hovaten=Arrays.copyOf(hovaten, hovaten.length+1);
+                    hovaten[2]=hovaten[1];
+                    hovaten[1]="";
+                }
+                chuHo=new Customers(CccdTF.getText(), hovaten[2], hovaten[0], hovaten[1], DiaChiTF.getText(), SdtTF.getText(), new java.sql.Date(DobDC.getDate().getTime()),cbSex.getSelectedIndex()!=1);
 
                 JOptionPane.showMessageDialog(this, "Đã cập nhật thông tin của chủ hộ có CCCD: " + CccdTF.getText());
                 
@@ -191,10 +214,12 @@ public class CapNhatThongTinCH extends javax.swing.JDialog {
     private javax.swing.JButton HuyBT;
     private javax.swing.JButton OkBT;
     private javax.swing.JTextField SdtTF;
+    private javax.swing.JComboBox<String> cbSex;
     private javax.swing.JLabel cccdLbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

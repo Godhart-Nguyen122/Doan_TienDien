@@ -3,9 +3,9 @@ package Component;
 import Controller.ChuHoController.DSChuHoController;
 import Controller.PersonalInFoController.DSPersonalInfoController;
 import Controller.ThongTinSDController.DSThongTinSDController;
-import Model.ChuHo;
 import Model.Customers;
-import Model.Personalinfo;
+import Model.Customers;
+import Model.Personal_Infos;
 import Model.ThongTinSuDung;
 import com.toedter.calendar.JDateChooser;
 import java.text.ParseException;
@@ -76,7 +76,7 @@ public class CheckTruongDuLieu {
         }
     
     public boolean KtraCCCDTonTai(String CCCD){
-        for(Personalinfo personalinfo : new DSPersonalInfoController().getDsPerson()){
+        for(Personal_Infos personalinfo : new DSPersonalInfoController().getDsPerson()){
             if(personalinfo.getCCCD().equals(CCCD)){
                 return true;
             }

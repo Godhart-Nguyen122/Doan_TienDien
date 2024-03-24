@@ -2,7 +2,6 @@ package View.Admin.DanhSachChuHo.DSChuHoForm;
 
 import Component.CheckTruongDuLieu;
 import Controller.ChuHoController.DSChuHoController;
-import Model.ChuHo;
 import View.Admin.DanhSachChuHo.DSChuHoView;
 import View.Admin.MainAdminView;
 import javax.swing.JOptionPane;
@@ -19,7 +18,7 @@ public class CapNhatAccountCH extends javax.swing.JDialog {
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
         this.setLocationRelativeTo(null);
         
-        AccountTF.setText(dSChuHoView.getChuHo().getAccount());
+        AccountTF.setText(dSChuHoView.getChuHo().getAccount_username());
         PassTF.setText(dSChuHoView.getChuHo().getPassword());
     }
 

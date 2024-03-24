@@ -1,7 +1,6 @@
 
 package Controller.ChuHoController;
 
-import Model.ChuHo;
 import Model.Customers;
 import java.util.Iterator;
 import java.util.List;
@@ -15,19 +14,19 @@ public class DSChuHoController {
     private List<Customers> dsChuHo;
 
     public void refresh(){
-        this.dsChuHo.clear();
-    }
-    
-    public DSChuHoController() {
-//        refresh();
-        try {
+         try {
             this.dsChuHo = new ChuHoDAO().getAll();
         } catch (Exception ex) {
             Logger.getLogger(DSChuHoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    public DSChuHoController() {
+        refresh();
+    }
+    
     public List<Customers> getDsChuHo() {
+        refresh();
         return dsChuHo;
     }
 
@@ -94,15 +93,15 @@ public class DSChuHoController {
         return dsChuHo.size();
     }
       
-    public void CapNhatThongTinChuHo(ChuHo chuHo){
+    public void CapNhatThongTinChuHo(Customers chuHo){
         new ChuHoDAO().CapNhatThongTinChuHoDAO(chuHo);
     }
   
-    public void CapNhatAccountChuHo(ChuHo chuHo, String Account, String Password){
+    public void CapNhatAccountChuHo(Customers chuHo, String Account, String Password){
         new ChuHoDAO().CapNhatAccountChuHoDAO(chuHo, Account, Password);
     }    
     
-    public void CapNhatCCCDChuHo(ChuHo chuHo, String CCCD_Moi){
+    public void CapNhatCCCDChuHo(Customers chuHo, String CCCD_Moi){
         new ChuHoDAO().CapNhatCCCDChuHoDAO(chuHo, CCCD_Moi);
     }
 }

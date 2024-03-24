@@ -1,12 +1,12 @@
 package Controller.PersonalInFoController;
 
-import Model.Personalinfo;
+import Model.Personal_Infos;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DSPersonalInfoController {
-    private List<Personalinfo> dsPerson;
+    private List<Personal_Infos> dsPerson;
 
     public DSPersonalInfoController() {
         try {
@@ -16,11 +16,11 @@ public class DSPersonalInfoController {
         }
     }
 
-    public List<Personalinfo> getDsPerson() {
+    public List<Personal_Infos> getDsPerson() {
         return dsPerson;
     }
 
-    public void setDsPerson(List<Personalinfo> dsPerson) {
+    public void setDsPerson(List<Personal_Infos> dsPerson) {
         this.dsPerson = dsPerson;
     }   
 }
