@@ -1,7 +1,7 @@
 
 package View.Admin.QLThongTinChung;
 
-import Controller.QLThongTinChungController.DSThongTinChung;
+import Controller.QLThongTinChungController.DSThongTinChungController;
 import Model.Personal_Infos;
 import View.Admin.MainAdminView;
 import View.Admin.QLThongTinChung.Form.Sua;
@@ -21,14 +21,7 @@ public class QuanLyThongTinChung extends javax.swing.JPanel {
     private List<Personal_Infos> ListPersonal_Infos;
     
     public void lammoi(){
-        ListPersonal_Infos=new DSThongTinChung().getListPersonal_Infos();
-//        DefaultTableModel model = new DefaultTableModel(){
-//            @Override
-//            public boolean isCellEditable(int row, int column) {
-//                return false; 
-//            }
-//        } bangthongtinchung.getModel();
-
+        ListPersonal_Infos=new DSThongTinChungController().getListPersonal_Infos();
         DefaultTableModel model=(DefaultTableModel) bangthongtinchung.getModel();
         model.setRowCount(0);
         for(Personal_Infos tmp : ListPersonal_Infos){
@@ -36,7 +29,7 @@ public class QuanLyThongTinChung extends javax.swing.JPanel {
                 tmp.getCCCD(),tmp.getLastname(),
                 tmp.getMiddleName(),tmp.getFirstname(),
                 tmp.getDOB() , tmp.getAddress(),
-                tmp.getPhone() , tmp.isSex(),
+                tmp.getPhone() , tmp.isSex()==true ? "Nam":"Nữ",
             };
             model.addRow(row);
         }
@@ -145,7 +138,15 @@ public class QuanLyThongTinChung extends javax.swing.JPanel {
             new String [] {
                 "CCCD", "Họ", "Tên lót", "Tên", "Ngày sinh", "Địa chỉ", "Số điện thoại", "Giới Tính"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         bangthongtinchung.setEditingColumn(0);
         bangthongtinchung.setEditingRow(0);
         jScrollPane1.setViewportView(bangthongtinchung);
@@ -203,7 +204,7 @@ public class QuanLyThongTinChung extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ThemBT2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThemBT2ActionPerformed
-     Them them = new Them(mainAdminView, true);
+        Them them = new Them(mainAdminView, true);
         them.setVisible(true);
     }//GEN-LAST:event_ThemBT2ActionPerformed
 
@@ -218,7 +219,7 @@ public class QuanLyThongTinChung extends javax.swing.JPanel {
     }//GEN-LAST:event_XoaBTActionPerformed
 
     private void LamMoiBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiBTActionPerformed
-
+        lammoi();
     }//GEN-LAST:event_LamMoiBTActionPerformed
 
     private void TimKiemBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimKiemBTActionPerformed

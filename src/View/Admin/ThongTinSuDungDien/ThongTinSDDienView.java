@@ -268,7 +268,8 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
     private void ChuaNhapCTDCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChuaNhapCTDCBActionPerformed
         TimKiemTF.setText(null);
         BangDSThongTinSD.clearSelection();
-        ShowThongTinTuDBS(new DSThongTinSDController().HienThiChuaNhap(BangDSThongTinSD));
+        lstThongTinSuDungs=new DSThongTinSDController().HienThiChuaNhap(BangDSThongTinSD);
+        ShowThongTinTuDBS();
         ChuaNhapCTDCB.setEnabled(false);
         DaNhapCTDCB.setEnabled(true);
     }//GEN-LAST:event_ChuaNhapCTDCBActionPerformed
@@ -276,7 +277,8 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
     private void DaNhapCTDCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DaNhapCTDCBActionPerformed
         TimKiemTF.setText(null);
         BangDSThongTinSD.clearSelection();
-        ShowThongTinTuDBS(new DSThongTinSDController().HienThiDaNhap(BangDSThongTinSD));
+         lstThongTinSuDungs=new DSThongTinSDController().HienThiDaNhap(BangDSThongTinSD);
+        ShowThongTinTuDBS();
         ChuaNhapCTDCB.setEnabled(true);
         DaNhapCTDCB.setEnabled(false);
     }//GEN-LAST:event_DaNhapCTDCBActionPerformed

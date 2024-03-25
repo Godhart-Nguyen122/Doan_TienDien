@@ -80,9 +80,9 @@ public class ThongTinSDDAO {
                 int rowsAffected = stmt.executeUpdate(); 
     
                 if(rowsAffected > 0){
-                    System.out.println("Đã thêm công tơ điện cho chủ hộ có CCCD: " + CCCD + " !");
+//                    System.out.println("Đã thêm công tơ điện cho chủ hộ có CCCD: " + CCCD + " !");
                 } else {
-                    System.out.println("Thêm công tơ điện cho chủ hộ có CCCD: " + CCCD + " thất bại!");
+//                    System.out.println("Thêm công tơ điện cho chủ hộ có CCCD: " + CCCD + " thất bại!");
             }
     
             } catch (Exception ex) {

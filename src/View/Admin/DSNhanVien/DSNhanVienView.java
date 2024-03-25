@@ -52,7 +52,7 @@ public class DSNhanVienView extends javax.swing.JPanel {
                     if (selectedRow != -1 && nv != null) { 
                         // Lấy dữ liệu từ hàng đó và xử lý dữ liệu
                         setNV(nv);              
-                        TimKiemTF.setText(nv.getUsername());
+                        TimKiemTF.setText(nv.getCCCD());
                     }
                 }
             };
@@ -85,14 +85,14 @@ public class DSNhanVienView extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CCCD", "Họ và tên", "Phái", "Ngày sinh", "Địa chỉ", "SĐT", "Account", "Password"
+                "CCCD", "Họ và tên", "Ngày sinh", "Địa chỉ", "SĐT", "Giới tính", "Account", "Password"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false, false, true, true
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -103,7 +103,6 @@ public class DSNhanVienView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        BangDSNhanVien.setEnabled(false);
         BangDSNhanVien.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(BangDSNhanVien);
 
@@ -168,12 +167,12 @@ public class DSNhanVienView extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LamMoiBT2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                    .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LamMoiBT2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TKCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LocCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,8 +219,8 @@ public class DSNhanVienView extends javax.swing.JPanel {
         model.setRowCount(0);    
         for(Staff nv : nvs){
             Object[] rowData = {
-                nv.getCCCD(), nv.getUsername(), nv.getPhai(), nv.getDOB(),
-                nv.getAddress(), nv.getPhone(), nv.getAccount(), nv.getPassword()
+                nv.getCCCD(), nv.getUsername(),  nv.getDOB(),
+                nv.getAddress(), nv.getPhone(),nv.getPhai(), nv.getAccount(), nv.getPassword()
             };
 
             model.addRow(rowData);

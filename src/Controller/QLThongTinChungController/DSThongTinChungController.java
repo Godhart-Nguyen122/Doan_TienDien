@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DSThongTinChung {
+public class DSThongTinChungController {
     private List<Personal_Infos> ListPersonal_Infos;
 
-    public DSThongTinChung(){
+    public DSThongTinChungController(){
         try {
             this.ListPersonal_Infos = new Personal_InfosDAO().getAll();
         } catch (Exception ex) {
-            Logger.getLogger(DSThongTinChung.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DSThongTinChungController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

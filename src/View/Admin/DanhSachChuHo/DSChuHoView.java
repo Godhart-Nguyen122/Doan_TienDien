@@ -42,23 +42,22 @@ public class DSChuHoView extends javax.swing.JPanel {
         ShowThongTinTuDBS();
 //        CapNhatCombobox.setEnabled(false);
         //Tạo Action khi nhấp chọn hàng trong Jtable BangDSChuHo
-//        ListSelectionListener rowListener;
-//        rowListener = new ListSelectionListener() {
-//            @Override
-//            public void valueChanged(ListSelectionEvent e) {
-//                if (!e.getValueIsAdjusting()) {
-//                    int selectedRow = BangDSChuHo.getSelectedRow();
-//                    ChuHo chuHo = new DSChuHoController().LayThongTinChuHoQuaCCCD((String) BangDSChuHo.getValueAt(selectedRow, 0));
-//                    if (selectedRow != -1 && chuHo != null) { 
-//                        // Lấy dữ liệu từ hàng đó và xử lý dữ liệu   
-//                        CapNhatCombobox.setEnabled(true);
-//                        setChuHo(chuHo);              
-//                        TimKiemTF.setText(chuHo.getUsername());
-//                    }
-//                }
-//            };
-//        };
-//        BangDSChuHo.getSelectionModel().addListSelectionListener(rowListener);
+        ListSelectionListener rowListener;
+        rowListener = new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = BangDSChuHo.getSelectedRow();
+                    Customers chuHo = new DSChuHoController().LayThongTinChuHoQuaCCCD((String) BangDSChuHo.getValueAt(selectedRow, 0));
+                    if (selectedRow != -1 && chuHo != null) { 
+                        // Lấy dữ liệu từ hàng đó và xử lý dữ liệu   
+                        setChuHo(chuHo);              
+                        TimKiemTF.setText(chuHo.getCCCD());
+                    }
+                }
+            };
+        };
+        BangDSChuHo.getSelectionModel().addListSelectionListener(rowListener);
     }
     
     public void LammoiDS(){
@@ -120,12 +119,18 @@ public class DSChuHoView extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        BangDSChuHo.setEnabled(false);
         BangDSChuHo.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(BangDSChuHo);
 
@@ -192,7 +197,10 @@ public class DSChuHoView extends javax.swing.JPanel {
         String key = TimKiemTF.getText();
         if(key.isEmpty()){
             JOptionPane.showMessageDialog(this, "Vui lòng không được bỏ trống!");            
-        }else{
+        }else if(key.length()!=12){
+            JOptionPane.showMessageDialog(this, "Căn cước công dân phải nhập đủ 12 số!"); 
+        }
+        else{
             new Controller.ChuHoController.DSChuHoController().TimKiemChuHo(key, BangDSChuHo); 
         }
 

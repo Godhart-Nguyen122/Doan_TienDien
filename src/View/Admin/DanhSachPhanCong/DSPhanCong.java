@@ -73,7 +73,6 @@ public class DSPhanCong extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        BangDSChuHo.setEnabled(false);
         BangDSChuHo.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(BangDSChuHo);
 
