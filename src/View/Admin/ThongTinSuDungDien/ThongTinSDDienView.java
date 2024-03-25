@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ThongTinSDDienView extends javax.swing.JPanel {
     private ThongTinSuDung thongTinSuDung;
+    private List<ThongTinSuDung> lstThongTinSuDungs;
 
     public ThongTinSuDung getThongTinSuDung() {
         return thongTinSuDung;
@@ -24,11 +25,11 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
         this.thongTinSuDung = thongTinSuDung;
     }
     
-    private MainAdminView mainNhanVienView;
+   private MainAdminView mainNhanVienView = new MainAdminView();
     
     public ThongTinSDDienView(MainAdminView mnv) {
         initComponents();
-        BangDSThongTinSD.clearSelection();
+//        BangDSThongTinSD.clearSelection();
         this.mainNhanVienView = mnv;
         this.setSize(new MainAdminView().getMainPanel().getSize());
         this.setSize(mainNhanVienView.getMainPanel().getSize());
@@ -37,7 +38,9 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
         DaNhapCTDCB.resetKeyboardActions();
         ChuaNhapCTDCB.setEnabled(true);
         DaNhapCTDCB.setEnabled(true);
-        ShowThongTinTuDBS(new DSThongTinSDController().getLstThongTinSuDungs());
+        LammoiDS();
+        ShowThongTinTuDBS();
+//        ShowThongTinTuDBS(new DSThongTinSDController().getLstThongTinSuDungs());
         //Tạo Action khi nhấp chọn hàng trong Jtable BangDSChuHo
         ListSelectionListener rowListener;
         rowListener = new ListSelectionListener() {
@@ -58,12 +61,15 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
         };
         BangDSThongTinSD.getSelectionModel().addListSelectionListener(rowListener);
     }
-
-    public void ShowThongTinTuDBS(List<ThongTinSuDung> lst){
-        DefaultTableModel model = (DefaultTableModel) BangDSThongTinSD.getModel();
-        model.setRowCount(0); 
+     public void LammoiDS(){
+        lstThongTinSuDungs = new DSThongTinSDController().getLstThongTinSuDungs();
+    }
+    public void ShowThongTinTuDBS(){
+         DefaultTableModel model ;
+        model =(DefaultTableModel) BangDSThongTinSD.getModel();
+        model.setRowCount(0);  
         BangDSThongTinSD.clearSelection();
-        for(ThongTinSuDung ttsd : lst){
+        for(ThongTinSuDung ttsd : lstThongTinSuDungs){
             Object[] rowData = {
                 ttsd.getCCCD(), ttsd.getUsername(), ttsd.getPhone(), ttsd.getID_E_Meter(), 
                 ttsd.getDiaChi(), ttsd.getType_living(), ttsd.getCCCD_NhanVien(), 
@@ -71,6 +77,7 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
             };
         model.addRow(rowData); 
         }
+            model.fireTableDataChanged();
     }
     
     @SuppressWarnings("unchecked")
@@ -225,15 +232,15 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 19, Short.MAX_VALUE)
+                        .addGap(0, 25, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(LamMoiBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

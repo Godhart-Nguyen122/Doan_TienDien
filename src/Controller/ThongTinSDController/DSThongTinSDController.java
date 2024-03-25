@@ -10,15 +10,18 @@ import java.util.logging.Logger;
 public class DSThongTinSDController {
     private List<ThongTinSuDung> lstThongTinSuDungs;
 
-    public DSThongTinSDController() {
+    public void refresh() {
          try {
              this.lstThongTinSuDungs = new ThongTinSDDAO().getAll();
          } catch (Exception ex) {
              Logger.getLogger(DSThongTinSDController.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
-
+    public DSThongTinSDController(){
+        refresh();
+    }
     public List<ThongTinSuDung> getLstThongTinSuDungs() {
+        refresh();
         return lstThongTinSuDungs;
     }
 
@@ -57,7 +60,7 @@ public class DSThongTinSDController {
         return null;
     }
     
-    public void ThemCongToDien(String CCCD, String ID, String TypeLiving, String DiaChi){
-        new ThongTinSDDAO().ThemThongTinSDDienDAO(CCCD, ID, TypeLiving, DiaChi);
+    public void ThemCongToDien( String ID, String TypeLiving, String DiaChi){
+        new ThongTinSDDAO().ThemThongTinSDDienDAO( ID, TypeLiving, DiaChi);
     }
 }

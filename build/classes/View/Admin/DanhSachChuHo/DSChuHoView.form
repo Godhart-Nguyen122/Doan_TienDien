@@ -28,7 +28,9 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="TimKiemBT" min="-2" pref="120" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="comboboxThuong1" min="-2" pref="127" max="-2" attributes="0"/>
+              <Component id="CbSort" min="-2" pref="121" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="CbSex" min="-2" pref="122" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="LamMoiBT" min="-2" pref="120" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -44,13 +46,14 @@
                       <Component id="TimKiemTF" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="TimKiemBT" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="CbSort" min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="comboboxThuong1" alignment="3" pref="0" max="32767" attributes="0"/>
+                      <Component id="CbSex" alignment="3" pref="0" max="32767" attributes="0"/>
                       <Component id="LamMoiBT" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-              <Component id="ScrollPane" max="32767" attributes="0"/>
+              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <Component id="ScrollPane" min="-2" pref="357" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -89,14 +92,15 @@
         <Component class="LayMotSoUIdepTaiDay.BangDanhSach" name="BangDSChuHo">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="4">
-                <Column editable="false" title="CCCD" type="java.lang.String"/>
-                <Column editable="false" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
-                <Column editable="false" title="Ng&#xe0;y sinh" type="java.lang.Object"/>
-                <Column editable="false" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.String"/>
-                <Column editable="false" title="S&#x110;T" type="java.lang.String"/>
-                <Column editable="false" title="Account" type="java.lang.String"/>
-                <Column editable="false" title="Password" type="java.lang.String"/>
+              <Table columnCount="8" rowCount="4">
+                <Column editable="true" title="CCCD" type="java.lang.String"/>
+                <Column editable="true" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
+                <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.Object"/>
+                <Column editable="true" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.String"/>
+                <Column editable="true" title="S&#x110;T" type="java.lang.String"/>
+                <Column editable="true" title="Account" type="java.lang.String"/>
+                <Column editable="true" title="Password" type="java.lang.String"/>
+                <Column editable="true" title="Gi&#x1edb;i t&#xed;nh " type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -138,6 +142,7 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
@@ -156,21 +161,41 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LamMoiBTActionPerformed"/>
       </Events>
     </Component>
-    <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="comboboxThuong1">
+    <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="CbSort">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+          <Color blue="c0" green="c0" red="c0" type="rgb"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
             <StringItem index="0" value="CCCD"/>
-            <StringItem index="1" value="H&#x1ecd; v&#xe0; T&#xea;n"/>
+            <StringItem index="1" value="H&#x1ecd; v&#xe0; T&#xea;n "/>
             <StringItem index="2" value="Account"/>
+            <StringItem index="3" value="M&#x1eb7;c &#x111;&#x1ecb;nh"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CbSortActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="CbSex">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="c0" green="c0" red="c0" type="rgb"/>
+        </Property>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Nam"/>
+            <StringItem index="1" value="N&#x1eef; "/>
+            <StringItem index="2" value="Nam v&#xe0; N&#x1eef; "/>
             <StringItem index="3" value=" "/>
           </StringArray>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CbSexActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

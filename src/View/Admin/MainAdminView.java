@@ -7,6 +7,7 @@ import View.Admin.DanhSachChuHo.DSChuHoView;
 import View.Admin.DanhSachPhanCong.DSPhanCong;
 import View.Admin.HoaDon.DSHoaDonView;
 import View.Admin.QLThongTinChung.QuanLyThongTinChung;
+import View.Admin.ThongTinSuDungDien.ThongTinSDDienView;
 import View.Login.Login;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -351,6 +352,7 @@ public final class MainAdminView extends javax.swing.JFrame {
     private void ThongTinSDDienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongTinSDDienBtActionPerformed
             ButtonNhan(ThongTinSDDienBt);
             CapNhatBangTrangThai();
+             this.setForm(new ThongTinSDDienView(this));
     }//GEN-LAST:event_ThongTinSDDienBtActionPerformed
 
     private void QLPhanQuyenTKBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLPhanQuyenTKBtActionPerformed

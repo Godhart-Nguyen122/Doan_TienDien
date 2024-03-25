@@ -2,6 +2,7 @@ package View.Admin.ThongTinSuDungDien.ThongTinSDDienForm;
 
 import Component.CheckTruongDuLieu;
 import Controller.ThongTinSDController.DSThongTinSDController;
+import Model.ThongTinSuDung;
 import View.Admin.MainAdminView;
 import View.Admin.ThongTinSuDungDien.ThongTinSDDienView;
 import javax.swing.JOptionPane;
@@ -42,6 +43,12 @@ public class ThemCongToDien extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("CCCD:");
+
+        CCCDTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CCCDTFActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Hình thức ở:");
 
@@ -124,23 +131,26 @@ public class ThemCongToDien extends javax.swing.JDialog {
 
     private void OkBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkBTActionPerformed
         // Kiểm tra Text field có bị trống không
+       
         if(CCCDTF.getText().equals("") || IDConToTF.getText().equals("") || HinhThucOTF.getText().equals("")
            || DiaChiTF.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
         } 
-        else if(!(CheckTruongDuLieu.KtraCCCD(CCCDTF.getText()))){
-            JOptionPane.showMessageDialog(this, "Vui lòng xem lại thông tin CCCD hợp lệ!");
-        }
-        else if(!new CheckTruongDuLieu().KtraCCCDTonTai(CCCDTF.getText())){
-            JOptionPane.showMessageDialog(this, "CCCD:" + CCCDTF.getText() + " không tồn tại!");
-        }
+//        else if(!(CheckTruongDuLieu.KtraCCCD(CCCDTF.getText()))){
+//            JOptionPane.showMessageDialog(this, "Vui lòng xem lại thông tin CCCD hợp lệ!");
+//        }
+//        else if(!new CheckTruongDuLieu().KtraCCCDTonTai(CCCDTF.getText())){
+//            JOptionPane.showMessageDialog(this, "CCCD:" + CCCDTF.getText() + " không tồn tại!");
+//        }
         else if(!new CheckTruongDuLieu().KtraIDCongTo(IDConToTF.getText())){
             JOptionPane.showMessageDialog(this, "Vui lòng xem lại thông tin ID công tơ điện!");
         }
         else if(!new CheckTruongDuLieu().KtraTonTaiIDCongTo(IDConToTF.getText())){
             JOptionPane.showMessageDialog(this, "Công tơ điện có ID: " + IDConToTF.getText() + " đã tồn tại!");
         }
+      
         else {    
+            
             int confirm = JOptionPane.showConfirmDialog(
                 this,
                 "Bạn có chắc muốn thêm công tơ điện cho chủ hộ với CCCD: " + CCCDTF.getText() + " không?",
@@ -148,7 +158,7 @@ public class ThemCongToDien extends javax.swing.JDialog {
             JOptionPane.YES_NO_OPTION
             );
             if (confirm == JOptionPane.YES_OPTION) {
-                new DSThongTinSDController().ThemCongToDien(CCCDTF.getText(), IDConToTF.getText(), HinhThucOTF.getText(), DiaChiTF.getText());
+                new DSThongTinSDController().ThemCongToDien( IDConToTF.getText(), HinhThucOTF.getText(), DiaChiTF.getText());
                 JOptionPane.showMessageDialog(this, "Đã thêm công tơ điện cho chủ hộ có CCCD: " + CCCDTF.getText());
             
                 mainNhanVienView.setForm(new ThongTinSDDienView(mainNhanVienView));
@@ -161,6 +171,10 @@ public class ThemCongToDien extends javax.swing.JDialog {
     private void HuyBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HuyBTActionPerformed
         this.dispose();
     }//GEN-LAST:event_HuyBTActionPerformed
+
+    private void CCCDTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCCDTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CCCDTFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
