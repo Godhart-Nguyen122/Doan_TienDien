@@ -37,4 +37,127 @@ public class AccountsDAO {
         }
         return ListAccountDAO;
     }    
+    
+    public void AddDAO(Accounts Acc){
+        String SQL = "INSERT INTO [dbo].[ACCOUNTS] \n" +
+                     "VALUES(?, ?, ?, ?, 0);";
+        try {
+            Connection con = new DBS().getConnection();
+            PreparedStatement rs = con.prepareStatement(SQL);
+            
+            rs.setString(1, Acc.getAccount_Username());
+            rs.setString(2, Acc.getCCCD());
+            rs.setString(3, Acc.getAccount_Password());
+            rs.setInt(4, Acc.getPrivilege());    
+            
+            int rowsAffected = rs.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Đã thêm người dùng vào hệ thống!!!");
+            } else {
+                System.out.println("Lỗi không thể thêm người dùng vào hệ thống!!!");
+            }            
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Lỗi hệ thống!!! (AccountsDAO) - AddDAO");
+        }
+    }
+    
+    public void DeleteDAO(String Account){
+        String SQL = "UPDATE [dbo].[ACCOUNTS]\n" +
+                     "SET [Status] = 1\n" +
+                     "WHERE [Account_Username] = ?";
+        try {
+            Connection con = new DBS().getConnection();
+            PreparedStatement rs = con.prepareStatement(SQL);
+            
+            rs.setString(1, Account);
+            
+           int rowsAffected = rs.executeUpdate();
+           
+           if (rowsAffected > 0) {
+                System.out.println("Đã khóa account người dùng có Account: " + Account + "trên hệ thống!!!");
+                
+            } else {
+                System.out.println("Lỗi không thể khóa account người dùng có Account: " + Account + " trên hệ thống!!!");
+            }  
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Lỗi hệ thống!!! (AccountsDAO) - DeleteDAO");
+        }
+    }
+ 
+    public void UnlockDAO(String Account){
+        String SQL = "UPDATE [dbo].[ACCOUNTS]\n" +
+                     "SET [Status] = 0\n" +
+                     "WHERE [Account_Username] = ?";
+        try {
+            Connection con = new DBS().getConnection();
+            PreparedStatement rs = con.prepareStatement(SQL);
+            
+            rs.setString(1, Account);
+            
+           int rowsAffected = rs.executeUpdate();
+           
+           if (rowsAffected > 0) {
+                System.out.println("Đã mở khóa account người dùng có Account: " + Account + "trên hệ thống!!!");
+                
+            } else {
+                System.out.println("Lỗi không thể mở khóa account người dùng có Account: " + Account + " trên hệ thống!!!");
+            }  
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Lỗi hệ thống!!! (AccountsDAO) - DeleteDAO");
+        }
+    }    
+    
+    public void UpdateTTCDAO(Accounts Acc){
+        String SQL = "UPDATE [dbo].[ACCOUNTS]\n" +
+                     "SET [Account_Username] = ?, \n" +
+                     "    [Account_Password] = ?  \n" +
+                     "WHERE [CCCD] = ? AND [Privilege] = ?";
+      try {
+            Connection con = new DBS().getConnection();
+            PreparedStatement stmt = con.prepareStatement(SQL);
+            
+            stmt.setString(1, Acc.getAccount_Username());
+            stmt.setString(2, Acc.getAccount_Password());
+            stmt.setString(3, Acc.getCCCD());
+            stmt.setInt(4, Acc.getPrivilege());            
+            int affectedRows = stmt.executeUpdate();
+        
+            if (affectedRows > 0) {
+                System.out.println("Thông báo hệ thống đã cập nhật Account người dùng có CCCD: " + Acc.getCCCD() + " thành công!");
+            } else {
+                System.out.println("Cập nhật Account người dùng có CCCD: " + Acc.getCCCD() + " trên hệ thống thất bại!!!");
+            }
+        } catch (Exception ex) {
+                ex.printStackTrace();
+                System.out.println("Lỗi hệ thống!!! (AccountsDAO) - UpdateDAO");
+        }           
+    }
+    
+    public void UpdatePrivilegeDAO(Accounts Acc){
+        String SQL = "UPDATE [dbo].[ACCOUNTS]\n" +
+                     "SET [Privilege] = ? \n" +
+                     "WHERE [Account_Username] = ?";
+      try {
+            Connection con = new DBS().getConnection();
+            PreparedStatement stmt = con.prepareStatement(SQL);
+ 
+            stmt.setInt(1, Acc.getPrivilege());            
+            stmt.setString(2, Acc.getAccount_Username());
+            
+            int affectedRows = stmt.executeUpdate();
+        
+            if (affectedRows > 0) {
+                System.out.println("Thông báo hệ thống đã cập nhật Account người dùng có CCCD: " + Acc.getCCCD() + " thành công!");
+            } else {
+                System.out.println("Cập nhật Account người dùng có CCCD: " + Acc.getCCCD() + " trên hệ thống thất bại!!!");
+            }
+        } catch (Exception ex) {
+                ex.printStackTrace();
+                System.out.println("Lỗi hệ thống!!! (AccountsDAO) - UpdateDAO");
+        }           
+    }
 }

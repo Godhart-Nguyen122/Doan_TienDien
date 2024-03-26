@@ -1,6 +1,6 @@
 package Model;
 
-public class Accounts {
+public class Accounts extends Personal_Infos{
     private String Account_Username;
     private String CCCD;
     private String Account_Password;

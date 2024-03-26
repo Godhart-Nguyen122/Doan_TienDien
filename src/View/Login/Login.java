@@ -2,10 +2,7 @@
 package View.Login;
 
 import Controller.LoginController.LoginController;
-import View.Admin.MainAdminView;
-import View.Admin.MainAdminView;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import View.AdminView.MainAdminView;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {

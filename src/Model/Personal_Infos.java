@@ -12,15 +12,6 @@ public class Personal_Infos {
     private String Phone;
     private Date DOB;
     private boolean Sex;
-    private List<Accounts> ListAccount;
-
-    public List<Accounts> getListAccount() {
-        return ListAccount;
-    }
-
-    public void setListAccount(List<Accounts> ListAccount) {
-        this.ListAccount = ListAccount;
-    }
     
     public Personal_Infos() {}
 

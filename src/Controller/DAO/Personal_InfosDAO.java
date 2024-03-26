@@ -1,12 +1,11 @@
 package Controller.DAO;
 
 import Controller.DBS;
+import Model.Accounts;
 import Model.Personal_Infos;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Personal_InfosDAO {
     private List<Personal_Infos> ListPersonal_InfosDAO = new ArrayList<>();
@@ -50,29 +49,36 @@ public class Personal_InfosDAO {
             rs.setDate(5, Ps.getDOB());            
             rs.setString(6, Ps.getAddress());
             rs.setString(7, Ps.getPhone());
-            rs.setBoolean(8, Ps.isSex());     
+            rs.setBoolean(8, Ps.isSex());               
             
             int rowsAffected = rs.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Đã thêm người dùng vào hệ thống!!!");
-                ListPersonal_InfosDAO.add(Ps);
+                Accounts Acc = new Accounts();
+                Acc.setAccount_Username("User-" + Ps.getCCCD());
+                Acc.setAccount_Password("null");
+                Acc.setCCCD(Ps.getCCCD());
+                Acc.setPrivilege(-1);
+                Acc.setStatus(false);
+                new AccountsDAO().AddDAO(Acc);
             } else {
                 System.out.println("Lỗi không thể thêm người dùng vào hệ thống!!!");
             }            
             
         } catch (Exception ex) {
-            Logger.getLogger(Personal_InfosDAO.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+                System.out.println("Lỗi hệ thống!!! (Personal_InfosDAO) - AddDAO");
         }
     }
     
     public void Update_NoCCCDDAO(Personal_Infos Ps){
         String SQL = "UPDATE [dbo].[PERSON_INFOS]\n" +
-                     "SET [Firstname] = ?\n" +
-                     "	  [Lastname] = ?\n" +
-                     "	  [Middlename] = ?\n" +
-                     "	  [DOB] = ?\n" +
-                     "	  [Address] = ?\n" +
-                     "	  [Phone] = ?\n" +
+                     "SET [Firstname] = ?,\n" +
+                     "	  [Lastname] = ?,\n" +
+                     "	  [Middlename] = ?,\n" +
+                     "	  [DOB] = ?,\n" +
+                     "	  [Address] = ?,\n" +
+                     "	  [Phone] = ?,\n" +
                      "	  [Sex] = ?\n" +
                      "    WHERE [CCCD] = ?";
       try {
@@ -96,6 +102,7 @@ public class Personal_InfosDAO {
                 System.out.println("Cập nhật người dùng có CCCD: " + Ps.getCCCD() + " trên hệ thống thất bại!!!");
             }
         } catch (Exception ex) {
+                ex.printStackTrace();
                 System.out.println("Lỗi hệ thống!!! (Personal_InfosDAO) - UpdateNoCCCD");
         }        
     }
@@ -119,6 +126,7 @@ public class Personal_InfosDAO {
                 System.out.println("Cập nhật người dùng có CCCD: " + CCCD_Cu + " trên hệ thống thất bại!!!");
             }
         } catch (Exception ex) {
+                ex.printStackTrace();
                 System.out.println("Lỗi hệ thống!!! (Personal_InfosDAO) - UpdateCCCD");
         }        
     }

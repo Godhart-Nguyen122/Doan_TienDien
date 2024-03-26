@@ -28,12 +28,12 @@ public class SimpleButtonBar extends javax.swing.JPanel {
                 }
             }
         });
-        cmdClose.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                System.exit(0);
-            }
-        });
+//        cmdClose.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                System.exit(0);
+//            }
+//        });
         cmdMinimize.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -112,4 +112,12 @@ public class SimpleButtonBar extends javax.swing.JPanel {
     private javaswingdev.GoogleMaterialIcon iconMinimize;
     private javaswingdev.GoogleMaterialIcon iconRestore;
     // End of variables declaration//GEN-END:variables
+
+    public Buttont getCmdClose() {
+        return cmdClose;
+    }
+
+    public void setCmdClose(Buttont cmdClose) {
+        this.cmdClose = cmdClose;
+    }
 }
