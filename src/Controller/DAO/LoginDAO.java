@@ -10,28 +10,28 @@ import java.sql.SQLException;
 
 public class LoginDAO {
     
-    public boolean Login(String userName,String passWord) throws Exception{
+    public String Login(String userName,String passWord) throws Exception{
         Connection cnn = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         boolean isValid = false;
-       
+        String user="";
         try {
             cnn = DBS.getConnection();
-            String SQL="SELECT COUNT(A.CCCD) AS Count FROM ACCOUNTS A WHERE A.Account_Username=? AND A.Account_Password=? ";
+            String SQL="SELECT TOP 1 A.Account_Username FROM ACCOUNTS A WHERE A.Account_Username=? AND A.Account_Password=? ";
             preparedStatement = cnn.prepareStatement(SQL);
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, passWord);
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
-                int count = resultSet.getInt("Count");
-                isValid = count > 0; 
+            while(resultSet.next()){
+                user=resultSet.getString("Account_Username");
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         
         } 
-        return isValid;
+        return user;
     }
     
     public int getPrivilege(String userName, String passWord) throws Exception{
@@ -41,7 +41,7 @@ public class LoginDAO {
         int privilege=0;
         try{
             cnn = DBS.getConnection();
-            String SQL="SELECT COUNT(A.CCCD) AS Count,Privilege FROM ACCOUNTS A WHERE A.Account_Username=? AND A.Account_Password=? ";
+            String SQL="SELECT TOP 1 A.Privilege FROM ACCOUNTS A WHERE A.Account_Username=? AND A.Account_Password=? ";
             preparedStatement = cnn.prepareStatement(SQL);
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, passWord);

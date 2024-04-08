@@ -73,6 +73,14 @@ public class DSThongTinChung {
         }
         return -1;
     }  
+    public static Personal_Infos SearchPersonbyCCCD(String CCCD){
+        for(Personal_Infos Ps : ListPersonal_Infos){
+            if(Ps.getCCCD().equals(CCCD)){
+                return Ps;
+            }
+        }
+        return null;
+    }
     
     public static boolean Searching(String Text, BangDanhSach bangDanhSach, int type){
         boolean check = false;   

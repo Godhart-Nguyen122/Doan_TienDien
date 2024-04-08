@@ -4,13 +4,19 @@ import java.util.List;
 
 public class Staffs extends Accounts{
     private List<Customers> ListCustomers;
+    private boolean role;
 
     public Staffs() {}
     
     public Staffs(String Account_Username, String CCCD, String Account_Password, int Privilege, boolean Status) {
         super(Account_Username, CCCD, Account_Password, Privilege, Status);
     }
-
+    
+    public Staffs(String Account_Username, String CCCD, String Account_Password, int Privilege, boolean Status, boolean Role) {
+        super(Account_Username, CCCD, Account_Password, Privilege, Status);
+        this.role=role;
+    }
+    
     public Staffs(Personal_Infos Ps, Accounts acc) {
         this.setAccount_Username(acc.getAccount_Username());
         this.setAccount_Password(acc.getAccount_Password());
@@ -24,6 +30,7 @@ public class Staffs extends Accounts{
         this.setSex(Ps.isSex());
         this.setStatus(acc.isStatus());
         this.setAddress(Ps.getAddress());
+        
     }
     
     
@@ -34,5 +41,14 @@ public class Staffs extends Accounts{
     public void setListCustomers(List<Customers> ListCustomers) {
         this.ListCustomers = ListCustomers;
     }
-        
+
+    public boolean isRole() {
+        return role;
+    }
+
+    public void setRole(boolean role) {
+        this.role = role;
+    }
+    
+    
 }

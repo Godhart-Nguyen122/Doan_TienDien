@@ -1,15 +1,14 @@
-package View.AdminView;
+package View.CustomerView;
 
+import View.AdminView.*;
 import Controller.DSChuHoController.DSChuHo;
 import Controller.DSNhanVienController.DSNhanVien;
-import Controller.ProgramVariable;
 import Controller.QLPhanQuyenTKController.DSTaiKhoanPhanQuyen;
 import Controller.QLThongTinChungController.DSThongTinChung;
 import LayMotSoUIdepTaiDay.ButtonMenu;
 import LayMotSoUIdepTaiDay.Chart.ModelChart;
 import View.AdminView.DSChuHoView.DSChuHoMainView;
 import View.AdminView.DSNhanVienView.DSNhanVienMainView;
-import View.AdminView.DanhSachPhanCong.DSPhanCong;
 import View.AdminView.QLPhanQuyenTKView.QLPhanQuyenTKMainView;
 import View.AdminView.QLThongTinChungView.QLTTChungMainView;
 import View.AdminView.TrangChuView.TrangChuMainView;
@@ -21,55 +20,51 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.apache.commons.compress.harmony.unpack200.bytecode.forms.ThisFieldRefForm;
 
-public final class MainAdminView extends javax.swing.JFrame {
+public final class MainCustomerView extends javax.swing.JFrame {
     public List<ButtonMenu> ListButton;
     DecimalFormat decimalFormat = new DecimalFormat("#");
     DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
-  
+    
     public void CapNhatBangTrangThai(){        
-        TrangThaiChuHo.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.CustomerQuantity()));
-        TrangThaiNhanVien.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.StaffQuantity()));
+        TongTienDienTrangThai.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.CustomerQuantity()));
+        HoaDonDaThanhToanTrangthai.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.StaffQuantity()));
 //        TrangThaiTien.setSoLuong(decimalFormat2.format(new InvoiceController().getTotalprice()) + " VNĐ");
         this.repaint();
         this.revalidate();
     }
     
-    public MainAdminView(){
+    public MainCustomerView(){
         new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         SimpleMainTitleBar.init(this);
         ListButton = new ArrayList<>();
-        TrangThaiChuHo.setLabel("Số chủ hộ: ");
-        TrangThaiNhanVien.setLabel("Số nhân viên: ");       
-        TrangThaiTien.setLabel("Tổng doanh thu: ");
+        TongTienDienTrangThai.setLabel("Tổng tiền : ");
+        HoaDonDaThanhToanTrangthai.setLabel("Hóa đơn đã thanh toán: ");       
+        HoaDonChuaThanhToanTrangThai.setLabel("Hóa Đơn chưa thanh toán: ");
         
         CapNhatBangTrangThai();
  
         ImageIcon imageNguoi = new ImageIcon("src/Icon/profile.png");
         ImageIcon imageTien = new ImageIcon("src/Icon/profit.png");
-        TrangThaiChuHo.setIcon(imageNguoi);
-        TrangThaiNhanVien.setIcon(imageNguoi);
-        TrangThaiTien.setIcon(imageTien);
+        TongTienDienTrangThai.setIcon(imageNguoi);
+        HoaDonDaThanhToanTrangthai.setIcon(imageNguoi);
+        HoaDonChuaThanhToanTrangThai.setIcon(imageTien);
         
         //Thêm button nào thì add vào list
-        ListButton.add(DSChuHoBt);
-        ListButton.add(DsNhanVienBt);
+
+        
         ListButton.add(HoaDonDienBt);
-        ListButton.add(DSPhanCongBt);
-        ListButton.add(QLPhanQuyenTKBt);
         ListButton.add(DangXuatBt);
-        ListButton.add(QLThongTinChungBt);
-        ListButton.add(ThongTinSDDienBt);
-        ListButton.add(TrangChuBt);
+   
+        ListButton.add(ThongtinCaNhanbtn);
+      
         
         //Khởi tạo các list
         new DSThongTinChung().KhoiTaoListPersonal_Infos();
@@ -78,7 +73,7 @@ public final class MainAdminView extends javax.swing.JFrame {
         new DSNhanVien().KhoiTaoListStaffs();
         
         //Xử lý chart
-        this.XuLyChart();
+//        this.XuLyChart();
         
         //Xử lý đăng xuất
         SimpleMainTitleBar.getSimpleButtonBar().getCmdClose().addActionListener(new ActionListener() {
@@ -149,16 +144,10 @@ public final class MainAdminView extends javax.swing.JFrame {
 
         MainBorder = new LayMotSoUIdepTaiDay.PanelBorder();
         Menu = new LayMotSoUIdepTaiDay.Menu();
-        DSChuHoBt = new LayMotSoUIdepTaiDay.ButtonMenu();
-        QLPhanQuyenTKBt = new LayMotSoUIdepTaiDay.ButtonMenu();
-        DsNhanVienBt = new LayMotSoUIdepTaiDay.ButtonMenu();
         LogoApp = new javax.swing.JLabel();
         HoaDonDienBt = new LayMotSoUIdepTaiDay.ButtonMenu();
         DangXuatBt = new LayMotSoUIdepTaiDay.ButtonMenu();
-        DSPhanCongBt = new LayMotSoUIdepTaiDay.ButtonMenu();
-        QLThongTinChungBt = new LayMotSoUIdepTaiDay.ButtonMenu();
-        TrangChuBt = new LayMotSoUIdepTaiDay.ButtonMenu();
-        ThongTinSDDienBt = new LayMotSoUIdepTaiDay.ButtonMenu();
+        ThongtinCaNhanbtn = new LayMotSoUIdepTaiDay.ButtonMenu();
         MenuSpr = new javax.swing.JSeparator();
         MainPanel = new javax.swing.JPanel();
         BarChart1 = new LayMotSoUIdepTaiDay.Chart.Chart();
@@ -166,9 +155,9 @@ public final class MainAdminView extends javax.swing.JFrame {
         LineChart = new LayMotSoUIdepTaiDay.Chart.LineChart();
         SimpleMainTitleBar = new LayMotSoUIdepTaiDay.SimpleTitleBar();
         TrangThaiLp = new javax.swing.JLayeredPane();
-        TrangThaiChuHo = new LayMotSoUIdepTaiDay.PanelTrangThai();
-        TrangThaiNhanVien = new LayMotSoUIdepTaiDay.PanelTrangThai();
-        TrangThaiTien = new LayMotSoUIdepTaiDay.PanelTrangThai();
+        TongTienDienTrangThai = new LayMotSoUIdepTaiDay.PanelTrangThai();
+        HoaDonDaThanhToanTrangthai = new LayMotSoUIdepTaiDay.PanelTrangThai();
+        HoaDonChuaThanhToanTrangThai = new LayMotSoUIdepTaiDay.PanelTrangThai();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NHÂN VIÊN ");
@@ -177,37 +166,12 @@ public final class MainAdminView extends javax.swing.JFrame {
 
         MainBorder.setBackground(new java.awt.Color(232, 232, 232));
 
-        DSChuHoBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icons8_user_20px_1.png"))); // NOI18N
-        DSChuHoBt.setText("Danh sách chủ hộ");
-        DSChuHoBt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        DSChuHoBt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DSChuHoBtActionPerformed(evt);
-            }
-        });
-
-        QLPhanQuyenTKBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/4.png"))); // NOI18N
-        QLPhanQuyenTKBt.setText("Quản lý phân quyền tài khoản");
-        QLPhanQuyenTKBt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        QLPhanQuyenTKBt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                QLPhanQuyenTKBtActionPerformed(evt);
-            }
-        });
-
-        DsNhanVienBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icons8_user_20px_1.png"))); // NOI18N
-        DsNhanVienBt.setText("Danh sách nhân viên ");
-        DsNhanVienBt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        DsNhanVienBt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DsNhanVienBtActionPerformed(evt);
-            }
-        });
+        Menu.setBackground(new java.awt.Color(204, 204, 255));
 
         LogoApp.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         LogoApp.setForeground(new java.awt.Color(255, 255, 255));
         LogoApp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo.png"))); // NOI18N
-        LogoApp.setText("Welcome Admin");
+        LogoApp.setText("Welcome Customer");
 
         HoaDonDienBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2.png"))); // NOI18N
         HoaDonDienBt.setText("Hóa đơn điện");
@@ -228,39 +192,12 @@ public final class MainAdminView extends javax.swing.JFrame {
             }
         });
 
-        DSPhanCongBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/6.png"))); // NOI18N
-        DSPhanCongBt.setText("Danh sách phân công");
-        DSPhanCongBt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        DSPhanCongBt.addActionListener(new java.awt.event.ActionListener() {
+        ThongtinCaNhanbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/9.png"))); // NOI18N
+        ThongtinCaNhanbtn.setText("Thông tin cá nhân");
+        ThongtinCaNhanbtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ThongtinCaNhanbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DSPhanCongBtActionPerformed(evt);
-            }
-        });
-
-        QLThongTinChungBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/8.png"))); // NOI18N
-        QLThongTinChungBt.setText("Quản lý thông tin chung");
-        QLThongTinChungBt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        QLThongTinChungBt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                QLThongTinChungBtActionPerformed(evt);
-            }
-        });
-
-        TrangChuBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/5.png"))); // NOI18N
-        TrangChuBt.setText("Trang Chủ");
-        TrangChuBt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TrangChuBt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TrangChuBtActionPerformed(evt);
-            }
-        });
-
-        ThongTinSDDienBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/9.png"))); // NOI18N
-        ThongTinSDDienBt.setText("Thông tin sử dụng điện");
-        ThongTinSDDienBt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ThongTinSDDienBt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ThongTinSDDienBtActionPerformed(evt);
+                ThongtinCaNhanbtnActionPerformed(evt);
             }
         });
 
@@ -277,15 +214,9 @@ public final class MainAdminView extends javax.swing.JFrame {
                     .addGroup(MenuLayout.createSequentialGroup()
                         .addComponent(LogoApp)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(DSChuHoBt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(HoaDonDienBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DangXuatBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(QLPhanQuyenTKBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DSPhanCongBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(QLThongTinChungBt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TrangChuBt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ThongTinSDDienBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DsNhanVienBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ThongtinCaNhanbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                 .addContainerGap())
             .addComponent(MenuSpr)
         );
@@ -296,23 +227,11 @@ public final class MainAdminView extends javax.swing.JFrame {
                 .addComponent(LogoApp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(MenuSpr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TrangChuBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(QLThongTinChungBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(QLPhanQuyenTKBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DSChuHoBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DsNhanVienBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DSPhanCongBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(ThongTinSDDienBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(43, 43, 43)
                 .addComponent(HoaDonDienBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ThongtinCaNhanbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DangXuatBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -343,19 +262,19 @@ public final class MainAdminView extends javax.swing.JFrame {
                 .addGap(60, 60, 60))
         );
 
-        SimpleMainTitleBar.setBackground(new java.awt.Color(0, 153, 204));
+        SimpleMainTitleBar.setBackground(new java.awt.Color(204, 204, 255));
 
         TrangThaiLp.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
-        TrangThaiLp.add(TrangThaiChuHo);
+        TrangThaiLp.add(TongTienDienTrangThai);
 
-        TrangThaiNhanVien.setColor1(new java.awt.Color(51, 153, 255));
-        TrangThaiNhanVien.setColor2(new java.awt.Color(0, 153, 255));
-        TrangThaiLp.add(TrangThaiNhanVien);
+        HoaDonDaThanhToanTrangthai.setColor1(new java.awt.Color(51, 153, 255));
+        HoaDonDaThanhToanTrangthai.setColor2(new java.awt.Color(0, 153, 255));
+        TrangThaiLp.add(HoaDonDaThanhToanTrangthai);
 
-        TrangThaiTien.setAutoscrolls(true);
-        TrangThaiTien.setColor1(new java.awt.Color(255, 204, 51));
-        TrangThaiTien.setColor2(new java.awt.Color(255, 204, 0));
-        TrangThaiLp.add(TrangThaiTien);
+        HoaDonChuaThanhToanTrangThai.setAutoscrolls(true);
+        HoaDonChuaThanhToanTrangThai.setColor1(new java.awt.Color(255, 204, 51));
+        HoaDonChuaThanhToanTrangThai.setColor2(new java.awt.Color(255, 204, 0));
+        TrangThaiLp.add(HoaDonChuaThanhToanTrangThai);
 
         javax.swing.GroupLayout MainBorderLayout = new javax.swing.GroupLayout(MainBorder);
         MainBorder.setLayout(MainBorderLayout);
@@ -399,18 +318,6 @@ public final class MainAdminView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void DSChuHoBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DSChuHoBtActionPerformed
-            ButtonNhan(DSChuHoBt);
-            this.setForm(new DSChuHoMainView(this));
-            CapNhatBangTrangThai();
-    }//GEN-LAST:event_DSChuHoBtActionPerformed
-
-    private void DsNhanVienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DsNhanVienBtActionPerformed
-            ButtonNhan(DsNhanVienBt);
-             this.setForm(new DSNhanVienMainView(this));
-            CapNhatBangTrangThai();
-    }//GEN-LAST:event_DsNhanVienBtActionPerformed
-
     private void HoaDonDienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoaDonDienBtActionPerformed
             ButtonNhan(HoaDonDienBt);
             CapNhatBangTrangThai();
@@ -419,42 +326,13 @@ public final class MainAdminView extends javax.swing.JFrame {
     private void DangXuatBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtActionPerformed
             ButtonNhan(DangXuatBt);
             this.dispose();
-            ProgramVariable.username="";
             new Login().setVisible(true);
     }//GEN-LAST:event_DangXuatBtActionPerformed
 
-    private void DSPhanCongBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DSPhanCongBtActionPerformed
-            ButtonNhan(DSPhanCongBt);
-        try {
-            this.setForm(new DSPhanCong(this));
-        } catch (Exception ex) {
-            Logger.getLogger(MainAdminView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void ThongtinCaNhanbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongtinCaNhanbtnActionPerformed
+            ButtonNhan(ThongtinCaNhanbtn);
             CapNhatBangTrangThai();
-    }//GEN-LAST:event_DSPhanCongBtActionPerformed
-
-    private void QLThongTinChungBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLThongTinChungBtActionPerformed
-            ButtonNhan(QLThongTinChungBt);
-            this.setForm(new QLTTChungMainView(this));
-            CapNhatBangTrangThai();
-    }//GEN-LAST:event_QLThongTinChungBtActionPerformed
-
-    private void TrangChuBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrangChuBtActionPerformed
-            ButtonNhan(TrangChuBt);
-            this.setForm(new TrangChuMainView(this));
-            CapNhatBangTrangThai();
-    }//GEN-LAST:event_TrangChuBtActionPerformed
-
-    private void ThongTinSDDienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongTinSDDienBtActionPerformed
-            ButtonNhan(ThongTinSDDienBt);
-            CapNhatBangTrangThai();
-    }//GEN-LAST:event_ThongTinSDDienBtActionPerformed
-
-    private void QLPhanQuyenTKBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLPhanQuyenTKBtActionPerformed
-            ButtonNhan(QLPhanQuyenTKBt);
-            this.setForm(new QLPhanQuyenTKMainView(this));
-            CapNhatBangTrangThai();
-    }//GEN-LAST:event_QLPhanQuyenTKBtActionPerformed
+    }//GEN-LAST:event_ThongtinCaNhanbtnActionPerformed
 
     public void setForm(JComponent com){
         MainPanel.removeAll();
@@ -475,10 +353,9 @@ public final class MainAdminView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LayMotSoUIdepTaiDay.Chart.Chart BarChart1;
     private LayMotSoUIdepTaiDay.Chart.Chart BarChart2;
-    private LayMotSoUIdepTaiDay.ButtonMenu DSChuHoBt;
-    private LayMotSoUIdepTaiDay.ButtonMenu DSPhanCongBt;
     private LayMotSoUIdepTaiDay.ButtonMenu DangXuatBt;
-    private LayMotSoUIdepTaiDay.ButtonMenu DsNhanVienBt;
+    private LayMotSoUIdepTaiDay.PanelTrangThai HoaDonChuaThanhToanTrangThai;
+    private LayMotSoUIdepTaiDay.PanelTrangThai HoaDonDaThanhToanTrangthai;
     private LayMotSoUIdepTaiDay.ButtonMenu HoaDonDienBt;
     private LayMotSoUIdepTaiDay.Chart.LineChart LineChart;
     private javax.swing.JLabel LogoApp;
@@ -486,15 +363,10 @@ public final class MainAdminView extends javax.swing.JFrame {
     private javax.swing.JPanel MainPanel;
     private LayMotSoUIdepTaiDay.Menu Menu;
     private javax.swing.JSeparator MenuSpr;
-    private LayMotSoUIdepTaiDay.ButtonMenu QLPhanQuyenTKBt;
-    private LayMotSoUIdepTaiDay.ButtonMenu QLThongTinChungBt;
     private LayMotSoUIdepTaiDay.SimpleTitleBar SimpleMainTitleBar;
-    private LayMotSoUIdepTaiDay.ButtonMenu ThongTinSDDienBt;
-    private LayMotSoUIdepTaiDay.ButtonMenu TrangChuBt;
-    private LayMotSoUIdepTaiDay.PanelTrangThai TrangThaiChuHo;
+    private LayMotSoUIdepTaiDay.ButtonMenu ThongtinCaNhanbtn;
+    private LayMotSoUIdepTaiDay.PanelTrangThai TongTienDienTrangThai;
     private javax.swing.JLayeredPane TrangThaiLp;
-    private LayMotSoUIdepTaiDay.PanelTrangThai TrangThaiNhanVien;
-    private LayMotSoUIdepTaiDay.PanelTrangThai TrangThaiTien;
     // End of variables declaration//GEN-END:variables
 
 }

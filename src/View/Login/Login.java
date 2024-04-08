@@ -2,7 +2,10 @@
 package View.Login;
 
 import Controller.LoginController.LoginController;
+import Controller.ProgramVariable;
 import View.AdminView.MainAdminView;
+import View.CustomerView.MainCustomerView;
+import View.StaffView.MainStaffView;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -48,7 +51,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/optimal-electrical-logo (1).png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/LogoUngDung.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-50, 70, 440, 280));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 440));
@@ -208,18 +211,27 @@ public class Login extends javax.swing.JFrame {
             String userName=txtUserName.getText();
             char [] passWordchar=txtPassWord.getPassword();
             String passWord =new String(passWordchar);
-            boolean isValid=new LoginController().login(userName, passWord);
-            if(isValid){
+            String user=new LoginController().login(userName, passWord);
+            if(!user.isEmpty()){
+//               JOptionPane.showConfirmDialog(this,"Đăng nhập thành công !" ,"Đăng Nhập", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công !");
+                ProgramVariable.username=user;
                 int privilege=new LoginController().getPrivilege(userName, passWord);
                 if(privilege==0){
                     this.dispose();
                     MainAdminView mainNhanVienView= new MainAdminView();
                     mainNhanVienView.setVisible(true);
                     mainNhanVienView.setLocationRelativeTo(null);
-                }else if(privilege==1){
-                    
                 }else if(privilege==2){
-                    
+                    this.dispose();
+                    MainStaffView mainStaffView =new MainStaffView();
+                    mainStaffView.setVisible(true);
+                    mainStaffView.setLocationRelativeTo(null);
+                }else if(privilege==1){
+                    this.dispose();
+                    MainCustomerView mainCustomerView=new MainCustomerView();
+                    mainCustomerView.setVisible(true);
+                    mainCustomerView.setLocationRelativeTo(null);
                 }
                 
             }else{

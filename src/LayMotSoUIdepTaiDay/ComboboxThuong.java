@@ -34,15 +34,22 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 import Component.ScrollBarCustom;
 
 public class ComboboxThuong<E> extends JComboBox<E> {
-
+//    public void setObject(Object tmp){
+//        this.tmp=tmp;
+//    }
+//    public Object getObject(){
+//        return this.tmp;
+//    }
+    
     public String getLabeText() {
         return labeText;
     }
-
+    
     public void setLabeText(String labeText) {
         this.labeText = labeText;
     }
-
+    
+    
     public Color getLineColor() {
         return lineColor;
     }
@@ -54,7 +61,7 @@ public class ComboboxThuong<E> extends JComboBox<E> {
     private String labeText = "Label";
     private Color lineColor = new Color(3, 155, 216);
     private boolean mouseOver;
-
+    private Object tmp=null;
     @Override
     public void updateUI() {
         super.updateUI();

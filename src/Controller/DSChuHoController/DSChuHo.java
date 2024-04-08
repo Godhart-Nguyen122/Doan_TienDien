@@ -1,5 +1,6 @@
 package Controller.DSChuHoController;
 
+import Controller.DAO.CustomerDAO;
 import Controller.QLPhanQuyenTKController.DSTaiKhoanPhanQuyen;
 import Controller.QLThongTinChungController.DSThongTinChung;
 import Controller.SupportFunction.StringProcessing;
@@ -35,7 +36,12 @@ public class DSChuHo {
             return null;
         }
     }    
-
+    //Danh sách chủ hộ account vẫn còn hoạt động (Có chứa ID_Staffs)
+    public List<Customers>LayDanhSachChuho() throws Exception{
+        List<Customers>listCustomer=new CustomerDAO().getAll();
+        return  listCustomer;
+    }
+    
     public static List<Customers> getListCustomer() {
         return ListCustomer;
     }

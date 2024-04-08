@@ -1,7 +1,9 @@
 package Controller.DAO;
 
 import Controller.DBS;
+import Controller.ProgramVariable;
 import Model.Accounts;
+import Model.Customers;
 import Model.Personal_Infos;
 import java.util.List;
 import java.sql.*;
@@ -130,4 +132,76 @@ public class Personal_InfosDAO {
                 System.out.println("Lỗi hệ thống!!! (Personal_InfosDAO) - UpdateCCCD");
         }        
     }
+    public List<Personal_Infos> getAllStaffGhincInfo()throws Exception{
+//            String SQL= "SELECT * FROM PERSON_INFOS p WHERE p.CCCD IN (SELECT A.CCCD FROM ACCOUNTS A WHERE A.Account_Username IN (SELECT S.Account_Staffs FROM STAFFS S WHERE S.Role = 1) AND A.Status = 0);";
+            String SQL="SELECT P.CCCD, P.Firstname, P.Lastname, P.Middlename, P.DOB, P.Address, P.Phone, P.Sex \n" +
+                        "FROM STAFFS S\n" +
+                        "JOIN ACCOUNTS A ON S.Account_Staffs = A.Account_Username\n" +
+                        "JOIN PERSON_INFOS P ON A.CCCD = P.CCCD\n" +
+                        "WHERE S.Role = 1;";
+        try(
+            Connection con = new DBS().getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+        ){
+            while(rs.next()){
+                  Personal_Infos Ps = new Personal_Infos();
+                  Ps.setCCCD(rs.getString("CCCD"));
+                  Ps.setFirstname(rs.getString("Firstname"));
+                  Ps.setLastname(rs.getString("Lastname"));
+                  Ps.setMiddleName(rs.getString("Middlename"));
+                  Ps.setDOB(rs.getDate("DOB"));
+                  Ps.setAddress(rs.getString("Address"));
+                  Ps.setPhone(rs.getString("Phone"));
+                  Ps.setSex(rs.getBoolean("Sex"));                
+                  
+                  ListPersonal_InfosDAO.add(Ps);
+            }
+        }
+        return ListPersonal_InfosDAO;     
+    }
+    public Personal_Infos getStaffInfosbyID(int id) throws Exception{
+         String SQL = "SELECT " +
+             "    P.CCCD, " +
+             "    P.Firstname, " +
+             "    P.Lastname, " +
+             "    P.Middlename, " +
+             "    P.DOB, " +
+             "    P.Address, " +
+             "    P.Phone, " +
+             "    P.Sex " +
+             "FROM " +
+             "    STAFFS S " +
+             "JOIN " +
+             "    ACCOUNTS A ON S.Account_Staffs = A.Account_Username " +
+             "JOIN " +
+             "    PERSON_INFOS P ON A.CCCD = P.CCCD " +
+             "WHERE S.ID = ?";
+          Personal_Infos Ps = new Personal_Infos();
+
+            try (
+                Connection con = new DBS().getConnection();
+                PreparedStatement stmt = con.prepareStatement(SQL);
+               
+            ) {
+                // Set the parameter value for S.ID
+                stmt.setInt(1, id);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        
+                        Ps.setCCCD(rs.getString("CCCD"));
+                        Ps.setFirstname(rs.getString("Firstname"));
+                        Ps.setLastname(rs.getString("Lastname"));
+                        Ps.setMiddleName(rs.getString("Middlename"));
+                        Ps.setDOB(rs.getDate("DOB"));
+                        Ps.setAddress(rs.getString("Address"));
+                        Ps.setPhone(rs.getString("Phone"));
+                        Ps.setSex(rs.getBoolean("Sex"));                
+
+                        ListPersonal_InfosDAO.add(Ps);
+                    }
+                }
+            }
+            return Ps;
+    }   
 }

@@ -50,7 +50,7 @@
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="OkButton" min="-2" pref="50" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel6" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
@@ -59,18 +59,18 @@
                                   <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="cbChuho" min="-2" pref="227" max="-2" attributes="0"/>
                               <Component id="SDTChuHoField" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" pref="227" max="32767" attributes="0"/>
-                              <Component id="comboboxThuong2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                               <Component id="CCCDChuHoField" alignment="0" max="32767" attributes="0"/>
                               <Component id="TenChuHoField" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="cbNhanVien" max="32767" attributes="0"/>
                               <Component id="TenNhanVienField" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel1" alignment="0" pref="232" max="32767" attributes="0"/>
-                              <Component id="comboboxThuong1" alignment="0" max="32767" attributes="0"/>
                               <Component id="CCCDNhanVienField" alignment="0" max="32767" attributes="0"/>
                               <Component id="SDTNhanVienField" alignment="1" max="32767" attributes="0"/>
                           </Group>
@@ -89,12 +89,12 @@
                       <Component id="jLabel1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="comboboxThuong1" alignment="3" pref="0" max="32767" attributes="0"/>
-                      <Component id="comboboxThuong2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="cbNhanVien" max="32767" attributes="0"/>
+                      <Component id="cbChuho" pref="30" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -133,8 +133,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="comboboxThuong1">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -150,8 +148,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="                    Ch&#x1ee7; h&#x1ed9; "/>
           </Properties>
-        </Component>
-        <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="comboboxThuong2">
         </Component>
         <Component class="javax.swing.JTextField" name="CCCDChuHoField">
           <Properties>
@@ -220,6 +216,48 @@
             </Property>
             <Property name="text" type="java.lang.String" value="PH&#xc2;N C&#xd4;NG"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbNhanVien">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f2" green="f2" red="f2" type="rgb"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="1"/>
+                <StringItem index="1" value="2"/>
+                <StringItem index="2" value="3"/>
+                <StringItem index="3" value=" "/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNhanVienActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbChuho">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f2" green="f2" red="f2" type="rgb"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="1"/>
+                <StringItem index="1" value="2"/>
+                <StringItem index="2" value="3"/>
+                <StringItem index="3" value=" "/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbChuhoActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
