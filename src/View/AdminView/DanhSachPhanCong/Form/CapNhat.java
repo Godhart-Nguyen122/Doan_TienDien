@@ -1,7 +1,18 @@
 
 package View.AdminView.DanhSachPhanCong.Form;
 
+import Controller.DSNhanVienController.DSNhanVien;
+import Controller.DSPhanCongController.DSPhanCongController;
+import Model.Customers;
+import Model.Personal_Infos;
+import Model.Staffs;
 import View.AdminView.MainAdminView;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -10,9 +21,35 @@ import View.AdminView.MainAdminView;
 public class CapNhat extends javax.swing.JDialog {
 
     private MainAdminView mainNhanVienView;
-    public CapNhat(MainAdminView Frame,boolean modal) {
+    private List<Personal_Infos>personal_InfosNV=new ArrayList<>();
+    private List<Customers>personal_InfosCH=new ArrayList<>();
+    private Customers cus=null;
+    
+    public  void refresh() throws Exception{
+        
+         cbNv.removeAllItems();
+         cbChuho.removeAllItems();
+         this.personal_InfosNV=new DSPhanCongController().getAllStaffGhincInfo();
+         //Them Nhan vien ghi nuoc 
+         for(Personal_Infos tmp :personal_InfosNV){
+             String fullname=tmp.getLastname()+ " " +tmp.getMiddleName()+" "+tmp.getLastname();
+             cbNv.addItem(fullname);
+             System.out.println(fullname);
+        }
+         //Them chu ho vao combobox
+        String fullname=this.cus.getLastname()+ " " +this.cus.getMiddleName()+" "+this.cus.getFirstname();
+        cbChuho.addItem(fullname);
+        this.CCCDChuHoField.setText(cus.getCCCD());
+        this.TenChuHoField.setText(fullname);
+        this.SDTChuHoField.setText(cus.getPhone());
+    }
+   
+    
+    public CapNhat(MainAdminView Frame,boolean modal,Customers c) throws Exception {
         this.mainNhanVienView = Frame;
         initComponents();
+        this.cus=c;
+        refresh();
         this.setResizable(false);
         this.setTitle("Cập Nhật");
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
@@ -29,10 +66,10 @@ public class CapNhat extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        comboboxThuong1 = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        cbNv = new LayMotSoUIdepTaiDay.ComboboxThuong();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        comboboxThuong2 = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        cbChuho = new LayMotSoUIdepTaiDay.ComboboxThuong();
         CCCDChuHoField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -47,6 +84,12 @@ public class CapNhat extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        cbNv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNvActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setText("               Nhân Viên ");
@@ -76,6 +119,11 @@ public class CapNhat extends javax.swing.JDialog {
 
         OkButton.setText("OK");
         OkButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        OkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OkButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setText("Cập Nhật");
@@ -102,14 +150,14 @@ public class CapNhat extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(SDTChuHoField)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                            .addComponent(comboboxThuong2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbChuho, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(CCCDChuHoField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TenChuHoField))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(TenNhanVienField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                            .addComponent(comboboxThuong1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbNv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(CCCDNhanVienField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(SDTNhanVienField))))
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -124,8 +172,8 @@ public class CapNhat extends javax.swing.JDialog {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboboxThuong1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(comboboxThuong2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbNv, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(cbChuho, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -170,6 +218,45 @@ public class CapNhat extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbNvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNvActionPerformed
+        this.cbNv.getSelectedIndex();
+       
+        int index=cbNv.getSelectedIndex();
+        if(index<0){
+            index=0;
+        }
+        this.CCCDNhanVienField.setText(personal_InfosNV.get(index).getCCCD());
+        String fullname=personal_InfosNV.get(index).getLastname()+ " " +personal_InfosNV.get(index).getMiddleName()+" "+personal_InfosNV.get(index).getLastname();
+        this.TenNhanVienField.setText(fullname);
+        this.SDTNhanVienField.setText(personal_InfosNV.get(index).getPhone());
+    }//GEN-LAST:event_cbNvActionPerformed
+
+    private void OkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkButtonActionPerformed
+        int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục cập nhật phân công chủ hộ này?", "XÁC NHẬN", JOptionPane.YES_NO_OPTION);
+        if(option==JOptionPane.YES_OPTION){
+            String CCDDStaff=personal_InfosNV.get(cbNv.getSelectedIndex()).getCCCD();
+            Staffs tmp=new DSNhanVien().SearchObjCCCD(CCDDStaff);
+            int IdCustomer=new DSPhanCongController().getIdCustomerbyCCCD(cus.getCCCD());
+            
+            try {
+            int staffId=new DSPhanCongController().getIdStaffByAccountUsername(tmp.getAccount_Username());
+              
+
+            //Them staffId vao Customer
+           boolean result= new DSPhanCongController().updateId_Staff_Input_toCustomer(staffId, IdCustomer);
+           if(result){
+               JOptionPane.showMessageDialog(null, "Đã cập nhật phân công chủ hộ thành công");
+           }
+        } catch (Exception ex) {
+            Logger.getLogger(PhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        }else{
+            this.dispose();
+        } 
+
+    }//GEN-LAST:event_OkButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -183,8 +270,8 @@ public class CapNhat extends javax.swing.JDialog {
     private javax.swing.JTextField SDTNhanVienField;
     private javax.swing.JTextField TenChuHoField;
     private javax.swing.JTextField TenNhanVienField;
-    private LayMotSoUIdepTaiDay.ComboboxThuong comboboxThuong1;
-    private LayMotSoUIdepTaiDay.ComboboxThuong comboboxThuong2;
+    private LayMotSoUIdepTaiDay.ComboboxThuong cbChuho;
+    private LayMotSoUIdepTaiDay.ComboboxThuong cbNv;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

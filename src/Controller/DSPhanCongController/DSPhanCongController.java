@@ -3,6 +3,7 @@ package Controller.DSPhanCongController;
 
 import Controller.DAO.CustomerDAO;
 import Controller.DAO.Personal_InfosDAO;
+import Controller.DAO.PhanCongDAO;
 import Controller.DSChuHoController.DSChuHo;
 import Model.Customers;
 import Model.Personal_Infos;
@@ -28,5 +29,17 @@ public class DSPhanCongController {
     //Search ra và trả về đối tượng nhân viên đó 
     public Personal_Infos SearchStaffTheoId(int id) throws Exception{
         return new Personal_InfosDAO().getStaffInfosbyID(id);
+    }
+    public int getIdStaffByAccountUsername(String AccountUsername) throws Exception{
+        return new PhanCongDAO().getIDStaffByUserName(AccountUsername);
+    }
+    public boolean addId_Staff_Input_toCustomer(int idStaff ,int idCustomer) throws Exception{
+        return new  PhanCongDAO().addIdStafftoCustomer(idStaff, idCustomer);
+    }
+    public int getIdCustomerbyCCCD(String CCCD){
+        return new CustomerDAO().getIdCustomerbyCCCD(CCCD);
+    }
+    public boolean updateId_Staff_Input_toCustomer(int idStaff, int idCustomer) throws Exception{
+        return new PhanCongDAO().addIdStafftoCustomer(idStaff, idCustomer);
     }
 }

@@ -62,7 +62,7 @@
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="SDTChuHoField" alignment="1" max="32767" attributes="0"/>
                               <Component id="jLabel2" alignment="0" pref="227" max="32767" attributes="0"/>
-                              <Component id="comboboxThuong2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbChuho" alignment="0" max="32767" attributes="0"/>
                               <Component id="CCCDChuHoField" alignment="0" max="32767" attributes="0"/>
                               <Component id="TenChuHoField" alignment="1" max="32767" attributes="0"/>
                           </Group>
@@ -70,7 +70,7 @@
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="TenNhanVienField" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel1" alignment="0" pref="232" max="32767" attributes="0"/>
-                              <Component id="comboboxThuong1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbNv" alignment="0" max="32767" attributes="0"/>
                               <Component id="CCCDNhanVienField" alignment="0" max="32767" attributes="0"/>
                               <Component id="SDTNhanVienField" alignment="1" max="32767" attributes="0"/>
                           </Group>
@@ -91,8 +91,8 @@
                   </Group>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="comboboxThuong1" alignment="3" pref="0" max="32767" attributes="0"/>
-                      <Component id="comboboxThuong2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="cbNv" alignment="3" pref="0" max="32767" attributes="0"/>
+                      <Component id="cbChuho" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -133,7 +133,10 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="comboboxThuong1">
+        <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="cbNv">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNvActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -151,7 +154,7 @@
             <Property name="text" type="java.lang.String" value="                    Ch&#x1ee7; h&#x1ed9; "/>
           </Properties>
         </Component>
-        <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="comboboxThuong2">
+        <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="cbChuho">
         </Component>
         <Component class="javax.swing.JTextField" name="CCCDChuHoField">
           <Properties>
@@ -212,6 +215,9 @@
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OkButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>

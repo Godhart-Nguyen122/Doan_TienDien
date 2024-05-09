@@ -37,15 +37,16 @@ public class DSNhanVienMainView extends javax.swing.JPanel {
         
         model.setRowCount(0);    
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        
+       
         for(Staffs st : dsStaffs){
             String name = st.getFirstname() + " " + st.getMiddleName()+ " " + st.getLastname();
             String Ten = new StringProcessing().Name(name);
-
+           
+            System.out.println(st.isRole());
             Object[] rowData = {
                 st.getCCCD(), Ten, dateFormat.format(st.getDOB()), 
                 st.getAddress(), st.getPhone(), st.getAccount_Username(),
-                st.getAccount_Password()
+                st.getAccount_Password(),st.isRole()==false ? "Ghi Điện":"Nhập hóa đơn",
             };
 
             model.addRow(rowData);
@@ -76,20 +77,20 @@ public class DSNhanVienMainView extends javax.swing.JPanel {
 
         BangDSNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CCCD", "Họ và tên", "Ngày sinh", "Địa chỉ", "SĐT", "Account", "Password"
+                "CCCD", "Họ và tên", "Ngày sinh", "Địa chỉ", "SĐT", "Account", "Password", "Vai trò"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -120,14 +121,12 @@ public class DSNhanVienMainView extends javax.swing.JPanel {
             }
         });
 
-        DangChonTf.setBackground(new java.awt.Color(255, 255, 255));
         DangChonTf.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         DangChonTf.setForeground(new java.awt.Color(102, 102, 102));
         DangChonTf.setText("NULL");
         DangChonTf.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         DangChonLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        DangChonLbl.setForeground(new java.awt.Color(0, 0, 0));
         DangChonLbl.setText("Đang chọn (CCCD):");
 
         TimKiemTf.setBackground(new java.awt.Color(204, 204, 204));
@@ -145,7 +144,6 @@ public class DSNhanVienMainView extends javax.swing.JPanel {
             }
         });
 
-        TimKiemCb.setForeground(new java.awt.Color(0, 0, 0));
         TimKiemCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CCCD", "Họ và tên", "Địa chỉ", "SĐT", "Account" }));
         TimKiemCb.setSelectedItem(null
         );
@@ -167,13 +165,11 @@ public class DSNhanVienMainView extends javax.swing.JPanel {
             }
         });
 
-        LocCkb.setForeground(new java.awt.Color(0, 0, 0));
         LocCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo ngày sinh" }));
         LocCkb.setSelectedItem(null);
         LocCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         LocCkb.setLabeText("(Chọn thuộc tính cần lọc)");
 
-        SapXepCkb.setForeground(new java.awt.Color(0, 0, 0));
         SapXepCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo CCCD", "Theo họ và tên", "Theo địa chỉ", "Theo SĐT", "Theo ngày sinh", "Theo Account" }));
         SapXepCkb.setSelectedItem(null);
         SapXepCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

@@ -31,10 +31,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="capNhatButton" min="-2" pref="111" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="xoaButton" min="-2" pref="111" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="refreshButton" min="-2" pref="111" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="123" max="32767" attributes="0"/>
           </Group>
           <Component id="ScrollPane" alignment="1" max="32767" attributes="0"/>
       </Group>
@@ -51,11 +49,10 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="phanCongButton" alignment="3" pref="0" max="32767" attributes="0"/>
                       <Component id="capNhatButton" alignment="3" pref="0" max="32767" attributes="0"/>
-                      <Component id="xoaButton" alignment="3" pref="0" max="32767" attributes="0"/>
                       <Component id="refreshButton" alignment="3" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <EmptySpace type="separate" pref="83" max="32767" attributes="0"/>
               <Component id="ScrollPane" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -160,7 +157,7 @@
     <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="phanCongButton">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/6.png"/>
+          <Image iconType="3" name="/Icon/8.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Ph&#xe2;n C&#xf4;ng"/>
       </Properties>
@@ -179,21 +176,16 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="capNhatButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="xoaButton">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/6.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
-      </Properties>
-    </Component>
     <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="refreshButton">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/6.png"/>
+          <Image iconType="3" name="/Icon/4.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="L&#xe0;m M&#x1edb;i"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

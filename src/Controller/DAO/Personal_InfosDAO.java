@@ -138,7 +138,7 @@ public class Personal_InfosDAO {
                         "FROM STAFFS S\n" +
                         "JOIN ACCOUNTS A ON S.Account_Staffs = A.Account_Username\n" +
                         "JOIN PERSON_INFOS P ON A.CCCD = P.CCCD\n" +
-                        "WHERE S.Role = 1;";
+                        "WHERE S.Role = 0;";
         try(
             Connection con = new DBS().getConnection();
             Statement stmt = con.createStatement();

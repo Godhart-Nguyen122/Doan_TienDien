@@ -31,6 +31,7 @@ public class Staffs extends Accounts{
         this.setStatus(acc.isStatus());
         this.setAddress(Ps.getAddress());
         
+        
     }
     
     

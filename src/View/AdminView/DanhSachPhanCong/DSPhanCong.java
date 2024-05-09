@@ -10,13 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class DSPhanCong extends javax.swing.JPanel {
 
     private MainAdminView mainAdminView = new MainAdminView();
-     private List<Personal_Infos>personal_InfosNV=new ArrayList<>();
+    private List<Personal_Infos>personal_InfosNV=new ArrayList<>();
     private List<Customers>personal_InfosCH=new ArrayList<>();
+    private int seletedRow=-1;
     
     public void showThongtin() throws Exception{
         this.personal_InfosCH=new DSPhanCongController().getAllCustomers();
@@ -27,11 +32,12 @@ public class DSPhanCong extends javax.swing.JPanel {
         for(Customers tmp : personal_InfosCH){
             Personal_Infos newStaff=new DSPhanCongController().SearchStaffTheoId(tmp.getId_Staff());
             String nameCH=tmp.getLastname()+" "+tmp.getMiddleName()+" "+tmp.getFirstname();
+            String nameStaff="";
             if(newStaff!=null){
-                String nameStaff=newStaff.getLastname()+" "+newStaff.getMiddleName()+" "+newStaff.getFirstname();
+                nameStaff=newStaff.getLastname()+" "+newStaff.getMiddleName()+" "+newStaff.getFirstname();
                 model.addRow(new Object[]{tmp.getCCCD(),newStaff.getCCCD(),nameCH,tmp.getPhone(),tmp.getAddress(),nameStaff,newStaff.getPhone(),newStaff.getAddress()});
             }else{
-                model.addRow(new Object[]{tmp.getCCCD()," ",nameCH,tmp.getPhone(),tmp.getAddress()," "," "," "});
+                model.addRow(new Object[]{tmp.getCCCD()," ",nameCH,tmp.getPhone(),tmp.getAddress(),nameStaff," "," "});
             }
         }
     }
@@ -43,6 +49,9 @@ public class DSPhanCong extends javax.swing.JPanel {
         this.setSize(mainAdminView.getMainPanel().getSize());
         this.setVisible(true);
         showThongtin();
+        BangDSPhanCong.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+       
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -55,7 +64,6 @@ public class DSPhanCong extends javax.swing.JPanel {
         TimKiemButton = new LayMotSoUIdepTaiDay.ButtonThuong();
         phanCongButton = new LayMotSoUIdepTaiDay.ButtonThuong();
         capNhatButton = new LayMotSoUIdepTaiDay.ButtonThuong();
-        xoaButton = new LayMotSoUIdepTaiDay.ButtonThuong();
         refreshButton = new LayMotSoUIdepTaiDay.ButtonThuong();
 
         setPreferredSize(new java.awt.Dimension(757, 557));
@@ -100,7 +108,7 @@ public class DSPhanCong extends javax.swing.JPanel {
             }
         });
 
-        phanCongButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/6.png"))); // NOI18N
+        phanCongButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/8.png"))); // NOI18N
         phanCongButton.setText("Phân Công");
         phanCongButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,11 +124,13 @@ public class DSPhanCong extends javax.swing.JPanel {
             }
         });
 
-        xoaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/6.png"))); // NOI18N
-        xoaButton.setText("Xóa");
-
-        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/6.png"))); // NOI18N
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/4.png"))); // NOI18N
         refreshButton.setText("Làm Mới");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -136,10 +146,8 @@ public class DSPhanCong extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(capNhatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(xoaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
             .addComponent(ScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
@@ -153,9 +161,8 @@ public class DSPhanCong extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(phanCongButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(capNhatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(xoaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 83, Short.MAX_VALUE)
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -178,9 +185,39 @@ public class DSPhanCong extends javax.swing.JPanel {
     }//GEN-LAST:event_phanCongButtonActionPerformed
 
     private void capNhatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capNhatButtonActionPerformed
-       CapNhat capNhat = new CapNhat(mainAdminView, true);
-       capNhat.setVisible(true);
+        System.out.println(BangDSPhanCong.getSelectedRow());
+       
+        if(BangDSPhanCong.getSelectedRow()==-1){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn chủ hộ cần cập nhật !! ");
+          
+        }else{
+             String CccdCH= (String) BangDSPhanCong.getValueAt(BangDSPhanCong.getSelectedRow(),0);
+             Customers tmp=null;
+             for(Customers a :personal_InfosCH){
+                 if(a.getCCCD().equals(CccdCH)){
+                     tmp=a;
+                     break;
+                 }
+             }  
+             CapNhat capNhat;
+            try {
+                capNhat = new CapNhat(mainAdminView, true,tmp);
+                capNhat.setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(DSPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             
+        }
+      
     }//GEN-LAST:event_capNhatButtonActionPerformed
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        try {
+            showThongtin();
+        } catch (Exception ex) {
+            Logger.getLogger(DSPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -191,6 +228,5 @@ public class DSPhanCong extends javax.swing.JPanel {
     private LayMotSoUIdepTaiDay.ButtonThuong capNhatButton;
     private LayMotSoUIdepTaiDay.ButtonThuong phanCongButton;
     private LayMotSoUIdepTaiDay.ButtonThuong refreshButton;
-    private LayMotSoUIdepTaiDay.ButtonThuong xoaButton;
     // End of variables declaration//GEN-END:variables
 }

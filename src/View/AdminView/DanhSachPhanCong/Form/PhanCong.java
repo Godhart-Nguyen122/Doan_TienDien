@@ -2,10 +2,12 @@
 package View.AdminView.DanhSachPhanCong.Form;
 
 import Controller.DSChuHoController.DSChuHo;
+import Controller.DSNhanVienController.DSNhanVien;
 import Controller.DSPhanCongController.DSPhanCongController;
 import Controller.ProgramVariable;
 import Model.Customers;
 import Model.Personal_Infos;
+import Model.Staffs;
 import View.AdminView.MainAdminView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,29 +17,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 public class PhanCong extends javax.swing.JDialog {
 
     private MainAdminView mainNhanVienView;
     private List<Personal_Infos>personal_InfosNV=new ArrayList<>();
-    private List<Customers>personal_InfosCH=new ArrayList<>();
+    private List<Customers>personal_InfosCHNChuaPC=new ArrayList<>();
     
     public  void refresh() throws Exception{
         
          cbNhanVien.removeAllItems();
          cbChuho.removeAllItems();
+         //Them Nhan vien ghi nuoc 
          for(Personal_Infos tmp :personal_InfosNV){
              String fullname=tmp.getLastname()+ " " +tmp.getMiddleName()+" "+tmp.getLastname();
              cbNhanVien.addItem(fullname);
              System.out.println(fullname);
         }
+         //Them chu ho chua phan cong 
          System.out.println("=========================");
-         for(Customers tmp :personal_InfosCH){
-             if(tmp.getId_Staff() == -1){
+         for(Customers tmp :personal_InfosCHNChuaPC){
                  String fullname=tmp.getLastname()+ " " +tmp.getMiddleName()+" "+tmp.getLastname();
                  cbChuho.addItem(fullname);
-                 System.out.println(fullname);
-             }
+                 System.out.println(fullname);        
          }
     }
     
@@ -46,7 +49,11 @@ public class PhanCong extends javax.swing.JDialog {
         this.mainNhanVienView = Frame;
         initComponents();
         this.personal_InfosNV=new DSPhanCongController().getAllStaffGhincInfo();
-        this.personal_InfosCH=new DSPhanCongController().getAllCustomers();
+        for(Customers tmp :new DSPhanCongController().getAllCustomers()){
+            if(tmp.getId_Staff()==0){
+                personal_InfosCHNChuaPC.add(tmp);
+            }
+        }
         refresh();
         this.setResizable(false);
         this.setTitle("Thêm Phân Công");
@@ -108,6 +115,11 @@ public class PhanCong extends javax.swing.JDialog {
 
         OkButton.setText("OK");
         OkButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        OkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OkButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setText("PHÂN CÔNG");
@@ -234,11 +246,41 @@ public class PhanCong extends javax.swing.JDialog {
         if(index<0){
             index=0;
         }
-        this.CCCDChuHoField.setText(personal_InfosCH.get(index).getCCCD());
-        String fullname=personal_InfosCH.get(index).getLastname()+ " " +personal_InfosCH.get(index).getMiddleName()+" "+personal_InfosCH.get(index).getLastname();
+        this.CCCDChuHoField.setText(personal_InfosCHNChuaPC.get(index).getCCCD());
+        String fullname=personal_InfosCHNChuaPC.get(index).getLastname()+ " " +personal_InfosCHNChuaPC.get(index).getMiddleName()+" "+personal_InfosCHNChuaPC.get(index).getLastname();
         this.TenChuHoField.setText(fullname);
-        this.SDTChuHoField.setText(personal_InfosCH.get(index).getPhone());
+        this.SDTChuHoField.setText(personal_InfosCHNChuaPC.get(index).getPhone());
     }//GEN-LAST:event_cbChuhoActionPerformed
+
+    private void OkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkButtonActionPerformed
+    int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục phân công chủ hộ này?", "XÁC NHẬN", JOptionPane.YES_NO_OPTION);
+    if(option==JOptionPane.YES_OPTION){
+        // T
+        String CCDDStaff=personal_InfosNV.get(cbNhanVien.getSelectedIndex()).getCCCD();
+        Staffs tmp=new DSNhanVien().SearchObjCCCD(CCDDStaff);
+        
+        int index=cbChuho.getSelectedIndex();
+        Customers selectedChuHo=personal_InfosCHNChuaPC.get(index);
+        int IdCustomer=new DSPhanCongController().getIdCustomerbyCCCD(selectedChuHo.getCCCD());
+        
+//        // Viết dài đỡ cho việc query
+        try {
+            int staffId=new DSPhanCongController().getIdStaffByAccountUsername(tmp.getAccount_Username());
+                    System.out.println("id staff: " +staffId);
+
+            //Them staffId vao Customer
+           boolean result= new DSPhanCongController().addId_Staff_Input_toCustomer(staffId, IdCustomer);
+           if(result){
+               JOptionPane.showMessageDialog(null, "Đã phân công chủ hộ thành công");
+           }
+        } catch (Exception ex) {
+            Logger.getLogger(PhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }else if(option==JOptionPane.NO_OPTION){
+        this.dispose();
+    }
+    }//GEN-LAST:event_OkButtonActionPerformed
 
 
 
