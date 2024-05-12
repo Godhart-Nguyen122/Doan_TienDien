@@ -1,47 +1,127 @@
 package View.AdminView.ThongTinSuDungDien;
 
+import Controller.DSPhanCongController.DSPhanCongController;
+import Controller.ThongTinSDDienController.ThongTinSDDienController;
+import LayMotSoUIdepTaiDay.BangDanhSach;
+import LayMotSoUIdepTaiDay.ComboboxThuong;
 import Model.Customers;
+import Model.E_Meters;
+import Model.Personal_Infos;
 import View.AdminView.MainAdminView;
+import View.AdminView.ThongTinSuDungDien.ThongTinSDDienForm.SortLoaiStringThongTinSDDienDialog;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class ThongTinSDDienView extends javax.swing.JPanel {
-//    private ThongTinSuDung thongTinSuDung;
-//    private List<ThongTinSuDung> lstThongTinSuDungs;
-//
-//    public ThongTinSuDung getThongTinSuDung() {
-//        return thongTinSuDung;
-//    }
-//
-//    public void setThongTinSuDung(ThongTinSuDung thongTinSuDung) {
-//        this.thongTinSuDung = thongTinSuDung;
-//    }
+
     
-   private MainAdminView mainNhanVienView = new MainAdminView();
+    private MainAdminView mainAdminView = new MainAdminView();
+    private List<Customers> listcustomer=new ArrayList<Customers>();
+    private List<E_Meters> listemeter=new ArrayList<E_Meters>();
+    private DefaultTableModel model;
+
     
-    public ThongTinSDDienView(MainAdminView mnv) {
+    public ThongTinSDDienView(MainAdminView mainAdminView) throws Exception {
         initComponents();
+         this.mainAdminView = mainAdminView;
+         this.setSize(mainAdminView.getMainPanel().getSize());
+        this.BangDSThongTinSD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.model= (DefaultTableModel) BangDSThongTinSD.getModel();
+        this.model.getDataVector().removeAllElements();
+        this.model.fireTableDataChanged();
+        
+        LammoiDS();
+        ShowThongTinTuDBS2(this.listcustomer,this.listemeter);
     }
-     public void LammoiDS(){
-//        lstThongTinSuDungs = new DSThongTinSDController().getLstThongTinSuDungs();
+    public  void LammoiDS() throws Exception{
+       this.listcustomer.clear();
+       this.listemeter.clear();
+       this.model.setRowCount(0);
+       
+       this.listcustomer=new ThongTinSDDienController().getListCustomer();
+       this.listemeter=new ThongTinSDDienController().getListEmeter();
     }
-    public void ShowThongTinTuDBS(){
-//         DefaultTableModel model ;
-//        model =(DefaultTableModel) BangDSThongTinSD.getModel();
-//        model.setRowCount(0);  
-//        BangDSThongTinSD.clearSelection();
-//        for(ThongTinSuDung ttsd : lstThongTinSuDungs){
-//            Object[] rowData = {
-//                ttsd.getCCCD(), ttsd.getUsername(), ttsd.getPhone(), ttsd.getID_E_Meter(), 
-//                ttsd.getDiaChi(), ttsd.getType_living(), ttsd.getCCCD_NhanVien(), 
-//                ttsd.getUsername_NhanVien(), ttsd.getPhone_NhanVien()
-//            };
-//        model.addRow(rowData); 
-//        }
-//            model.fireTableDataChanged();
+    
+    public boolean checkcustomerIdinE(int customerId){
+        for(E_Meters tmp:listemeter){
+            if(tmp.getID_Customer()==customerId){
+                return true;
+            }
+        }
+        return false;
+    }
+    //Mục đích làm function dùng lại cho trường hợp chủ hộ đã có công tơ điện và chủ hộ chưa có công tơ điện 
+    public void ShowThongTinTuDBS2(List<Customers>listcus,List<E_Meters>eList) throws Exception{
+        this.model.setRowCount(0);
+        if(listcus.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Danh sách Chủ hộ rỗng ");
+        }else if(eList.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Danh sách công tơ điện rỗng ");
+        }else{
+            
+            for(Customers tmpcus:listcus){
+                //Get CustomerInfo
+                int customerId=new ThongTinSDDienController().getIdCustomerbyCCCD(tmpcus.getCCCD());
+                String tenCustmer=tmpcus.getLastname()+" "+tmpcus.getMiddleName()+" "+tmpcus.getFirstname();
+                //Get StaffInfo
+                int staffId=tmpcus.getId_Staff(); 
+                Personal_Infos InputStaffInfos =new ThongTinSDDienController().SearchStaffTheoId(staffId);
+                String tenStaff="";
+                String cccdStaff="";
+                String phoneStaff="";
+                if(InputStaffInfos !=null){
+                    tenStaff=InputStaffInfos.getLastname()+" "+InputStaffInfos.getMiddleName()+" "+InputStaffInfos.getFirstname();
+                    cccdStaff= InputStaffInfos.getCCCD();
+                    phoneStaff=InputStaffInfos.getPhone();
+                }
+                //Kiem tra da co trong Emeter chua 
+                
+                Object [] row=null;
+                
+                if(!checkcustomerIdinE(customerId)){
+                    //Truong hop customer ko co cong to dien 
+                    row = new Object[]{
+                                    tmpcus.getCCCD(),      
+                                    tenCustmer,             
+                                    tmpcus.getPhone(),     
+                                    "",              
+                                    "",         
+                                    "",       
+                                    cccdStaff,  
+                                    tenStaff,           
+                                    phoneStaff, 
+                                 }; 
+                    model.addRow(row);
+                }else{
+                    //Truogn hop da co cong to dien 
+                    for(E_Meters tmpe:eList ){   
+                        int customerIdinE=tmpe.getID_Customer();
+                        if(customerId==customerIdinE){
+                                row = new Object[]{
+                                                tmpcus.getCCCD(),      
+                                                tenCustmer,             
+                                                tmpcus.getPhone(),     
+                                                tmpe.getID_E_Meter(),              
+                                                tmpe.getAddress(),         
+                                                tmpe.getType_Living(),       
+                                                cccdStaff,  
+                                                tenStaff,           
+                                                phoneStaff, 
+                                            };
+                            model.addRow(row);  
+                        }
+                    }
+                }
+   
+            }
+        }    
     }
     
     @SuppressWarnings("unchecked")
@@ -49,74 +129,28 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
     private void initComponents() {
 
         NhapCTDCB = new javax.swing.ButtonGroup();
-        ScrollPane = new javax.swing.JScrollPane();
-        BangDSThongTinSD = new LayMotSoUIdepTaiDay.BangDanhSach();
         TimKiemTF = new javax.swing.JTextField();
-        ThemCTDienBT = new LayMotSoUIdepTaiDay.ButtonThuong();
         TimKiemBT = new LayMotSoUIdepTaiDay.ButtonThuong();
-        XoaBT = new LayMotSoUIdepTaiDay.ButtonThuong();
         ChuaNhapCTDCB = new LayMotSoUIdepTaiDay.CheckBox();
         LamMoiBT = new LayMotSoUIdepTaiDay.ButtonThuong();
         DaNhapCTDCB = new LayMotSoUIdepTaiDay.CheckBox();
-        CapNhatBT = new LayMotSoUIdepTaiDay.ButtonThuong();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        BangDSThongTinSD = new LayMotSoUIdepTaiDay.BangDanhSach();
+        TimKiemCb = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        SapXepCkb = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        SapXepBt = new LayMotSoUIdepTaiDay.ButtonThuong();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(757, 557));
 
-        BangDSThongTinSD.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "CCCD ", "Tên", "SĐT", "Mã số công tơ điện", "Địa chỉ", "Hình thức ở", "CCCD nhân viên", "Tên nhân viên", "SĐT nhân viên"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        BangDSThongTinSD.setPreferredSize(new java.awt.Dimension(525, 160));
-        BangDSThongTinSD.getTableHeader().setReorderingAllowed(false);
-        ScrollPane.setViewportView(BangDSThongTinSD);
-
         TimKiemTF.setBackground(new java.awt.Color(231, 231, 231));
         TimKiemTF.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
-        ThemCTDienBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Isert_icon.png"))); // NOI18N
-        ThemCTDienBT.setText("Thêm công tơ điện");
-        ThemCTDienBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ThemCTDienBTActionPerformed(evt);
-            }
-        });
 
         TimKiemBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/search.png"))); // NOI18N
         TimKiemBT.setText("Tìm kiếm");
         TimKiemBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TimKiemBTActionPerformed(evt);
-            }
-        });
-
-        XoaBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/delete_icon.png"))); // NOI18N
-        XoaBT.setText("Xóa");
-        XoaBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                XoaBTActionPerformed(evt);
             }
         });
 
@@ -148,11 +182,52 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
             }
         });
 
-        CapNhatBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/6.png"))); // NOI18N
-        CapNhatBT.setText("Cập nhật");
-        CapNhatBT.addActionListener(new java.awt.event.ActionListener() {
+        BangDSThongTinSD.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "CCCDCh", "Tên", "SĐT", "Mã Công tơ", "Địa chỉ", "Hình thức ở", "CCCD nhân viên", "Tên nhân viên", "SĐT nhân viên"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(BangDSThongTinSD);
+
+        TimKiemCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CCCDCh", "Họ và tên Ch", "Địa chỉ", "SĐTCh", "Hình thức ở" }));
+        TimKiemCb.setSelectedItem(null
+        );
+        TimKiemCb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TimKiemCb.setLabeText("(Tìm kiếm theo)");
+        TimKiemCb.setLineColor(new java.awt.Color(0, 153, 255));
+
+        SapXepCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo CCCD ", "Theo họ và tên ", "Theo địa chỉ", "Theo SĐT", "Theo hình thức ở", "Theo Mã Công tơ " }));
+        SapXepCkb.setSelectedItem(null);
+        SapXepCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SapXepCkb.setLabeText("(Chọn thuộc tính cần sắp xếp)");
+
+        SapXepBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/sort.png"))); // NOI18N
+        SapXepBt.setText("Sắp xếp");
+        SapXepBt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        SapXepBt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CapNhatBTActionPerformed(evt);
+                SapXepBtActionPerformed(evt);
             }
         });
 
@@ -160,122 +235,177 @@ public class ThongTinSDDienView extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(ThemCTDienBT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TimKiemCb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LamMoiBT, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(CapNhatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(XoaBT, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LamMoiBT, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addComponent(SapXepCkb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(SapXepBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ThemCTDienBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(XoaBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(CapNhatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 25, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(LamMoiBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TimKiemCb, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5))
+                    .addComponent(SapXepCkb, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SapXepBt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ThemCTDienBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThemCTDienBTActionPerformed
-        showThemCongToDienDialog();
-    }//GEN-LAST:event_ThemCTDienBTActionPerformed
-
     private void TimKiemBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimKiemBTActionPerformed
-//        String key = TimKiemTF.getText();
-//        if(key.isEmpty()){
-//            JOptionPane.showMessageDialog(this, "Vui lòng không được bỏ trống!");
-//        }else{
-//            new Controller.ChuHoController.DSChuHoController().TimKiemChuHo(key, BangDSThongTinSD);
-//        }
+        BangDSThongTinSD.setSelectionMode(2);
+        Object selected = TimKiemCb.getSelectedItem();
+        if(TimKiemTF.getText().replaceAll(" ", "").equals("") || selected == null){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn loại tìm kiếm và không bỏ trống thông tin nhập!!!");            
+        }else if(selected.equals("CCCDCh")){
+            if(!DSPhanCongController.Searching(TimKiemTF.getText(), BangDSThongTinSD, 1))
+               JOptionPane.showMessageDialog(this, "Không tìm thấy Chủ hộ có CCCD: " + TimKiemTF.getText());
+            else
+               JOptionPane.showMessageDialog(this, "Đã tìm thấy Chủ hộ có CCCD: " + TimKiemTF.getText());  
+        }else if(selected.equals("Họ và tên Ch")){
+            if(!DSPhanCongController.Searching(TimKiemTF.getText(), BangDSThongTinSD, 2))
+               JOptionPane.showMessageDialog(this, "Không tìm thấy Chủ hộ có họ tên: " + TimKiemTF.getText());
+            else
+               JOptionPane.showMessageDialog(this, "Đã tìm thấy Chủ hộ có họ tên: " + TimKiemTF.getText());              
+        }else if(selected.equals("Địa chỉ")){
+            if(!DSPhanCongController.Searching(TimKiemTF.getText(), BangDSThongTinSD, 3))
+               JOptionPane.showMessageDialog(this, "Không tìm thấy Chủ hộ có địa chỉ: " + TimKiemTF.getText());
+            else
+               JOptionPane.showMessageDialog(this, "Đã tìm thấy Chủ hộ có địa chỉ: " + TimKiemTF.getText());              
+        }else if(selected.equals("SĐTCh")){
+            if(!DSPhanCongController.Searching(TimKiemTF.getText(), BangDSThongTinSD, 4))
+               JOptionPane.showMessageDialog(this, "Không tìm thấy Chủ hộ có SĐT: " + TimKiemTF.getText());
+            else
+               JOptionPane.showMessageDialog(this, "Đã tìm thấy Chủ hộ có SĐT: " + TimKiemTF.getText());              
+        }else if(selected.equals("Hình thức ở")){
+            if(!DSPhanCongController.Searching(TimKiemTF.getText(), BangDSThongTinSD, 5))
+               JOptionPane.showMessageDialog(this, "Không tìm thấy Chủ hộ có Account: " + TimKiemTF.getText());
+            else
+               JOptionPane.showMessageDialog(this, "Đã tìm thấy Chủ hộ có Account: " + TimKiemTF.getText());              
+        }
     }//GEN-LAST:event_TimKiemBTActionPerformed
 
-    private void XoaBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XoaBTActionPerformed
-        
-    }//GEN-LAST:event_XoaBTActionPerformed
-
     private void LamMoiBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiBTActionPerformed
-        mainNhanVienView.setForm(new ThongTinSDDienView(mainNhanVienView));
+        try {
+            mainAdminView.setForm(new ThongTinSDDienView(mainAdminView));
+            DaNhapCTDCB.setSelected(false);
+            ChuaNhapCTDCB.setSelected(false);
+            NhapCTDCB.clearSelection();
+        } catch (Exception ex) {
+            Logger.getLogger(ThongTinSDDienView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_LamMoiBTActionPerformed
 
     private void ChuaNhapCTDCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChuaNhapCTDCBActionPerformed
-//        TimKiemTF.setText(null);
-//        BangDSThongTinSD.clearSelection();
-//        lstThongTinSuDungs=new DSThongTinSDController().HienThiChuaNhap(BangDSThongTinSD);
-//        ShowThongTinTuDBS();
-//        ChuaNhapCTDCB.setEnabled(false);
-//        DaNhapCTDCB.setEnabled(true);
+        List<Customers> newListCustomer=new ArrayList<>();
+        for(Customers tmpCus: listcustomer){
+            int cusId=new ThongTinSDDienController().getIdCustomerbyCCCD(tmpCus.getCCCD());
+            if(!checkcustomerIdinE(cusId)){
+                newListCustomer.add(tmpCus);
+            }
+        }
+        try {
+            ShowThongTinTuDBS2(newListCustomer, this.listemeter);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_ChuaNhapCTDCBActionPerformed
 
     private void DaNhapCTDCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DaNhapCTDCBActionPerformed
-//        TimKiemTF.setText(null);
-//        BangDSThongTinSD.clearSelection();
-//         lstThongTinSuDungs=new DSThongTinSDController().HienThiDaNhap(BangDSThongTinSD);
-//        ShowThongTinTuDBS();
-//        ChuaNhapCTDCB.setEnabled(true);
-//        DaNhapCTDCB.setEnabled(false);
+        List<Customers> newListCustomer=new ArrayList<>();
+        //Loc ra danh sach cac customer da co cong to dien 
+        for(Customers tmpCus : listcustomer){
+            int cusId=new ThongTinSDDienController().getIdCustomerbyCCCD(tmpCus.getCCCD());
+            for(E_Meters tmpe  : listemeter){
+                if(tmpe.getID_Customer()==cusId){
+                    newListCustomer.add(tmpCus);
+                    break;
+                }
+            }
+        }
+        try {
+            ShowThongTinTuDBS2(newListCustomer, this.listemeter);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_DaNhapCTDCBActionPerformed
 
-    private void CapNhatBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapNhatBTActionPerformed
-//        if(!(BangDSThongTinSD.getSelectionModel().isSelectionEmpty())){
-//            showCapNhatCongToDienDialog();
-//        }else{
-//            JOptionPane.showMessageDialog(this, "Vui lòng chọn chủ hộ cần cập nhật công tơ điện!!!");
-//        }
-    }//GEN-LAST:event_CapNhatBTActionPerformed
-    
+    private void SapXepBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SapXepBtActionPerformed
+        Object selected = SapXepCkb.getSelectedItem();
+        if(selected == null){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thuộc tính cần sắp xếp!!!");
+        }else{
+            SortLoaiStringThongTinSDDienDialog sortLoaiStringThongTinSDDienDialog = new SortLoaiStringThongTinSDDienDialog(this.mainAdminView, this, true);
+            sortLoaiStringThongTinSDDienDialog.setVisible(true);
+        }
+    }//GEN-LAST:event_SapXepBtActionPerformed
+     public ComboboxThuong getSapXepCkb() {
+        return SapXepCkb;
+    }
+
+    public void setSapXepCkb(ComboboxThuong SapXepCkb) {
+        this.SapXepCkb = SapXepCkb;
+    }
     private void showCapNhatCongToDienDialog() {
-//        CapNhatCongToDien congToDien = new CapNhatCongToDien(mainNhanVienView, this, true);
-//        congToDien.setVisible(true);
+
     }  
+
+    public BangDanhSach getBangDSThongTinSD() {
+        return BangDSThongTinSD;
+    }
+
+    public void setBangDSThongTinSD(BangDanhSach BangDSThongTinSD) {
+        this.BangDSThongTinSD = BangDSThongTinSD;
+    }
     
     private void showThemCongToDienDialog() {
-//        ThemCongToDien themCongToDien = new ThemCongToDien(mainNhanVienView, this, true);
-//        themCongToDien.setVisible(true);
+
     }  
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LayMotSoUIdepTaiDay.BangDanhSach BangDSThongTinSD;
-    private LayMotSoUIdepTaiDay.ButtonThuong CapNhatBT;
     private LayMotSoUIdepTaiDay.CheckBox ChuaNhapCTDCB;
     private LayMotSoUIdepTaiDay.CheckBox DaNhapCTDCB;
     private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBT;
     private javax.swing.ButtonGroup NhapCTDCB;
-    private javax.swing.JScrollPane ScrollPane;
-    private LayMotSoUIdepTaiDay.ButtonThuong ThemCTDienBT;
+    private LayMotSoUIdepTaiDay.ButtonThuong SapXepBt;
+    private LayMotSoUIdepTaiDay.ComboboxThuong SapXepCkb;
     private LayMotSoUIdepTaiDay.ButtonThuong TimKiemBT;
+    private LayMotSoUIdepTaiDay.ComboboxThuong TimKiemCb;
     private javax.swing.JTextField TimKiemTF;
-    private LayMotSoUIdepTaiDay.ButtonThuong XoaBT;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

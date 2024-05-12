@@ -7,6 +7,7 @@ import LayMotSoUIdepTaiDay.ComboboxThuong;
 import Model.Staffs;
 import View.AdminView.DSNhanVienView.DSNhanVienDialog.FilterLoaiDateDSNVDialog;
 import View.AdminView.DSNhanVienView.DSNhanVienDialog.SortLoaiStringDSNVDialog;
+import View.AdminView.DanhSachPhanCong.Form.SortLoaiStringDSPhanCongDialog;
 import View.AdminView.MainAdminView;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -150,6 +151,11 @@ public class DSNhanVienMainView extends javax.swing.JPanel {
         TimKiemCb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TimKiemCb.setLabeText("(Tìm kiếm theo)");
         TimKiemCb.setLineColor(new java.awt.Color(0, 153, 255));
+        TimKiemCb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TimKiemCbActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator1.setForeground(new java.awt.Color(102, 102, 102));
@@ -326,10 +332,14 @@ public class DSNhanVienMainView extends javax.swing.JPanel {
         if(selected == null){
             JOptionPane.showMessageDialog(this, "Vui lòng chọn thuộc tính cần sắp xếp!!!");             
         }else{
-            SortLoaiStringDSNVDialog sortLoaiStringDSNVDialog = new SortLoaiStringDSNVDialog(this.MainAdminview, this, true);
+            SortLoaiStringDSNVDialog sortLoaiStringDSNVDialog =new SortLoaiStringDSNVDialog(this.MainAdminview, this, true);
             sortLoaiStringDSNVDialog.setVisible(true);  
         }
     }//GEN-LAST:event_SapXepBtActionPerformed
+
+    private void TimKiemCbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimKiemCbActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TimKiemCbActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

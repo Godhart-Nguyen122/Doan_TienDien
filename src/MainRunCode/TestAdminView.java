@@ -10,8 +10,9 @@ public class TestAdminView {
         MF.setVisible(true);
         MF.setSize(1500, 700);
     }
-    
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         new TestAdminView().MainFormLoadding();
     }
+    
+
 }

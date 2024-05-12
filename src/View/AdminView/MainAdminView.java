@@ -12,6 +12,7 @@ import View.AdminView.DSNhanVienView.DSNhanVienMainView;
 import View.AdminView.DanhSachPhanCong.DSPhanCong;
 import View.AdminView.QLPhanQuyenTKView.QLPhanQuyenTKMainView;
 import View.AdminView.QLThongTinChungView.QLTTChungMainView;
+import View.AdminView.ThongTinSuDungDien.ThongTinSDDienView;
 import View.AdminView.TrangChuView.TrangChuMainView;
 import View.Login.Login;
 import java.awt.BorderLayout;
@@ -447,6 +448,11 @@ public final class MainAdminView extends javax.swing.JFrame {
 
     private void ThongTinSDDienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongTinSDDienBtActionPerformed
             ButtonNhan(ThongTinSDDienBt);
+        try {
+            this.setForm(new ThongTinSDDienView(this));
+        } catch (Exception ex) {
+            Logger.getLogger(MainAdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
             CapNhatBangTrangThai();
     }//GEN-LAST:event_ThongTinSDDienBtActionPerformed
 

@@ -1,18 +1,19 @@
-package View.AdminView.DSNhanVienView.DSNhanVienDialog;
+package View.AdminView.ThongTinSuDungDien.ThongTinSDDienForm;
 
-import Controller.DSNhanVienController.DSNhanVien;
-import View.AdminView.DSNhanVienView.DSNhanVienMainView;
+
+import Controller.ThongTinSDDienController.ThongTinSDDienController;
 import View.AdminView.MainAdminView;
+import View.AdminView.ThongTinSuDungDien.ThongTinSDDienView;
 import javax.swing.JOptionPane;
 
-public class SortLoaiStringDSNVDialog extends javax.swing.JDialog {
+public class SortLoaiStringThongTinSDDienDialog extends javax.swing.JDialog {
     private MainAdminView MainAdminview;
-    private DSNhanVienMainView DsNhanVienMainView;
+    private ThongTinSDDienView thongtinSDDienView;
     
-    public SortLoaiStringDSNVDialog(MainAdminView mainAdminView, DSNhanVienMainView dSNhanVienMainView, boolean modal) {
+    public SortLoaiStringThongTinSDDienDialog(MainAdminView mainAdminView, ThongTinSDDienView thongtinSDDienView, boolean modal) {
         initComponents();
         this.MainAdminview = mainAdminView;
-        this.DsNhanVienMainView = dSNhanVienMainView;
+        this.thongtinSDDienView = thongtinSDDienView;
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -143,19 +144,19 @@ public class SortLoaiStringDSNVDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelBtActionPerformed
 
     public void SortDialog(int loaiSapXep){
-        Object selected = DsNhanVienMainView.getSapXepCkb().getSelectedItem();
+        Object selected = thongtinSDDienView.getSapXepCkb().getSelectedItem();
         if(selected.equals("Theo CCCD")){
-            DSNhanVien.Sorting(loaiSapXep, 1, DsNhanVienMainView.getBangDSNhanVien());
+            ThongTinSDDienController.Sorting(loaiSapXep, 1, thongtinSDDienView.getBangDSThongTinSD());
         }else if(selected.equals("Theo họ và tên")){
-            DSNhanVien.Sorting(loaiSapXep, 2, DsNhanVienMainView.getBangDSNhanVien());                
+            ThongTinSDDienController.Sorting(loaiSapXep, 2, thongtinSDDienView.getBangDSThongTinSD());                
         }else if(selected.equals("Theo địa chỉ")){
-            DSNhanVien.Sorting(loaiSapXep, 3, DsNhanVienMainView.getBangDSNhanVien());                
+            ThongTinSDDienController.Sorting(loaiSapXep, 3, thongtinSDDienView.getBangDSThongTinSD());                
         }else if(selected.equals("Theo SĐT")){
-            DSNhanVien.Sorting(loaiSapXep, 4, DsNhanVienMainView.getBangDSNhanVien());                
-        }else if(selected.equals("Theo Account")){
-            DSNhanVien.Sorting(loaiSapXep, 5, DsNhanVienMainView.getBangDSNhanVien());                
-        }else if(selected.equals("Theo ngày sinh")){
-            DSNhanVien.Sorting(loaiSapXep, 6, DsNhanVienMainView.getBangDSNhanVien());                
+            ThongTinSDDienController.Sorting(loaiSapXep, 4, thongtinSDDienView.getBangDSThongTinSD());                
+        }else if(selected.equals("Theo hình thức ở")){
+            ThongTinSDDienController.Sorting(loaiSapXep, 5, thongtinSDDienView.getBangDSThongTinSD());                
+        }else if(selected.equals("Theo Mã Công tơ")){
+            ThongTinSDDienController.Sorting(loaiSapXep, 6, thongtinSDDienView.getBangDSThongTinSD());                
         }          
     }
     

@@ -1,18 +1,20 @@
-package View.AdminView.DSNhanVienView.DSNhanVienDialog;
+package View.AdminView.DanhSachPhanCong.Form;
 
-import Controller.DSNhanVienController.DSNhanVien;
+
+import Controller.DSPhanCongController.DSPhanCongController;
 import View.AdminView.DSNhanVienView.DSNhanVienMainView;
+import View.AdminView.DanhSachPhanCong.DSPhanCong;
 import View.AdminView.MainAdminView;
 import javax.swing.JOptionPane;
 
-public class SortLoaiStringDSNVDialog extends javax.swing.JDialog {
+public class SortLoaiStringDSPhanCongDialog extends javax.swing.JDialog {
     private MainAdminView MainAdminview;
-    private DSNhanVienMainView DsNhanVienMainView;
+    private DSPhanCong dSPhanCong;
     
-    public SortLoaiStringDSNVDialog(MainAdminView mainAdminView, DSNhanVienMainView dSNhanVienMainView, boolean modal) {
+    public SortLoaiStringDSPhanCongDialog(MainAdminView mainAdminView, DSPhanCong dSPhanCong, boolean modal) {
         initComponents();
         this.MainAdminview = mainAdminView;
-        this.DsNhanVienMainView = dSNhanVienMainView;
+        this.dSPhanCong = dSPhanCong;
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -143,20 +145,16 @@ public class SortLoaiStringDSNVDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelBtActionPerformed
 
     public void SortDialog(int loaiSapXep){
-        Object selected = DsNhanVienMainView.getSapXepCkb().getSelectedItem();
+        Object selected = dSPhanCong.getSapXepCkb().getSelectedItem();
         if(selected.equals("Theo CCCD")){
-            DSNhanVien.Sorting(loaiSapXep, 1, DsNhanVienMainView.getBangDSNhanVien());
+            DSPhanCongController.Sorting(loaiSapXep, 1, dSPhanCong.getBangDSPhanCong());
         }else if(selected.equals("Theo họ và tên")){
-            DSNhanVien.Sorting(loaiSapXep, 2, DsNhanVienMainView.getBangDSNhanVien());                
+            DSPhanCongController.Sorting(loaiSapXep, 2, dSPhanCong.getBangDSPhanCong());                
         }else if(selected.equals("Theo địa chỉ")){
-            DSNhanVien.Sorting(loaiSapXep, 3, DsNhanVienMainView.getBangDSNhanVien());                
+            DSPhanCongController.Sorting(loaiSapXep, 3, dSPhanCong.getBangDSPhanCong());                
         }else if(selected.equals("Theo SĐT")){
-            DSNhanVien.Sorting(loaiSapXep, 4, DsNhanVienMainView.getBangDSNhanVien());                
-        }else if(selected.equals("Theo Account")){
-            DSNhanVien.Sorting(loaiSapXep, 5, DsNhanVienMainView.getBangDSNhanVien());                
-        }else if(selected.equals("Theo ngày sinh")){
-            DSNhanVien.Sorting(loaiSapXep, 6, DsNhanVienMainView.getBangDSNhanVien());                
-        }          
+            DSPhanCongController.Sorting(loaiSapXep, 4, dSPhanCong.getBangDSPhanCong());                
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
