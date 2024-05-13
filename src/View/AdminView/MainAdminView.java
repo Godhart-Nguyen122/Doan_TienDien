@@ -8,6 +8,7 @@ import Controller.QLThongTinChungController.DSThongTinChung;
 import LayMotSoUIdepTaiDay.ButtonMenu;
 import LayMotSoUIdepTaiDay.Chart.ModelChart;
 import View.AdminView.DSChuHoView.DSChuHoMainView;
+import View.AdminView.DSHoaDonView.DSHoaDonMainView;
 import View.AdminView.DSNhanVienView.DSNhanVienMainView;
 import View.AdminView.DanhSachPhanCong.DSPhanCong;
 import View.AdminView.QLPhanQuyenTKView.QLPhanQuyenTKMainView;
@@ -414,6 +415,11 @@ public final class MainAdminView extends javax.swing.JFrame {
 
     private void HoaDonDienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoaDonDienBtActionPerformed
             ButtonNhan(HoaDonDienBt);
+        try {
+            this.setForm(new DSHoaDonMainView(this));
+        } catch (Exception ex) {
+            Logger.getLogger(MainAdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
             CapNhatBangTrangThai();
     }//GEN-LAST:event_HoaDonDienBtActionPerformed
 

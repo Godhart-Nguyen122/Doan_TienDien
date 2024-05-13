@@ -55,22 +55,22 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="TimKiemTF" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="TimKiemTF" min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="phanCongButton" alignment="3" pref="0" max="32767" attributes="0"/>
                           <Component id="capNhatButton" alignment="3" pref="0" max="32767" attributes="0"/>
                           <Component id="refreshButton" alignment="3" pref="0" max="32767" attributes="0"/>
-                          <Component id="TimKiemButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="TimKiemButton" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="TimKiemCb" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="TimKiemCb" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="SapXepBt" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="SapXepBt" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="SapXepCkb" min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="34" max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
               <Component id="ScrollPane" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>

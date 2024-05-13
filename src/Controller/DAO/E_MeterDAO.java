@@ -32,7 +32,6 @@ public class E_MeterDAO {
                   this.listEmeters.add(tmp);
             }
         }
-           System.out.println("Chieu dai cua e meter ben DAO: "+this.listEmeters.size());
         return listEmeters;
     }
 }
