@@ -12,6 +12,7 @@ import View.AdminView.DSNhanVienView.DSNhanVienMainView;
 import View.AdminView.QLPhanQuyenTKView.QLPhanQuyenTKMainView;
 import View.AdminView.QLThongTinChungView.QLTTChungMainView;
 import View.AdminView.TrangChuView.TrangChuMainView;
+import View.CustomerView.ThongTin.ThongTinView;
 import View.Login.Login;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -331,6 +332,7 @@ public final class MainCustomerView extends javax.swing.JFrame {
 
     private void ThongtinCaNhanbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongtinCaNhanbtnActionPerformed
             ButtonNhan(ThongtinCaNhanbtn);
+            this.setForm(new ThongTinView(this));
             CapNhatBangTrangThai();
     }//GEN-LAST:event_ThongtinCaNhanbtnActionPerformed
 

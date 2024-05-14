@@ -1,11 +1,16 @@
 package Controller.SupportFunction;
 
+import Controller.DAO.CustomerDAO;
+import Controller.DAO.Customer_InfoDAO;
 import Controller.QLPhanQuyenTKController.DSTaiKhoanPhanQuyen;
 import Controller.QLThongTinChungController.DSThongTinChung;
 import Model.Accounts;
+import Model.Customer_Info;
 import Model.Personal_Infos;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CheckingDataExist {
     public static boolean CheckExistCCCD(String CCCD, Personal_Infos ps){
@@ -65,6 +70,21 @@ public class CheckingDataExist {
         
         return false;
     }    
+
+    public static boolean CheckExistCusTomerPhone(String text, String cccd) {
+        try {
+            Customer_InfoDAO cusDAO = new Customer_InfoDAO();
+            List<Customer_Info> cis = cusDAO.getAllCustomer(cccd);
+            for(Customer_Info ci : cis){
+                if(text.trim().equals(ci.getPhone())){
+                    return true;
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CheckingDataExist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     
     public boolean KtraIDCongTo(String ID){
         if (ID.length() != 8 || !ID.matches("[0-9]+"))

@@ -217,7 +217,7 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công !");
                 ProgramVariable.username=user;
                 int privilege=new LoginController().getPrivilege(userName, passWord);
-                if(privilege==2){
+                if(privilege==0){
                     this.dispose();
                     MainAdminView mainNhanVienView= new MainAdminView();
                     mainNhanVienView.setVisible(true);
@@ -227,7 +227,7 @@ public class Login extends javax.swing.JFrame {
                     MainStaffView mainStaffView =new MainStaffView();
                     mainStaffView.setVisible(true);
                     mainStaffView.setLocationRelativeTo(null);
-                }else if(privilege==0){
+                }else if(privilege==2){
                     this.dispose();
                     MainCustomerView mainCustomerView=new MainCustomerView();
                     mainCustomerView.setVisible(true);

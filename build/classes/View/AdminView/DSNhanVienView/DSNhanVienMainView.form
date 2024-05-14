@@ -125,7 +125,7 @@
         <Component class="LayMotSoUIdepTaiDay.BangDanhSach" name="BangDSNhanVien">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="4">
+              <Table columnCount="8" rowCount="4">
                 <Column editable="false" title="CCCD" type="java.lang.String"/>
                 <Column editable="false" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.String"/>
                 <Column editable="false" title="Ng&#xe0;y sinh" type="java.lang.Object"/>
@@ -133,6 +133,7 @@
                 <Column editable="false" title="S&#x110;T" type="java.lang.String"/>
                 <Column editable="false" title="Account" type="java.lang.String"/>
                 <Column editable="false" title="Password" type="java.lang.String"/>
+                <Column editable="false" title="Vai tr&#xf2;" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -200,9 +201,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="DangChonTf">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
         </Property>
@@ -221,9 +219,6 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x110;ang ch&#x1ecd;n (CCCD):"/>
       </Properties>
@@ -261,9 +256,6 @@
     </Component>
     <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="TimKiemCb">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="5">
             <StringItem index="0" value="CCCD"/>
@@ -284,6 +276,9 @@
           <Color blue="ff" green="99" red="0" type="rgb"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TimKiemCbActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
       <Properties>
@@ -315,9 +310,6 @@
     </Component>
     <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="LocCkb">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="1">
             <StringItem index="0" value="Theo ng&#xe0;y sinh"/>
@@ -334,9 +326,6 @@
     </Component>
     <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="SapXepCkb">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="6">
             <StringItem index="0" value="Theo CCCD"/>
