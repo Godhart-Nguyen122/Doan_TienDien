@@ -142,7 +142,7 @@ public class StringProcessing {
     public static void StringFiltering(BangDanhSach bangDanhSach, String Text, int column){
         DefaultTableModel model = (DefaultTableModel) bangDanhSach.getModel();
         for(int row = 0; row < bangDanhSach.getRowCount(); row++){
-            String value = (String) bangDanhSach.getValueAt(row, column);
+            String value = String.valueOf(bangDanhSach.getValueAt(row, column));
             if(!value.equals(Text)){
                 model.removeRow(row);
                 row--;
@@ -153,7 +153,7 @@ public class StringProcessing {
     public static boolean StringSearchingTable(BangDanhSach bangDanhSach, String Text, int column){
         boolean Check = false;
         for(int row = 0; row < bangDanhSach.getRowCount(); row++){
-            String value = (String) bangDanhSach.getValueAt(row, column);
+            String value = String.valueOf(bangDanhSach.getValueAt(row, column)) ;
             if(value.contains(Text)){
                 bangDanhSach.getSelectionModel().addSelectionInterval(row, row);
                 bangDanhSach.scrollRectToVisible(bangDanhSach.getCellRect(row, column, true));

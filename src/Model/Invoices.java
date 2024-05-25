@@ -9,6 +9,17 @@ public class Invoices {
     private Double Total_Price;
     private int ID_E_Meter_Details;
     private int ID_Staff_Write;
+    private String staff_name;
+    private int currentNum;
+    private int level;
+
+    public int getCurrentNum() {
+        return currentNum;
+    }
+
+    public void setCurrentNum(int currentNum) {
+        this.currentNum = currentNum;
+    }
     
     public Invoices() {
     }
@@ -27,12 +38,28 @@ public class Invoices {
         return id;
     }
 
+    public String getStaff_name() {
+        return staff_name;
+    }
+
+    public void setStaff_name(String staff_name) {
+        this.staff_name = staff_name;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
     public int getID_E_Meter_Details() {
         return ID_E_Meter_Details;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void setID_E_Meter_Details(int ID_E_Meter_Details) {

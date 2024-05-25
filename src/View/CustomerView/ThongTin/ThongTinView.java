@@ -8,6 +8,7 @@ import Controller.CustomersController.ThongTinController.ThongTinController;
 import Controller.DAO.Customer_InfoDAO;
 import Controller.SupportFunction.CheckingDataExist;
 import Controller.SupportFunction.StringProcessing;
+import Helper.DateDBToString;
 import Model.Customer_Info;
 import View.CustomerView.MainCustomerView;
 import java.util.logging.Level;
@@ -541,7 +542,7 @@ public class ThongTinView extends javax.swing.JPanel {
         }else{
             this.txtPhai.setText("Nam");
         }
-        this.txtNs.setText(cusInfo.getDOB().toString());
+        this.txtNs.setText(DateDBToString.DateToString(cusInfo.getDOB()));
         this.txtSdt.setText(cusInfo.getPhone());
         this.txtDc.setText(cusInfo.getAddress());
     }

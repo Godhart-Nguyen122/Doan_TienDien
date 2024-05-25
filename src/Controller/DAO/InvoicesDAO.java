@@ -6,8 +6,14 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import Controller.DBS;
+import Controller.ProgramVariable;
+import Helper.DateDBToString;
 import Model.Invoices;
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InvoicesDAO {
     private List<Invoices>invoiceslist=new ArrayList<>();
@@ -35,4 +41,37 @@ public class InvoicesDAO {
         }
         return invoiceslist;
     } 
+    
+    public List<Invoices> getAllInCase(int i) throws Exception{
+        this.invoiceslist.clear();
+        Connection con = new DBS().getConnection();
+        String sql = "{CALL SP_DSHOADON(?, ?)}";
+        
+        CallableStatement cs;
+        try {
+            cs = con.prepareCall(sql);
+            cs.setInt(1, i);
+            cs.setString(2,ProgramVariable.username);
+             
+            ResultSet rs = cs.executeQuery();
+            
+            while(rs.next()){
+                Invoices tmp =new Invoices();
+                tmp.setId(rs.getInt(1));
+                tmp.setInvoice_Date(DateDBToString.DateToString(rs.getDate(2)));
+                tmp.setCurrentNum(rs.getInt(3));
+                tmp.setLevel(rs.getInt(4));
+                tmp.setTotal_Price(rs.getDouble(5));
+                tmp.setStaff_name(rs.getString(6));
+                
+                this.invoiceslist.add(tmp);
+            }
+
+            //System.out.println("Success!");
+        } catch (SQLException ex) {
+            Logger.getLogger(InvoicesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return invoiceslist;
+    } 
+    
 }

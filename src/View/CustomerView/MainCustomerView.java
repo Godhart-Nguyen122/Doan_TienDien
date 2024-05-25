@@ -12,6 +12,7 @@ import View.AdminView.DSNhanVienView.DSNhanVienMainView;
 import View.AdminView.QLPhanQuyenTKView.QLPhanQuyenTKMainView;
 import View.AdminView.QLThongTinChungView.QLTTChungMainView;
 import View.AdminView.TrangChuView.TrangChuMainView;
+import View.CustomerView.DSHoaDonDien.DSHoaDonDien;
 import View.CustomerView.ThongTin.ThongTinView;
 import View.Login.Login;
 import java.awt.BorderLayout;
@@ -21,6 +22,8 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -320,8 +323,13 @@ public final class MainCustomerView extends javax.swing.JFrame {
 
     
     private void HoaDonDienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoaDonDienBtActionPerformed
+        try {
             ButtonNhan(HoaDonDienBt);
+            this.setForm(new DSHoaDonDien(this));
             CapNhatBangTrangThai();
+        } catch (Exception ex) {
+            Logger.getLogger(MainCustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_HoaDonDienBtActionPerformed
 
     private void DangXuatBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtActionPerformed
