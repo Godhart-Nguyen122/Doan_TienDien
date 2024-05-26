@@ -2,7 +2,6 @@ package View.AdminView;
 
 import Controller.DSChuHoController.DSChuHo;
 import Controller.DSNhanVienController.DSNhanVien;
-import Controller.ProgramVariable;
 import Controller.QLPhanQuyenTKController.DSTaiKhoanPhanQuyen;
 import Controller.QLThongTinChungController.DSThongTinChung;
 import LayMotSoUIdepTaiDay.ButtonMenu;
@@ -426,7 +425,6 @@ public final class MainAdminView extends javax.swing.JFrame {
     private void DangXuatBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtActionPerformed
             ButtonNhan(DangXuatBt);
             this.dispose();
-            ProgramVariable.username="";
             new Login().setVisible(true);
     }//GEN-LAST:event_DangXuatBtActionPerformed
 

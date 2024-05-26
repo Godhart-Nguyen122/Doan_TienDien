@@ -148,9 +148,6 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="LoaiTuoiGrp"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="T&#x1eeb; A &#x111;&#x1ebf;n Z (b&#xe9; &#x111;&#x1ebf;n l&#x1edb;n)"/>
       </Properties>
     </Component>
@@ -166,9 +163,6 @@
         </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="LoaiTuoiGrp"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="T&#x1eeb; Z &#x111;&#x1ebf;n A (l&#x1edb;n &#x111;&#x1ebf;n b&#xe9;)"/>
       </Properties>

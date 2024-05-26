@@ -1,7 +1,6 @@
 package Controller.DAO;
 
 import Controller.DBS;
-import Controller.ProgramVariable;
 import Model.Accounts;
 import Model.Customers;
 import Model.Personal_Infos;

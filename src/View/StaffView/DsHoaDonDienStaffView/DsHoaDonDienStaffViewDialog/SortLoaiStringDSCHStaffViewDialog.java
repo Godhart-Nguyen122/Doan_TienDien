@@ -1,18 +1,21 @@
-package View.AdminView.DSChuHoView.DSChuHoDialog;
+package View.StaffView.DsHoaDonDienStaffView.DsHoaDonDienStaffViewDialog;
 
+import View.AdminView.DSChuHoView.DSChuHoDialog.*;
 import Controller.DSChuHoController.DSChuHo;
 import View.AdminView.DSChuHoView.DSChuHoMainView;
 import View.AdminView.MainAdminView;
+import View.StaffView.DsHoaDonDienStaffView.DSHoaDonStaffView;
+import View.StaffView.MainStaffView;
 import javax.swing.JOptionPane;
 
-public class SortLoaiStringDSCHDialog extends javax.swing.JDialog {
-    private MainAdminView MainAdminview;
-    private DSChuHoMainView DsChuHoMainView;
+public class SortLoaiStringDSCHStaffViewDialog extends javax.swing.JDialog {
+    private MainStaffView mainStaffView;
+    private DSHoaDonStaffView dSHoaDonStaffView;
     
-    public SortLoaiStringDSCHDialog(MainAdminView mainAdminView, DSChuHoMainView dSChuHoMainView, boolean modal) {
+    public SortLoaiStringDSCHStaffViewDialog(MainStaffView mainStaffView, DSHoaDonStaffView dSHoaDonStaffView, boolean modal) {
         initComponents();
-        this.MainAdminview = mainAdminView;
-        this.DsChuHoMainView = dSChuHoMainView;
+        this.mainStaffView =mainStaffView;
+        this.dSHoaDonStaffView = dSHoaDonStaffView;
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -59,13 +62,11 @@ public class SortLoaiStringDSCHDialog extends javax.swing.JDialog {
         AZCkb.setBackground(new java.awt.Color(0, 0, 0));
         AZCkb.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         LoaiTuoiGrp.add(AZCkb);
-        AZCkb.setForeground(new java.awt.Color(0, 0, 0));
         AZCkb.setText("Từ A đến Z (bé đến lớn)");
 
         ZACkb.setBackground(new java.awt.Color(0, 0, 0));
         ZACkb.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         LoaiTuoiGrp.add(ZACkb);
-        ZACkb.setForeground(new java.awt.Color(0, 0, 0));
         ZACkb.setText("Từ Z đến A (lớn đến bé)");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -145,20 +146,20 @@ public class SortLoaiStringDSCHDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelBtActionPerformed
 
     public void SortDialog(int loaiSapXep){
-        Object selected = DsChuHoMainView.getSapXepCkb().getSelectedItem();
-        if(selected.equals("Theo CCCD")){
-            DSChuHo.Sorting(loaiSapXep, 1, DsChuHoMainView.getBangDSChuHo());
-        }else if(selected.equals("Theo họ và tên")){
-            DSChuHo.Sorting(loaiSapXep, 2, DsChuHoMainView.getBangDSChuHo());                
-        }else if(selected.equals("Theo địa chỉ")){
-            DSChuHo.Sorting(loaiSapXep, 3, DsChuHoMainView.getBangDSChuHo());                
-        }else if(selected.equals("Theo SĐT")){
-            DSChuHo.Sorting(loaiSapXep, 4, DsChuHoMainView.getBangDSChuHo());                
-        }else if(selected.equals("Theo Account")){
-            DSChuHo.Sorting(loaiSapXep, 5, DsChuHoMainView.getBangDSChuHo());                
-        }else if(selected.equals("Theo ngày sinh")){
-            DSChuHo.Sorting(loaiSapXep, 6, DsChuHoMainView.getBangDSChuHo());                
-        }          
+//        Object selected = DsChuHoMainView.getSapXepCkb().getSelectedItem();
+//        if(selected.equals("Theo CCCD")){
+//            DSChuHo.Sorting(loaiSapXep, 1, DsChuHoMainView.getBangDSChuHo());
+//        }else if(selected.equals("Theo họ và tên")){
+//            DSChuHo.Sorting(loaiSapXep, 2, DsChuHoMainView.getBangDSChuHo());                
+//        }else if(selected.equals("Theo địa chỉ")){
+//            DSChuHo.Sorting(loaiSapXep, 3, DsChuHoMainView.getBangDSChuHo());                
+//        }else if(selected.equals("Theo SĐT")){
+//            DSChuHo.Sorting(loaiSapXep, 4, DsChuHoMainView.getBangDSChuHo());                
+//        }else if(selected.equals("Theo Account")){
+//            DSChuHo.Sorting(loaiSapXep, 5, DsChuHoMainView.getBangDSChuHo());                
+//        }else if(selected.equals("Theo ngày sinh")){
+//            DSChuHo.Sorting(loaiSapXep, 6, DsChuHoMainView.getBangDSChuHo());                
+//        }          
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

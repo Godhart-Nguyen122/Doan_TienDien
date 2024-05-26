@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Staffs extends Accounts{
     private List<Customers> ListCustomers;
+    private int id;
     private boolean role;
 
     public Staffs() {}
