@@ -33,6 +33,45 @@ public class PhanCongDAO {
         }
         return id;
     }
+    public boolean getRoleStaffbyUserName(String Account_Username) throws Exception{
+        String SQL="SELECT Role FROM STAFFS S WHERE S.Account_Staffs=?";
+        Connection cnn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        boolean role=false;
+        try{
+            cnn = DBS.getConnection();
+            preparedStatement = cnn.prepareStatement(SQL);
+            preparedStatement.setString(1, Account_Username);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                role=resultSet.getBoolean("Role");
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return role;
+    }
+    public boolean getRoleStaffbyId(int id) throws Exception{
+           String SQL="SELECT Role FROM STAFFS S WHERE S.ID=?";
+        Connection cnn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        boolean role=false;
+        try{
+            cnn = DBS.getConnection();
+            preparedStatement = cnn.prepareStatement(SQL);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                role=resultSet.getBoolean("Role");
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return role;
+    }
+    
     public boolean  addIdStafftoCustomer(int idStaff, int idCustomer) throws Exception{
         String SQL="UPDATE CUSTOMERS\n" +
                     "SET ID_Staff_Input =  ? \n" +

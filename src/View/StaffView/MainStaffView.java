@@ -13,6 +13,8 @@ import View.AdminView.QLPhanQuyenTKView.QLPhanQuyenTKMainView;
 import View.AdminView.QLThongTinChungView.QLTTChungMainView;
 import View.AdminView.TrangChuView.TrangChuMainView;
 import View.Login.Login;
+import View.StaffView.DSChuhoStaffView.DSChuHoStaffView;
+import View.StaffView.DsHoaDonDienStaffView.DSHoaDonStaffView;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -20,14 +22,17 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import org.apache.commons.compress.harmony.unpack200.bytecode.forms.ThisFieldRefForm;
 
 public final class MainStaffView extends javax.swing.JFrame {
     public List<ButtonMenu> ListButton;
+    private int idStaff;
+    private List<Integer>listcus;
     DecimalFormat decimalFormat = new DecimalFormat("#");
     DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
     
@@ -39,8 +44,10 @@ public final class MainStaffView extends javax.swing.JFrame {
         this.revalidate();
     }
     
-    public MainStaffView(){
+    public MainStaffView(int idStaff, List<Integer>listcus){
         new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
+        this.idStaff=idStaff;
+        this.listcus=listcus;
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         SimpleMainTitleBar.init(this);
@@ -91,7 +98,6 @@ public final class MainStaffView extends javax.swing.JFrame {
             }}
         });
     }
-    
     public void XuLyChart(){
         BarChart1.addLegend("Income", new Color(12, 84, 175), new Color(0, 108, 247));
         BarChart1.addLegend("Expense", new Color(54, 4, 143), new Color(104, 49, 200));
@@ -343,13 +349,28 @@ public final class MainStaffView extends javax.swing.JFrame {
     
     private void DSChuHoBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DSChuHoBtActionPerformed
             ButtonNhan(DSChuHoBt);
-//            this.setForm(new DSChuHoMainView(this));
+        try {
+            this.setForm(new DSChuHoStaffView(this,this.idStaff,this.listcus));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally{
             CapNhatBangTrangThai();
+        }
+          
     }//GEN-LAST:event_DSChuHoBtActionPerformed
 
     private void HoaDonDienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoaDonDienBtActionPerformed
             ButtonNhan(HoaDonDienBt);
+        try {
+            this.setForm(new DSHoaDonStaffView(this,this.idStaff));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally{
             CapNhatBangTrangThai();
+        }
+         
     }//GEN-LAST:event_HoaDonDienBtActionPerformed
 
     private void DangXuatBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtActionPerformed
@@ -383,6 +404,12 @@ public final class MainStaffView extends javax.swing.JFrame {
         }
         bt.Nhan();
     }
+
+   
+
+    
+
+    
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LayMotSoUIdepTaiDay.Chart.Chart BarChart1;

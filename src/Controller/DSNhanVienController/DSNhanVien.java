@@ -34,7 +34,8 @@ public class DSNhanVien {
             ex.printStackTrace();
             return null;
         }
-    }    
+    }
+    
 
     public static List<Staffs> getListStaffs() {
         return ListStaffs;

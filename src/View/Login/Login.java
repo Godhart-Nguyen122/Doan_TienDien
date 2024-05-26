@@ -1,15 +1,20 @@
 
 package View.Login;
 
+import Controller.DAO.PhanCongDAO;
 import Controller.LoginController.LoginController;
-import Controller.ProgramVariable;
+import Controller.ProgramVariableAndFunction;
 import View.AdminView.MainAdminView;
 import View.CustomerView.MainCustomerView;
 import View.StaffView.MainStaffView;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
     private int priviledge;
+    private Map<Integer, List<Integer>> combineLists;
     public Login() {
         initComponents();
 //        txtUserName.setBackground(new java.awt.Color(0,0,0,1));
@@ -215,19 +220,34 @@ public class Login extends javax.swing.JFrame {
             if(!user.isEmpty()){
 //               JOptionPane.showConfirmDialog(this,"Đăng nhập thành công !" ,"Đăng Nhập", JOptionPane.OK_OPTION);
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công !");
-                ProgramVariable.username=user;
+                
                 int privilege=new LoginController().getPrivilege(userName, passWord);
                 if(privilege==0){
                     this.dispose();
-                    MainAdminView mainNhanVienView= new MainAdminView();
-                    mainNhanVienView.setVisible(true);
-                    mainNhanVienView.setLocationRelativeTo(null);
+                    MainAdminView mianadAdminView= new MainAdminView();
+                    mianadAdminView.setVisible(true);
+                    mianadAdminView.setLocationRelativeTo(null);
                 }else if(privilege==1){
                     this.dispose();
-                    MainStaffView mainStaffView =new MainStaffView();
-                    mainStaffView.setVisible(true);
-                    mainStaffView.setLocationRelativeTo(null);
-                }else if(privilege==2){
+                    int idStaff=new PhanCongDAO().getIDStaffByUserName(userName);
+                    boolean tmp=new PhanCongDAO().getRoleStaffbyUserName(userName);
+                    if(tmp){
+                        this.combineLists=new ProgramVariableAndFunction().combineLists();
+                        List<Integer>tmpcus=this.combineLists.get(idStaff);
+                        MainStaffView mainStaffView=new MainStaffView(idStaff,tmpcus);
+                        mainStaffView.setVisible(true);
+                        mainStaffView.setLocationRelativeTo(null);
+                    }else{
+                        List<Integer>tmpcus=new ArrayList<>();
+                        MainStaffView mainStaffView =new MainStaffView(idStaff,tmpcus);
+                        mainStaffView.setVisible(true);
+                        mainStaffView.setLocationRelativeTo(null);
+                    }
+                   
+                   
+                    
+                
+                }else if(privilege==0){
                     this.dispose();
                     MainCustomerView mainCustomerView=new MainCustomerView();
                     mainCustomerView.setVisible(true);
