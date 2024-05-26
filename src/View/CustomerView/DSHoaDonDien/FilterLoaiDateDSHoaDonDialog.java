@@ -1,19 +1,21 @@
-package View.AdminView.DSHoaDonView.DSHoaDonDialog;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
+package View.CustomerView.DSHoaDonDien;
 
 import Controller.DSHoaDonController.DSHoaDonController;
-import View.AdminView.DSHoaDonView.DSHoaDonMainView;
-import View.AdminView.MainAdminView;
-import static java.awt.Dialog.DEFAULT_MODALITY_TYPE;
+import View.CustomerView.*;
 import javax.swing.JOptionPane;
 
 public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
-    private MainAdminView MainAdminview;
-    private DSHoaDonMainView dshdmv;
+    private MainCustomerView mctv;
+    private DSHoaDonDien dshd;
     
-    public FilterLoaiDateDSHoaDonDialog(MainAdminView mainAdminView, DSHoaDonMainView dshdmv, boolean modal) {
+    public FilterLoaiDateDSHoaDonDialog(MainCustomerView cv, DSHoaDonDien dshd, boolean modal) {
         initComponents();
-        this.MainAdminview = mainAdminView;
-        this.dshdmv = dshdmv;
+        this.mctv = cv;
+        this.dshd = dshd;
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -26,7 +28,6 @@ public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
         
         NamCb.setEnabled(false);
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,8 +45,6 @@ public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
         NamCb = new com.toedter.calendar.JYearChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(null);
-        setIconImages(null);
 
         OkBt.setText("Ok");
         OkBt.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +141,7 @@ public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
                         .addComponent(OkBt, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(CancelBt, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, Short.MAX_VALUE))
+                .addGap(45, 84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +170,7 @@ public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OkBt)
                     .addComponent(CancelBt))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,19 +179,19 @@ public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
     private void OkBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkBtActionPerformed
         boolean check = false;
         if(NgayCkb.isSelected()){
-            DSHoaDonController.Filter((String)NgayCb.getSelectedItem(), 1, 1, this.dshdmv.getBangDSHoaDon());
+            DSHoaDonController.Filter((String)NgayCb.getSelectedItem(), 1, 1, this.dshd.getBangDSHoaDon());
             check = true;
         }
         if(ThangCkb.isSelected()){
-            DSHoaDonController.Filter((String)ThangCb.getSelectedItem(), 2, 1, dshdmv.getBangDSHoaDon());
+            DSHoaDonController.Filter((String)ThangCb.getSelectedItem(), 2, 1, dshd.getBangDSHoaDon());
             check = true;
         }
         if(NamCkb.isSelected()){
-            DSHoaDonController.Filter(String.valueOf(NamCb.getYear()), 3, 1, dshdmv.getBangDSHoaDon()); 
+            DSHoaDonController.Filter(String.valueOf(NamCb.getYear()), 3, 1, dshd.getBangDSHoaDon());
             check = true;
         }
         if(check)
-            JOptionPane.showMessageDialog(this, "Đã lọc bảng theo ngày sinh!!!");              
+        JOptionPane.showMessageDialog(this, "Đã lọc bảng theo ngày sinh!!!");
     }//GEN-LAST:event_OkBtActionPerformed
 
     private void CancelBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtActionPerformed
@@ -202,32 +201,32 @@ public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
     private void NgayCkbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NgayCkbActionPerformed
         if(NgayCkb.isSelected()){
             NgayCb.setEnabled(true);
-            NgayCb.setEditable(true);  
+            NgayCb.setEditable(true);
         }else{
             NgayCb.setEnabled(false);
-            NgayCb.setEditable(false);            
+            NgayCb.setEditable(false);
         }
     }//GEN-LAST:event_NgayCkbActionPerformed
-
-    private void ThangCkbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThangCkbActionPerformed
-        if(ThangCkb.isSelected()){
-            ThangCb.setEnabled(true);
-            ThangCb.setEditable(true);  
-        }else{
-            ThangCb.setEnabled(false);
-            ThangCb.setEditable(false);            
-        }
-    }//GEN-LAST:event_ThangCkbActionPerformed
 
     private void NamCkbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamCkbActionPerformed
         if(NamCkb.isSelected()){
             NamCb.setEnabled(true);
         }else{
-            NamCb.setEnabled(false);       
+            NamCb.setEnabled(false);
         }
     }//GEN-LAST:event_NamCkbActionPerformed
 
-    
+    private void ThangCkbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThangCkbActionPerformed
+        if(ThangCkb.isSelected()){
+            ThangCb.setEnabled(true);
+            ThangCb.setEditable(true);
+        }else{
+            ThangCb.setEnabled(false);
+            ThangCb.setEditable(false);
+        }
+    }//GEN-LAST:event_ThangCkbActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelBt;
     private com.toedter.calendar.JYearChooser NamCb;

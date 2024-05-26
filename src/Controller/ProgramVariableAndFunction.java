@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ProgramVariableAndFunction {
-    private static Accounts LoginAccount;
+    private static Accounts LoginAccount = new Accounts();
     private List<Staffs>stafflist=new ArrayList<>();
     private List<Customers>cuslist=new ArrayList<>();
     private Map<Integer,List<Integer>> combinedMap = new HashMap<>();
@@ -65,5 +65,15 @@ public class ProgramVariableAndFunction {
         }
         return combinedMap;
     }
+
+    public static String getLoginAccount() {
+        return LoginAccount.getAccount_Username();
+    }
+
+    public static void setLoginAccount(String Account_Username) {
+        ProgramVariableAndFunction.LoginAccount.setAccount_Username(Account_Username);
+    }
+    
+    
     
 }

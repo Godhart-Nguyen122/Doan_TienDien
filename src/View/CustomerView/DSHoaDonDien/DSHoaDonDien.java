@@ -3,26 +3,19 @@ package View.CustomerView.DSHoaDonDien;
 import Controller.CustomerView.DSHoaDon.DSHoaDon;
 import View.CustomerView.MainCustomerView;
 import Controller.DSHoaDonController.DSHoaDonController;
-import View.AdminView.ThongTinSuDungDien.*;
 import LayMotSoUIdepTaiDay.BangDanhSach;
 import LayMotSoUIdepTaiDay.ComboboxThuong;
-import Model.Customers;
 import Model.Invoices;
-import View.CustomerView.DSHoaDonDien.SortLoaiStringDSHoaDonDialog;
 
 
-import View.AdminView.MainAdminView;
-import View.AdminView.ThongTinSuDungDien.ThongTinSDDienForm.SortLoaiStringThongTinSDDienDialog;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import View.CustomerView.DSHoaDonDien.FilterLoaiDateDSHoaDonDialog;
 
 public class DSHoaDonDien extends javax.swing.JPanel {
 
@@ -67,15 +60,13 @@ public class DSHoaDonDien extends javax.swing.JPanel {
                 int level = invoices.getLevel();
                 int kwh = invoices.getCurrentNum();
                 String ngaylap=invoices.getInvoice_Date();
-                Double tongtien=invoices.getTotal_Price();
                 
                 Object[] datarow={
                     id,
                     nv,
                     level,
                     kwh,
-                    ngaylap,
-                    tongtien
+                    ngaylap
                 };      
                 model.addRow(datarow);
             }
@@ -98,6 +89,8 @@ public class DSHoaDonDien extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         BangDSHoaDon = new LayMotSoUIdepTaiDay.BangDanhSach();
         TimKiemCb = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        LocCkb = new LayMotSoUIdepTaiDay.ComboboxThuong();
+        LocBt = new LayMotSoUIdepTaiDay.ButtonThuong();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(757, 557));
@@ -111,7 +104,7 @@ public class DSHoaDonDien extends javax.swing.JPanel {
             }
         });
 
-        SapXepCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo ID", "Theo nhân viên ", "Theo mức điện", "Theo số kwh", "Theo ngày lập", "Theo tổng tiền" }));
+        SapXepCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo ID", "Theo nhân viên ", "Theo mức điện", "Theo số kwh", "Theo ngày lập" }));
         SapXepCkb.setSelectedItem(null);
         SapXepCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         SapXepCkb.setLabeText("(Chọn thuộc tính cần sắp xếp)");
@@ -157,20 +150,20 @@ public class DSHoaDonDien extends javax.swing.JPanel {
 
         BangDSHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nhân viên lập", "Mức điện", "Số kwh", "Ngày lập", "Tổng tiền "
+                "ID", "Nhân viên lập", "Mức điện", "Số kwh", "Ngày lập"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -190,6 +183,20 @@ public class DSHoaDonDien extends javax.swing.JPanel {
         TimKiemCb.setLabeText("(Tìm kiếm theo)");
         TimKiemCb.setLineColor(new java.awt.Color(0, 153, 255));
 
+        LocCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo ngày sinh" }));
+        LocCkb.setSelectedItem(null);
+        LocCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LocCkb.setLabeText("(Chọn thuộc tính cần lọc)");
+
+        LocBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/filter.png"))); // NOI18N
+        LocBt.setText("Lọc");
+        LocBt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LocBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LocBtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,24 +205,26 @@ public class DSHoaDonDien extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TimKiemCb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(TimKiemCb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TimKiemBT, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(LamMoiBT, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(SapXepCkb, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(SapXepBt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                        .addComponent(SapXepCkb, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(SapXepBt1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(LocCkb, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LocBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
@@ -230,13 +239,16 @@ public class DSHoaDonDien extends javax.swing.JPanel {
                         .addComponent(TimKiemCb, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(TimKiemTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SapXepCkb, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SapXepBt1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(SapXepCkb, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ChuaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DaNhapCTDCB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(SapXepBt1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LocBt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LocCkb, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -313,6 +325,16 @@ public class DSHoaDonDien extends javax.swing.JPanel {
             sortLoaiStringDSHoaDonDialog.setVisible(true);
         }
     }//GEN-LAST:event_SapXepBt1ActionPerformed
+
+    private void LocBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocBtActionPerformed
+        Object selected = LocCkb.getSelectedItem();
+        if(selected == null){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thuộc tính cần lọc!!!");
+        }else if(selected.equals("Theo ngày sinh")){
+            FilterLoaiDateDSHoaDonDialog filter = new FilterLoaiDateDSHoaDonDialog (this.ctv, this, true);
+            filter.setVisible(true);
+        }
+    }//GEN-LAST:event_LocBtActionPerformed
     
      public ComboboxThuong getSapXepCkb() {
         return SapXepCkb;
@@ -340,8 +362,9 @@ public class DSHoaDonDien extends javax.swing.JPanel {
     private LayMotSoUIdepTaiDay.CheckBox ChuaNhapCTDCB;
     private LayMotSoUIdepTaiDay.CheckBox DaNhapCTDCB;
     private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBT;
+    private LayMotSoUIdepTaiDay.ButtonThuong LocBt;
+    private LayMotSoUIdepTaiDay.ComboboxThuong LocCkb;
     private javax.swing.ButtonGroup NhapCTDCB;
-    private LayMotSoUIdepTaiDay.ButtonThuong SapXepBt;
     private LayMotSoUIdepTaiDay.ButtonThuong SapXepBt1;
     private LayMotSoUIdepTaiDay.ComboboxThuong SapXepCkb;
     private LayMotSoUIdepTaiDay.ButtonThuong TimKiemBT;

@@ -247,7 +247,7 @@ public class Login extends javax.swing.JFrame {
                    
                     
                 
-                }else if(privilege==0){
+                }else if(privilege==2){
                     this.dispose();
                     MainCustomerView mainCustomerView=new MainCustomerView();
                     mainCustomerView.setVisible(true);
@@ -257,7 +257,7 @@ public class Login extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(this,"Username hoặc Password đã bị sai" ,"Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-            
+            ProgramVariableAndFunction.setLoginAccount(userName);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

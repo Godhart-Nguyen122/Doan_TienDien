@@ -6,7 +6,7 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import Controller.DBS;
-import Controller.ProgramVariable;
+import Controller.ProgramVariableAndFunction;
 import Helper.DateDBToString;
 import Model.Invoices;
 import java.sql.CallableStatement;
@@ -51,7 +51,7 @@ public class InvoicesDAO {
         try {
             cs = con.prepareCall(sql);
             cs.setInt(1, i);
-            cs.setString(2,ProgramVariable.username);
+            cs.setString(2,ProgramVariableAndFunction.getLoginAccount());
              
             ResultSet rs = cs.executeQuery();
             
@@ -61,8 +61,7 @@ public class InvoicesDAO {
                 tmp.setInvoice_Date(DateDBToString.DateToString(rs.getDate(2)));
                 tmp.setCurrentNum(rs.getInt(3));
                 tmp.setLevel(rs.getInt(4));
-                tmp.setTotal_Price(rs.getDouble(5));
-                tmp.setStaff_name(rs.getString(6));
+                tmp.setStaff_name(rs.getString(5));
                 
                 this.invoiceslist.add(tmp);
             }

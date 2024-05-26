@@ -5,7 +5,7 @@
 package Controller.DAO;
 
 import Controller.DBS;
-import Controller.ProgramVariable;
+import Controller.ProgramVariableAndFunction;
 import Model.Customer_Info;
 import Model.Customers;
 import java.sql.*;
@@ -27,7 +27,7 @@ public class Customer_InfoDAO {
         String SQL = "SELECT pis.CCCD, (pis.Firstname+' '+pis.Middlename+' '+pis.Lastname) as FULLNAME, pis.Address, pis.Phone, pis.DOB, pis.Sex, acc.Account_Username, acc.Account_Password\n" +
                     "FROM CUSTOMERS cs inner join ACCOUNTS acc on cs.Account_Customer = acc.Account_Username\n" +
                     "inner join PERSON_INFOS pis on acc.CCCD = pis.CCCD\n" +
-                    "where cs.Account_Customer = '"+ProgramVariable.username+"'";
+                    "where cs.Account_Customer = '"+ProgramVariableAndFunction.getLoginAccount()+"'";
         try(
             Connection con = new DBS().getConnection();
             Statement stmt = con.createStatement();
@@ -113,7 +113,7 @@ public class Customer_InfoDAO {
             PreparedStatement stmt = con.prepareStatement(SQL);
                         
             stmt.setString(1, ci.getPassword());
-            stmt.setString(2, ProgramVariable.username);
+            stmt.setString(2, ProgramVariableAndFunction.getLoginAccount());
             stmt.setString(3, mkc);
 
             affectedRows = stmt.executeUpdate();
