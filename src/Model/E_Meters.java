@@ -10,6 +10,7 @@ public class E_Meters {
     private boolean Status ;
     
     private List <Invoices> ListInvoice;
+    
 
     public List<Invoices> getListInvoice() {
         return ListInvoice;

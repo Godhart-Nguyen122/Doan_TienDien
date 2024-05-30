@@ -1,6 +1,8 @@
 package Controller.SupportFunction;
 
 import LayMotSoUIdepTaiDay.BangDanhSach;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -162,5 +164,14 @@ public class StringProcessing {
         }
         return Check;
     }
-    
+    public static Double convertDoubletoString(double tmp){
+             // Create a BigDecimal from the double value
+        BigDecimal bd=new BigDecimal(Double.toString(tmp));
+        // Set the scale to 2 decimal places and round half up
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        // Convert back to double
+        double formattedValue = bd.doubleValue();
+
+        return formattedValue;
+    }
 }

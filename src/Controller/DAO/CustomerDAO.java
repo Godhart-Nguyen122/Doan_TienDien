@@ -42,6 +42,39 @@ public class CustomerDAO {
         }
         return listcustomer;
     }
+    public Customers getIdStaffWriteandInputbyCCCD(String cccd) throws Exception{
+        //Vietlai nhu nay copy do luoi -..- 
+        Customers tmp=new Customers();
+         String SQL = "SELECT P.CCCD, P.Firstname, P.Lastname, P.Middlename, P.DOB, P.Address, P.Phone, P.Sex ,C.ID_Staff_Input\n" +
+                    "FROM CUSTOMERS C\n" +
+                    "JOIN ACCOUNTS A ON C.Account_Customer = A.Account_Username\n" +
+                    "JOIN PERSON_INFOS P ON A.CCCD = P.CCCD\n" +
+                    "WHERE A.Status=0 AND P.CCCD=?;";
+           try (
+        Connection con = new DBS().getConnection();
+        PreparedStatement pre = con.prepareStatement(SQL);
+        ) {
+            pre.setString(1, cccd); // Set the parameter ID value
+        try (ResultSet rs = pre.executeQuery()) {
+            while (rs.next()) {
+                tmp.setCCCD(rs.getString("CCCD"));
+                  tmp.setFirstname(rs.getString("Firstname"));
+                  tmp.setLastname(rs.getString("Lastname"));
+                  tmp.setMiddleName(rs.getString("Middlename")); 
+                  tmp.setDOB(rs.getDate("DOB"));
+                  tmp.setAddress(rs.getString("Address"));
+                  tmp.setPhone(rs.getString("Phone"));
+                  tmp.setSex(rs.getBoolean("Sex"));
+                  tmp.setId_Staff(rs.getInt("ID_Staff_Input"));
+                  tmp.setId_Staff_Write(rs.getInt("ID_Staff_Write"));
+            }
+        }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tmp;
+    } 
+      
     public Customers getCustomerbyId(int idcus) throws Exception{
         Customers tmp=new Customers();
         String SQL = "SELECT P.CCCD, P.Firstname, P.Lastname, P.Middlename, P.DOB, P.Address, P.Phone, P.Sex ,C.ID_Staff_Input\n" +

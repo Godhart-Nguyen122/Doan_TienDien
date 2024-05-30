@@ -1,6 +1,9 @@
 package View.AdminView.DSHoaDonView;
 
+import Controller.DAO.Usage_NormDAO;
+import Controller.StaffView.DSHoaDonStaffviewController;
 import Controller.DSHoaDonController.DSHoaDonController;
+import Controller.SupportFunction.StringProcessing;
 import View.AdminView.ThongTinSuDungDien.*;
 import LayMotSoUIdepTaiDay.BangDanhSach;
 import LayMotSoUIdepTaiDay.ComboboxThuong;
@@ -51,6 +54,7 @@ public class DSHoaDonMainView extends javax.swing.JPanel {
        this.invoiceses=new DSHoaDonController().getAllInvoices();
     }
     
+    
     public void ShowThongTinTuDBS(List<Invoices>invoicelist) throws Exception{
         this.model.setRowCount(0);
         if(invoicelist.isEmpty()){
@@ -65,11 +69,16 @@ public class DSHoaDonMainView extends javax.swing.JPanel {
                 String hovatench=cus.getLastname()+" "+cus.getMiddleName()+" "+cus.getFirstname();
                 String hovatennv=staff.getLastname()+" "+staff.getMiddleName()+" "+staff.getFirstname();
                 String ngay=invoices.getInvoice_Date();
-                Double tongtien=invoices.getTotal_Price();
+                int iddetail=invoices.getID_E_Meter_Details();
+                int usageNum=new DSHoaDonStaffviewController().getUsageCusNum(iddetail);
+                List<Double>listusageNum=new Usage_NormDAO().getAll();
+                double total=usageNum*listusageNum.get(invoices.getLevel()-1);
+                double tongtien=new StringProcessing().convertDoubletoString(total);
                 boolean thanhtoan=invoices.isInvoice_Status();
                 
                 Object[] datarow={
                     invoiceid,
+                    cccdch,
                     hovatench,
                     hovatennv,
                     ngay,

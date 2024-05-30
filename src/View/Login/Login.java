@@ -88,7 +88,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setText("Hello! Let's get started");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 94, 420, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(199, 226, 255));
         jLabel5.setText("Username");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 123, 341, -1));
@@ -107,7 +107,7 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/8.png"))); // NOI18N
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 40, 39));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(199, 226, 255));
         jLabel8.setText("Password");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 192, 341, -1));
@@ -222,7 +222,7 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công !");
                 
                 int privilege=new LoginController().getPrivilege(userName, passWord);
-                if(privilege==0){
+                if(privilege==2){
                     this.dispose();
                     MainAdminView mianadAdminView= new MainAdminView();
                     mianadAdminView.setVisible(true);
@@ -232,9 +232,9 @@ public class Login extends javax.swing.JFrame {
                     int idStaff=new PhanCongDAO().getIDStaffByUserName(userName);
                     boolean tmp=new PhanCongDAO().getRoleStaffbyUserName(userName);
                     if(tmp){
-                        this.combineLists=new ProgramVariableAndFunction().combineLists();
-                        List<Integer>tmpcus=this.combineLists.get(idStaff);
-                        MainStaffView mainStaffView=new MainStaffView(idStaff,tmpcus);
+//                        this.combineLists=new ProgramVariableAndFunction().combineLists();
+//                        List<Integer>tmpcus=this.combineLists.get(idStaff);
+                        MainStaffView mainStaffView=new MainStaffView(idStaff,new ArrayList<>());
                         mainStaffView.setVisible(true);
                         mainStaffView.setLocationRelativeTo(null);
                     }else{
@@ -247,7 +247,7 @@ public class Login extends javax.swing.JFrame {
                    
                     
                 
-                }else if(privilege==2){
+                }else if(privilege==0){
                     this.dispose();
                     MainCustomerView mainCustomerView=new MainCustomerView();
                     mainCustomerView.setVisible(true);

@@ -22,7 +22,7 @@ public class DSChuHo {
     public static List<Customers> KhoiTaoListCustomeres() {
         List<Customers> listCustomer = new ArrayList<>();
         try {
-            for(Accounts acc : DSTaiKhoanPhanQuyen.getListAccount()){
+            for(Accounts acc :DSTaiKhoanPhanQuyen.getListAccount()){
                 if(acc.getPrivilege() == 0 && acc.isStatus() == false){
                     Personal_Infos Ps = DSThongTinChung.SearchObjCCCD(acc.getCCCD());
                     Customers customers = new Customers(Ps, acc);

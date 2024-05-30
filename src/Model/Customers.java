@@ -4,16 +4,25 @@ import java.util.List;
 
 public class Customers extends Accounts{
     private List<E_Meters> ListE_Meter;
-    private int id_Staff;
+    private int id_Staff_Input;
+    private int id_Staff_Write;
 
     public Customers(){};
 
-    public int getId_Staff() {
-        return id_Staff;
+    public int getId_Staff_Write() {
+        return id_Staff_Write;
     }
 
-    public void setId_Staff(int id_Staff) {
-        this.id_Staff = id_Staff;
+    public void setId_Staff_Write(int id_Staff_Write) {
+        this.id_Staff_Write = id_Staff_Write;
+    }
+
+    public int getId_Staff() {
+        return id_Staff_Input;
+    }
+
+    public void setId_Staff(int id_Staff_Input) {
+        this.id_Staff_Input = id_Staff_Input;
     }
     
     public Customers(Personal_Infos Ps, Accounts acc) {
@@ -31,7 +40,7 @@ public class Customers extends Accounts{
         this.setAddress(Ps.getAddress());
     }
     
-     public Customers(Personal_Infos Ps,int id_staff) {
+     public Customers(Personal_Infos Ps,int id_Staff_Input) {
         this.setCCCD(Ps.getCCCD());
         this.setDOB(Ps.getDOB());
         this.setFirstname(Ps.getFirstname());
@@ -40,11 +49,21 @@ public class Customers extends Accounts{
         this.setPhone(Ps.getPhone());
         this.setSex(Ps.isSex());
         this.setAddress(Ps.getAddress());
-        this.id_Staff=id_staff;
+        this.id_Staff_Input=id_Staff_Input;
     }
-     
-
-    
+     public Customers(Personal_Infos Ps,int id_Staff_Input,int id_Staff_Write) {
+        this.setCCCD(Ps.getCCCD());
+        this.setDOB(Ps.getDOB());
+        this.setFirstname(Ps.getFirstname());
+        this.setLastname(Ps.getLastname());
+        this.setMiddleName(Ps.getMiddleName());
+        this.setPhone(Ps.getPhone());
+        this.setSex(Ps.isSex());
+        this.setAddress(Ps.getAddress());
+        this.id_Staff_Input=id_Staff_Input;
+        this.id_Staff_Write=this.id_Staff_Write;
+    }
+       
     public Customers(String Account_Username, String CCCD, String Account_Password, int Privilege, boolean Status) {
         super(Account_Username, CCCD, Account_Password, Privilege, Status);
     }

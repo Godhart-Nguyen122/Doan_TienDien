@@ -4,9 +4,6 @@ public class Invoices {
     private int id;
     private String Invoice_Date;
     private boolean Invoice_Status;
-    private int Start_Num;
-    private int End_Num;
-    private Double Total_Price;
     private int ID_E_Meter_Details;
     private int ID_Staff_Write;
     private String staff_name;
@@ -24,16 +21,14 @@ public class Invoices {
     public Invoices() {
     }
 
-    public Invoices(int id, String Invoice_Date, boolean Invoice_Status, int Start_Num, int End_Num, Double Total_Price, int ID_E_Meter_Details, int ID_Staff_Write) {
-        this.id = id;
-        this.Invoice_Date = Invoice_Date;
-        this.Invoice_Status = Invoice_Status;
-        this.Start_Num = Start_Num;
-        this.End_Num = End_Num;
-        this.Total_Price = Total_Price;
-        this.ID_E_Meter_Details = ID_E_Meter_Details;
-        this.ID_Staff_Write = ID_Staff_Write;
-    }
+    public Invoices(int id, String Invoice_Date, boolean Invoice_Status, int ID_E_Meter_Details,int level ,int ID_Staff_Write) {
+           this.id = id;
+           this.Invoice_Date = Invoice_Date;
+           this.Invoice_Status = Invoice_Status;
+           this.ID_E_Meter_Details = ID_E_Meter_Details;
+           this.level=level;
+           this.ID_Staff_Write = ID_Staff_Write;
+       }
     public int getId() {
         return id;
     }
@@ -92,28 +87,5 @@ public class Invoices {
         this.Invoice_Status = Invoice_Status;
     }
 
-    public int getStart_Num() {
-        return Start_Num;
-    }
-
-    public void setStart_Num(int Start_Num) {
-        this.Start_Num = Start_Num;
-    }
-
-    public int getEnd_Num() {
-        return End_Num;
-    }
-
-    public void setEnd_Num(int End_Num) {
-        this.End_Num = End_Num;
-    }
-
-    public Double getTotal_Price() {
-        return Total_Price;
-    }
-
-    public void setTotal_Price(Double Total_Price) {
-        this.Total_Price = Total_Price;
-    }
     
 }

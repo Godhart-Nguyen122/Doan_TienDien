@@ -31,11 +31,10 @@ public class InvoicesDAO {
                   tmp.setId(rs.getInt("ID"));
                   tmp.setInvoice_Date(rs.getString("Invoice_Date"));
                   tmp.setInvoice_Status(rs.getBoolean("Invoice_Status"));
-                  tmp.setStart_Num(rs.getInt("Start_Num"));
-                  tmp.setEnd_Num(rs.getInt("End_Num"));
-                  tmp.setTotal_Price(rs.getDouble("Total_Price"));
                   tmp.setID_E_Meter_Details(rs.getInt("ID_Details"));
                   tmp.setID_Staff_Write(rs.getInt("ID_Staff_Write"));
+                  tmp.setLevel(rs.getInt("Level"));
+                  
                   this.invoiceslist.add(tmp);
             }
         }
