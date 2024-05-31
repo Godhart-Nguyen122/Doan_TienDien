@@ -16,7 +16,7 @@ public class CustomerDAO {
       // Lấy thông tin của tất cả chủ hộ  
       public List<Customers> getAll() throws Exception{
         listcustomer.clear();
-        String SQL = "SELECT P.CCCD, P.Firstname, P.Lastname, P.Middlename, P.DOB, P.Address, P.Phone, P.Sex ,C.ID_Staff_Input\n" +
+        String SQL = "SELECT P.CCCD, P.Firstname, P.Lastname, P.Middlename, P.DOB, P.Address, P.Phone, P.Sex ,C.ID_Staff_Input ,C.ID_Staff_Write\n" +
                     "FROM CUSTOMERS C\n" +
                     "JOIN ACCOUNTS A ON C.Account_Customer = A.Account_Username\n" +
                     "JOIN PERSON_INFOS P ON A.CCCD = P.CCCD\n" +
@@ -37,6 +37,7 @@ public class CustomerDAO {
                   tmp.setPhone(rs.getString("Phone"));
                   tmp.setSex(rs.getBoolean("Sex"));
                   tmp.setId_Staff(rs.getInt("ID_Staff_Input"));
+                  tmp.setId_Staff_Write(rs.getInt("ID_Staff_Write"));
                   listcustomer.add(tmp);
             }
         }

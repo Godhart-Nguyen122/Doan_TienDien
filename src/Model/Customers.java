@@ -9,6 +9,11 @@ public class Customers extends Accounts{
 
     public Customers(){};
 
+    @Override 
+    public String toString(){
+        String name=this.getLastname()+" "+this.getMiddleName()+" "+this.getFirstname();
+        return name;
+    }
     public int getId_Staff_Write() {
         return id_Staff_Write;
     }

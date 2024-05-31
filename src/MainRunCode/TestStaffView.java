@@ -4,7 +4,7 @@ package MainRunCode;
 import View.StaffView.MainStaffView;
 import java.text.ParseException;
 public class TestStaffView {
-    private MainStaffView MF = new MainStaffView(0,null);
+    private MainStaffView MF = new MainStaffView(5,null);
     public void MainFormLoadding() {
         MF.setTitle("Demo");
         MF.setLocationRelativeTo(null);

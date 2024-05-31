@@ -2,6 +2,7 @@
 package Model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,16 @@ public class E_Meter_Details {
     public E_Meter_Details() {
     }
 
+    @Override
+    public String toString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        // Format the Date object to a String
+        String strDate = formatter.format(this.Creating_Date);
+        return strDate; 
+    }
+
+    
+    
     public E_Meter_Details(int id, String ID_E_Meter, int Current_num, Date Creating_Date, int ID_Staff_Input) {
         this.id = id;
         this.ID_E_Meter = ID_E_Meter;

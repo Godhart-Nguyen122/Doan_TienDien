@@ -4,15 +4,19 @@ import Controller.DAO.CustomerDAO;
 import Controller.DAO.PhanCongDAO;
 import View.AdminView.DSChuHoView.*;
 import Controller.DSChuHoController.DSChuHo;
+import Controller.QLPhanQuyenTKController.DSTaiKhoanPhanQuyen;
 import Controller.SupportFunction.StringProcessing;
 import LayMotSoUIdepTaiDay.BangDanhSach;
 import LayMotSoUIdepTaiDay.ComboboxThuong;
+import Model.Accounts;
 import Model.Customers;
 import View.AdminView.DSChuHoView.DSChuHoDialog.FilterLoaiDateDSCHDialog;
 import View.AdminView.DSChuHoView.DSChuHoDialog.SortLoaiStringDSCHDialog;
 import View.AdminView.MainAdminView;
+import View.StaffView.DSChuhoStaffView.Dialog.SortLoaiStringDSChuhoStaffViewDialog;
 import View.StaffView.MainStaffView;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,59 +28,65 @@ public class DSChuHoStaffView extends javax.swing.JPanel {
     private Customers Cs;
     private MainStaffView mainStaffView;
     private int idStafflogin;
-    private List<Integer>listcusofStaff;
-    public  List<Customers> dsChuHo;  
+    private List<Customers>dsChuhoMnStaff;
     
     public DSChuHoStaffView(MainStaffView msv,int idStaff,List<Integer>liscus) throws Exception {
         initComponents();
         this.mainStaffView = msv;
         this.idStafflogin=idStaff;
-        this.listcusofStaff=liscus;
         this.setSize(mainStaffView.getMainPanel().getSize());
-        
-        this.dsChuHo = new DSChuHo().KhoiTaoListCustomeres();
+        dsChuhoMnStaff=new ArrayList<>();
         ShowThongTinTuDBS(BangDSChuHo);    
     }
-
+    
+    public  void devideChuho() throws Exception{
+        // Chia danh sách chủ hộ theo nhân viên ghi điện 0 nhân viên nhập hóa đơn 1
+        List<Customers>danhsach=new DSChuHo().LayDanhSachChuho();
+        System.out.println("Danh sach chu ho trong viw :"+danhsach.size());
+         for(Customers tmp:danhsach){
+             boolean roleStaff=new PhanCongDAO().getRoleStaffbyId(this.idStafflogin);
+             System.out.println("Id nhan vien "+this.idStafflogin);
+             System.out.println("Vai tro cua nhan vien :"+roleStaff);
+             if(roleStaff==true){
+                 System.out.println("Id Staff write:"+tmp.getId_Staff_Write());
+                 if(tmp.getId_Staff_Write()==this.idStafflogin){
+                     this.dsChuhoMnStaff.add(tmp);
+                 }
+             }else if(roleStaff==false){
+                 if(tmp.getId_Staff()==this.idStafflogin){
+                     this.dsChuhoMnStaff.add(tmp);
+                 }
+             }
+        }
+        System.out.println("Sau khi chia la :"+this.dsChuhoMnStaff.size()); 
+    }
+    
     public void ShowThongTinTuDBS(BangDanhSach bangDS) throws Exception{
         DefaultTableModel model = (DefaultTableModel) BangDSChuHo.getModel();
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged(); 
-        //Th1 nhan vien nhap hoa don co custmomer 
-        //Th2 Nhan vien nhap hoa don ko co customer
-        //Th3 Nhan vien ghi dien 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        //Nhan vien nhap hoa don 
-        if(new PhanCongDAO().getRoleStaffbyId(this.idStafflogin)){
-            if(this.listcusofStaff.isEmpty()){
-               JOptionPane.showMessageDialog(this, "Danh sách chủ hộ rỗng: ");
-            }else{
-                for(Integer tmp:this.listcusofStaff){
-                    Customers tmpcus=new CustomerDAO().getCustomerbyId(tmp);
-                    String hovaten=tmpcus.getLastname()+" "+tmpcus.getMiddleName()+" "+tmpcus.getLastname();
+        devideChuho();
+        if(this.dsChuhoMnStaff.isEmpty()){
+           JOptionPane.showMessageDialog(this, "Danh sách chủ hộ rỗng: ");
+        }else{
+            for(Customers tmp:this.dsChuhoMnStaff){
+                    Accounts accCustomer=new DSTaiKhoanPhanQuyen().SearchObjAccountbyCCCD(tmp.getCCCD());
+                    String usernameCus="";
+                    String passCus="";
+                    if(accCustomer!=null){
+                        usernameCus=accCustomer.getAccount_Username();
+                        passCus=accCustomer.getAccount_Password();
+                    }
+               
+                    String hovaten=tmp.getLastname()+" "+tmp.getMiddleName()+" "+tmp.getLastname();
                     Object[] rowData = {
-                        tmpcus.getCCCD(), hovaten,dateFormat.format(tmpcus.getDOB()), 
-                        tmpcus.getAddress(), tmpcus.getPhone(), tmpcus.getAccount_Username(),
-                        tmpcus.getAccount_Password()
+                        tmp.getCCCD(), hovaten,dateFormat.format(tmp.getDOB()), 
+                        tmp.getAddress(), tmp.getPhone(), usernameCus,
+                        passCus,
                     };
                     model.addRow(rowData);
                 }
-            }
-        }else{
-        //Nhan vien ghi dien
-            for(Customers tmp: new CustomerDAO().getAll()){
-                if(tmp.getId_Staff()==this.idStafflogin){
-                   String hovaten=tmp.getLastname()+" "+tmp.getMiddleName()+" "+tmp.getLastname();
-                     Object[] rowData = {
-                        tmp.getCCCD(), hovaten,dateFormat.format(tmp.getDOB()), 
-                        tmp.getAddress(), tmp.getPhone(), tmp.getAccount_Username(),
-                        tmp.getAccount_Password()
-                    };
-                }
-            }
-            if(model.getRowCount()==0){
-                JOptionPane.showMessageDialog(this, "Danh sách chủ hộ rỗng: ");
-            }
         }
         StringProcessing.StringSortingTable(BangDSChuHo, 0, true);
         model.fireTableDataChanged();
@@ -197,7 +207,7 @@ public class DSChuHoStaffView extends javax.swing.JPanel {
         LocCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         LocCkb.setLabeText("(Chọn thuộc tính cần lọc)");
 
-        SapXepCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo CCCD", "Theo họ và tên", "Theo địa chỉ", "Theo SĐT", "Theo ngày sinh", "Theo Account" }));
+        SapXepCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo CCCD", "Theo họ và tên", "Theo địa chỉ", "Theo SĐT", "Theo Account" }));
         SapXepCkb.setSelectedItem(null);
         SapXepCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         SapXepCkb.setLabeText("(Chọn thuộc tính cần sắp xếp)");
@@ -287,7 +297,7 @@ public class DSChuHoStaffView extends javax.swing.JPanel {
 
     private void LamMoiBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiBtActionPerformed
         try {
-            mainStaffView.setForm(new DSChuHoStaffView(this.mainStaffView,this.idStafflogin,this.listcusofStaff));
+            mainStaffView.setForm(new DSChuHoStaffView(this.mainStaffView,this.idStafflogin,new ArrayList<>()));
         } catch (Exception ex) {
             Logger.getLogger(DSChuHoStaffView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -353,13 +363,13 @@ public class DSChuHoStaffView extends javax.swing.JPanel {
     }//GEN-LAST:event_LocBtActionPerformed
 
     private void SapXepBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SapXepBtActionPerformed
-//        Object selected = SapXepCkb.getSelectedItem();
-//        if(selected == null){
-//            JOptionPane.showMessageDialog(this, "Vui lòng chọn thuộc tính cần sắp xếp!!!");             
-//        }else{
-//            SortLoaiStringDSCHDialog sortLoaiStringDSCHDialog = new SortLoaiStringDSCHDialog(this.MainAdminview, this, true);
-//            sortLoaiStringDSCHDialog.setVisible(true);  
-//        }
+        Object selected = SapXepCkb.getSelectedItem();
+        if(selected == null){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thuộc tính cần sắp xếp!!!");             
+        }else{
+            SortLoaiStringDSChuhoStaffViewDialog  chuhoStaffViewDialog = new SortLoaiStringDSChuhoStaffViewDialog(this.mainStaffView, this, true);
+            chuhoStaffViewDialog.setVisible(true);  
+        }
     }//GEN-LAST:event_SapXepBtActionPerformed
 
     

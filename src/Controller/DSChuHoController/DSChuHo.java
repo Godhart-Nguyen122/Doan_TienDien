@@ -18,6 +18,25 @@ import javax.swing.table.DefaultTableModel;
 
 public class DSChuHo {
     private static List<Customers> ListCustomer;
+    
+    //Tao constructor khi tao doi tuong moi
+    public DSChuHo() {
+        List<Customers> listCustomer = new ArrayList<>();
+        try {
+            for(Accounts acc : new DSTaiKhoanPhanQuyen().getListAccount()){
+                if(acc.getPrivilege() == 0 && acc.isStatus() == false){
+                    Personal_Infos Ps = new DSThongTinChung().SearchObjCCCD(acc.getCCCD());
+                    Customers customers = new Customers(Ps, acc);
+                    listCustomer.add(customers);  
+                }
+            }
+            setListCustomer(listCustomer);
+        } catch (Exception ex) {
+            ex.printStackTrace(); 
+        }
+    }
+    
+    
 
     public static List<Customers> KhoiTaoListCustomeres() {
         List<Customers> listCustomer = new ArrayList<>();
@@ -36,7 +55,7 @@ public class DSChuHo {
             return null;
         }
     }    
-    //Danh sách chủ hộ account vẫn còn hoạt động (Có chứa ID_Staffs)
+    //Danh sách chủ hộ account vẫn còn hoạt động (Có chứa ID_Staffs and Id_Staff Write)
     public List<Customers>LayDanhSachChuho() throws Exception{
         List<Customers>listCustomer=new CustomerDAO().getAll();
         return  listCustomer;

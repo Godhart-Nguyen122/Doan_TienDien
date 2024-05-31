@@ -31,22 +31,31 @@ import javax.swing.JPanel;
 
 public final class MainStaffView extends javax.swing.JFrame {
     public List<ButtonMenu> ListButton;
-    private int idStaff;
+    private int idStafflogin;
     private List<Integer>listcus;
     DecimalFormat decimalFormat = new DecimalFormat("#");
     DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
     
     public void CapNhatBangTrangThai(){        
-        SoChuhoTrangThai.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.CustomerQuantity()));
-        HoaDonThanhToanTrangthai.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.StaffQuantity()));
+//        SoChuhoTrangThai.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.CustomerQuantity()));
+//        HoaDonThanhToanTrangthai.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.StaffQuantity()));
 //        TrangThaiTien.setSoLuong(decimalFormat2.format(new InvoiceController().getTotalprice()) + " VNĐ");
         this.repaint();
         this.revalidate();
     }
+
+    public int getIdStafflogin() {
+        return this.idStafflogin;
+    }
+
+    public void setIdStafflogin(int idStafflogin) {
+        this.idStafflogin = idStafflogin;
+    }
     
-    public MainStaffView(int idStaff, List<Integer>listcus){
-        new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
-        this.idStaff=idStaff;
+    
+    public MainStaffView(int idStafflogin, List<Integer>listcus){
+//        new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
+        setIdStafflogin(idStafflogin);
         this.listcus=listcus;
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -56,7 +65,7 @@ public final class MainStaffView extends javax.swing.JFrame {
         HoaDonThanhToanTrangthai.setLabel("Số nhân viên: ");       
         HoaDonChuaThanhToanTrangthai.setLabel("Tổng doanh thu: ");
         
-        CapNhatBangTrangThai();
+//        CapNhatBangTrangThai();
  
         ImageIcon imageNguoi = new ImageIcon("src/Icon/profile.png");
         ImageIcon imageTien = new ImageIcon("src/Icon/profit.png");
@@ -65,18 +74,18 @@ public final class MainStaffView extends javax.swing.JFrame {
         HoaDonChuaThanhToanTrangthai.setIcon(imageTien);
         
         //Thêm button nào thì add vào list
-        ListButton.add(DSChuHoBt);
-       
-        ListButton.add(HoaDonDienBt);
-       
-        ListButton.add(DangXuatBt);
         ListButton.add(QLThongTinChungBt);
+        ListButton.add(DSChuHoBt);
+        ListButton.add(GhichisoBtn);
+        ListButton.add(HoadondienBtn);
+        ListButton.add(DangXuatBt);
+      
        
         //Khởi tạo các list
-        new DSThongTinChung().KhoiTaoListPersonal_Infos();
-        new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
-        new DSChuHo().KhoiTaoListCustomeres();
-        new DSNhanVien().KhoiTaoListStaffs();
+//        new DSThongTinChung().KhoiTaoListPersonal_Infos();
+//        new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
+//        new DSChuHo().KhoiTaoListCustomeres();
+//        new DSNhanVien().KhoiTaoListStaffs();
         
         //Xử lý chart
 //        this.XuLyChart();
@@ -151,11 +160,11 @@ public final class MainStaffView extends javax.swing.JFrame {
         Menu = new LayMotSoUIdepTaiDay.Menu();
         DSChuHoBt = new LayMotSoUIdepTaiDay.ButtonMenu();
         LogoApp = new javax.swing.JLabel();
-        HoaDonDienBt = new LayMotSoUIdepTaiDay.ButtonMenu();
+        HoadondienBtn = new LayMotSoUIdepTaiDay.ButtonMenu();
         DangXuatBt = new LayMotSoUIdepTaiDay.ButtonMenu();
         QLThongTinChungBt = new LayMotSoUIdepTaiDay.ButtonMenu();
         MenuSpr = new javax.swing.JSeparator();
-        HoaDonDienBt1 = new LayMotSoUIdepTaiDay.ButtonMenu();
+        GhichisoBtn = new LayMotSoUIdepTaiDay.ButtonMenu();
         MainPanel = new javax.swing.JPanel();
         BarChart1 = new LayMotSoUIdepTaiDay.Chart.Chart();
         BarChart2 = new LayMotSoUIdepTaiDay.Chart.Chart();
@@ -187,12 +196,12 @@ public final class MainStaffView extends javax.swing.JFrame {
         LogoApp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo.png"))); // NOI18N
         LogoApp.setText("Welcome Staff");
 
-        HoaDonDienBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2.png"))); // NOI18N
-        HoaDonDienBt.setText("Hóa đơn điện");
-        HoaDonDienBt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        HoaDonDienBt.addActionListener(new java.awt.event.ActionListener() {
+        HoadondienBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2.png"))); // NOI18N
+        HoadondienBtn.setText("Hóa đơn điện");
+        HoadondienBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        HoadondienBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HoaDonDienBtActionPerformed(evt);
+                HoadondienBtnActionPerformed(evt);
             }
         });
 
@@ -218,12 +227,12 @@ public final class MainStaffView extends javax.swing.JFrame {
         MenuSpr.setBackground(new java.awt.Color(255, 255, 255));
         MenuSpr.setForeground(new java.awt.Color(255, 255, 255));
 
-        HoaDonDienBt1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2.png"))); // NOI18N
-        HoaDonDienBt1.setText("Ghi chỉ số");
-        HoaDonDienBt1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        HoaDonDienBt1.addActionListener(new java.awt.event.ActionListener() {
+        GhichisoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2.png"))); // NOI18N
+        GhichisoBtn.setText("Ghi chỉ số");
+        GhichisoBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        GhichisoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HoaDonDienBt1ActionPerformed(evt);
+                GhichisoBtnActionPerformed(evt);
             }
         });
 
@@ -239,10 +248,10 @@ public final class MainStaffView extends javax.swing.JFrame {
                         .addComponent(LogoApp)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(DSChuHoBt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(HoaDonDienBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(HoadondienBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DangXuatBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(QLThongTinChungBt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                    .addComponent(HoaDonDienBt1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(GhichisoBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         MenuLayout.setVerticalGroup(
@@ -257,9 +266,9 @@ public final class MainStaffView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DSChuHoBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HoaDonDienBt1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GhichisoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HoaDonDienBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(HoadondienBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DangXuatBt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -350,7 +359,7 @@ public final class MainStaffView extends javax.swing.JFrame {
     private void DSChuHoBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DSChuHoBtActionPerformed
             ButtonNhan(DSChuHoBt);
         try {
-            this.setForm(new DSChuHoStaffView(this,this.idStaff,this.listcus));
+            this.setForm(new DSChuHoStaffView(this,this.idStafflogin,this.listcus));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -360,10 +369,10 @@ public final class MainStaffView extends javax.swing.JFrame {
           
     }//GEN-LAST:event_DSChuHoBtActionPerformed
 
-    private void HoaDonDienBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoaDonDienBtActionPerformed
-            ButtonNhan(HoaDonDienBt);
+    private void HoadondienBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoadondienBtnActionPerformed
+            ButtonNhan(HoadondienBtn);
         try {
-            this.setForm(new DSHoaDonStaffView(this,this.idStaff));
+            this.setForm(new DSHoaDonStaffView(this,this.idStafflogin));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -371,7 +380,7 @@ public final class MainStaffView extends javax.swing.JFrame {
             CapNhatBangTrangThai();
         }
          
-    }//GEN-LAST:event_HoaDonDienBtActionPerformed
+    }//GEN-LAST:event_HoadondienBtnActionPerformed
 
     private void DangXuatBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtActionPerformed
             ButtonNhan(DangXuatBt);
@@ -385,9 +394,9 @@ public final class MainStaffView extends javax.swing.JFrame {
             CapNhatBangTrangThai();
     }//GEN-LAST:event_QLThongTinChungBtActionPerformed
 
-    private void HoaDonDienBt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoaDonDienBt1ActionPerformed
+    private void GhichisoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GhichisoBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_HoaDonDienBt1ActionPerformed
+    }//GEN-LAST:event_GhichisoBtnActionPerformed
 
     public void setForm(JComponent com){
         MainPanel.removeAll();
@@ -416,10 +425,10 @@ public final class MainStaffView extends javax.swing.JFrame {
     private LayMotSoUIdepTaiDay.Chart.Chart BarChart2;
     private LayMotSoUIdepTaiDay.ButtonMenu DSChuHoBt;
     private LayMotSoUIdepTaiDay.ButtonMenu DangXuatBt;
+    private LayMotSoUIdepTaiDay.ButtonMenu GhichisoBtn;
     private LayMotSoUIdepTaiDay.PanelTrangThai HoaDonChuaThanhToanTrangthai;
-    private LayMotSoUIdepTaiDay.ButtonMenu HoaDonDienBt;
-    private LayMotSoUIdepTaiDay.ButtonMenu HoaDonDienBt1;
     private LayMotSoUIdepTaiDay.PanelTrangThai HoaDonThanhToanTrangthai;
+    private LayMotSoUIdepTaiDay.ButtonMenu HoadondienBtn;
     private LayMotSoUIdepTaiDay.Chart.LineChart LineChart;
     private javax.swing.JLabel LogoApp;
     private LayMotSoUIdepTaiDay.PanelBorder MainBorder;

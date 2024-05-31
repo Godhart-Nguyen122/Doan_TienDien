@@ -25,7 +25,12 @@ public class Personal_Infos {
         this.DOB = DOB;
         this.Sex = Sex;
     }
-
+    @Override
+    public String toString(){
+        String name=this.Lastname+" "+this.MiddleName+" "+this.Firstname;
+        return name;
+    }
+    
     public String getCCCD() {
         return CCCD;
     }

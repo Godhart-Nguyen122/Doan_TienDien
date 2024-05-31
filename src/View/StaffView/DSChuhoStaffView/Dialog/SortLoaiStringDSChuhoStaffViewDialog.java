@@ -1,21 +1,24 @@
-package View.StaffView.DsHoaDonDienStaffView.DsHoaDonDienStaffViewDialog;
+package View.StaffView.DSChuhoStaffView.Dialog;
 
+import View.StaffView.DsHoaDonDienStaffView.DsHoaDonDienStaffViewDialog.*;
 import View.AdminView.DSChuHoView.DSChuHoDialog.*;
 import Controller.DSChuHoController.DSChuHo;
+import Controller.StaffView.DSHoaDonStaffviewController;
 import View.AdminView.DSChuHoView.DSChuHoMainView;
 import View.AdminView.MainAdminView;
+import View.StaffView.DSChuhoStaffView.DSChuHoStaffView;
 import View.StaffView.DsHoaDonDienStaffView.DSHoaDonStaffView;
 import View.StaffView.MainStaffView;
 import javax.swing.JOptionPane;
 
-public class SortLoaiStringDSCHStaffViewDialog extends javax.swing.JDialog {
+public class SortLoaiStringDSChuhoStaffViewDialog extends javax.swing.JDialog {
     private MainStaffView mainStaffView;
-    private DSHoaDonStaffView dSHoaDonStaffView;
+    private DSChuHoStaffView chuHoStaffView;
     
-    public SortLoaiStringDSCHStaffViewDialog(MainStaffView mainStaffView, DSHoaDonStaffView dSHoaDonStaffView, boolean modal) {
+    public SortLoaiStringDSChuhoStaffViewDialog(MainStaffView mainStaffView, DSChuHoStaffView chuHoStaffView, boolean modal) {
         initComponents();
         this.mainStaffView =mainStaffView;
-        this.dSHoaDonStaffView = dSHoaDonStaffView;
+        this.chuHoStaffView = chuHoStaffView;
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -146,20 +149,18 @@ public class SortLoaiStringDSCHStaffViewDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_CancelBtActionPerformed
 
     public void SortDialog(int loaiSapXep){
-//        Object selected = DsChuHoMainView.getSapXepCkb().getSelectedItem();
-//        if(selected.equals("Theo CCCD")){
-//            DSChuHo.Sorting(loaiSapXep, 1, DsChuHoMainView.getBangDSChuHo());
-//        }else if(selected.equals("Theo họ và tên")){
-//            DSChuHo.Sorting(loaiSapXep, 2, DsChuHoMainView.getBangDSChuHo());                
-//        }else if(selected.equals("Theo địa chỉ")){
-//            DSChuHo.Sorting(loaiSapXep, 3, DsChuHoMainView.getBangDSChuHo());                
-//        }else if(selected.equals("Theo SĐT")){
-//            DSChuHo.Sorting(loaiSapXep, 4, DsChuHoMainView.getBangDSChuHo());                
-//        }else if(selected.equals("Theo Account")){
-//            DSChuHo.Sorting(loaiSapXep, 5, DsChuHoMainView.getBangDSChuHo());                
-//        }else if(selected.equals("Theo ngày sinh")){
-//            DSChuHo.Sorting(loaiSapXep, 6, DsChuHoMainView.getBangDSChuHo());                
-//        }          
+        Object selected = this.chuHoStaffView.getSapXepCkb().getSelectedItem();
+        if(selected.equals("Theo CCCD")){
+            DSChuHo.Sorting(loaiSapXep, 1, chuHoStaffView.getBangDSChuHo());
+        }else if(selected.equals("Theo họ và tên")){
+            DSChuHo.Sorting(loaiSapXep, 2, chuHoStaffView.getBangDSChuHo());                
+        }else if(selected.equals("Theo địa chỉ")){
+            DSChuHo.Sorting(loaiSapXep, 3, chuHoStaffView.getBangDSChuHo());                
+        }else if(selected.equals("Theo SĐT")){
+            DSChuHo.Sorting(loaiSapXep, 4, chuHoStaffView.getBangDSChuHo());                
+        }else if(selected.equals("Theo Account ")){
+            DSChuHo.Sorting(loaiSapXep, 5, chuHoStaffView.getBangDSChuHo());                
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

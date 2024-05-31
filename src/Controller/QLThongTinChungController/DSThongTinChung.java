@@ -18,7 +18,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class DSThongTinChung {
     private static List<Personal_Infos> ListPersonal_Infos;
-    
+
+    public DSThongTinChung() {
+        try {
+            setListPersonal_Infos(new Personal_InfosDAO().getAll());
+        } catch (Exception ex) {
+            Logger.getLogger(DSThongTinChung.class.getName()).log(Level.SEVERE, null, ex);     
+        }
+    }
+ 
     public static List<Personal_Infos> KhoiTaoListPersonal_Infos() {
         try {
             setListPersonal_Infos(new Personal_InfosDAO().getAll());

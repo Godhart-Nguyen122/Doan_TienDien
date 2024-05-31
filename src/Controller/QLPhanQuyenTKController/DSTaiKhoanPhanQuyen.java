@@ -15,6 +15,15 @@ import javax.swing.table.DefaultTableModel;
 public class DSTaiKhoanPhanQuyen {
     private static List<Accounts> ListAccount;
 
+    
+    public DSTaiKhoanPhanQuyen() {
+          try {
+            setListAccount(new AccountsDAO().getAll());     
+        } catch (Exception ex) {
+            Logger.getLogger(DSTaiKhoanPhanQuyen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static List<Accounts> KhoiTaoListAccount() {
         try {
             setListAccount(new AccountsDAO().getAll());
@@ -89,6 +98,13 @@ public class DSTaiKhoanPhanQuyen {
     public static Accounts SearchObjAccount(String Account){
         for(Accounts Acc : ListAccount)
             if(Acc.getAccount_Username().equals(Account))
+                return Acc;
+        return null;
+    }
+    
+    public static Accounts SearchObjAccountbyCCCD(String cccd){
+        for(Accounts Acc : ListAccount)
+            if(Acc.getCCCD().equals(cccd))
                 return Acc;
         return null;
     }

@@ -11,9 +11,15 @@ public class E_Meters {
     
     private List <Invoices> ListInvoice;
     
-
+   
+    
     public List<Invoices> getListInvoice() {
         return ListInvoice;
+    }
+
+    @Override
+    public String toString() {
+        return this.ID_E_Meter;
     }
 
     public void setListInvoice(List<Invoices> ListInvoice) {

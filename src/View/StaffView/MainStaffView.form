@@ -91,10 +91,10 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="DSChuHoBt" alignment="1" max="32767" attributes="0"/>
-                          <Component id="HoaDonDienBt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="HoadondienBtn" alignment="0" max="32767" attributes="0"/>
                           <Component id="DangXuatBt" alignment="0" max="32767" attributes="0"/>
                           <Component id="QLThongTinChungBt" alignment="1" pref="236" max="32767" attributes="0"/>
-                          <Component id="HoaDonDienBt1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="GhichisoBtn" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -112,9 +112,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="DSChuHoBt" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="HoaDonDienBt1" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="GhichisoBtn" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="HoaDonDienBt" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="HoadondienBtn" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="DangXuatBt" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -151,7 +151,7 @@
                 <Property name="text" type="java.lang.String" value="Welcome Staff"/>
               </Properties>
             </Component>
-            <Component class="LayMotSoUIdepTaiDay.ButtonMenu" name="HoaDonDienBt">
+            <Component class="LayMotSoUIdepTaiDay.ButtonMenu" name="HoadondienBtn">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icon/2.png"/>
@@ -162,7 +162,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HoaDonDienBtActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HoadondienBtnActionPerformed"/>
               </Events>
             </Component>
             <Component class="LayMotSoUIdepTaiDay.ButtonMenu" name="DangXuatBt">
@@ -204,7 +204,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="LayMotSoUIdepTaiDay.ButtonMenu" name="HoaDonDienBt1">
+            <Component class="LayMotSoUIdepTaiDay.ButtonMenu" name="GhichisoBtn">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icon/2.png"/>
@@ -215,7 +215,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HoaDonDienBt1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GhichisoBtnActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

@@ -3,6 +3,7 @@ package View.AdminView.DSHoaDonView;
 import Controller.DAO.Usage_NormDAO;
 import Controller.StaffView.DSHoaDonStaffviewController;
 import Controller.DSHoaDonController.DSHoaDonController;
+import Controller.SupportFunction.SplitUsageNum;
 import Controller.SupportFunction.StringProcessing;
 import View.AdminView.ThongTinSuDungDien.*;
 import LayMotSoUIdepTaiDay.BangDanhSach;
@@ -69,11 +70,20 @@ public class DSHoaDonMainView extends javax.swing.JPanel {
                 String hovatench=cus.getLastname()+" "+cus.getMiddleName()+" "+cus.getFirstname();
                 String hovatennv=staff.getLastname()+" "+staff.getMiddleName()+" "+staff.getFirstname();
                 String ngay=invoices.getInvoice_Date();
+                //Get Id emeter detail
                 int iddetail=invoices.getID_E_Meter_Details();
+                //Tinh tien dien
                 int usageNum=new DSHoaDonStaffviewController().getUsageCusNum(iddetail);
                 List<Double>listusageNum=new Usage_NormDAO().getAll();
-                double total=usageNum*listusageNum.get(invoices.getLevel()-1);
-                double tongtien=new StringProcessing().convertDoubletoString(total);
+                Double total=0.0;  
+                    List<Integer>lstmp=new SplitUsageNum().getListUsage(usageNum);
+                    for(int i=0;i<lstmp.size();i++){
+                        total+=lstmp.get(i)*listusageNum.get(i);
+                    }
+
+                Double tongtien=new StringProcessing().castDoubleget2(total);
+                
+     
                 boolean thanhtoan=invoices.isInvoice_Status();
                 
                 Object[] datarow={

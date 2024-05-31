@@ -2,23 +2,32 @@ package View.StaffView.DsHoaDonDienStaffView;
 
 import View.StaffView.DSChuhoStaffView.*;
 import Controller.DAO.CustomerDAO;
+import Controller.DAO.InvoicesDAO;
 import Controller.DAO.PhanCongDAO;
+import Controller.DAO.Usage_NormDAO;
 import View.AdminView.DSChuHoView.*;
 import Controller.DSChuHoController.DSChuHo;
-import Controller.DSHoaDonController.DSHoaDonController;
+import Controller.StaffView.DSHoaDonStaffviewController;
+import Controller.SupportFunction.SplitUsageNum;
 import Controller.SupportFunction.StringProcessing;
 import LayMotSoUIdepTaiDay.BangDanhSach;
 import LayMotSoUIdepTaiDay.ComboboxThuong;
 import Model.Customers;
+import Model.E_Meter_Details;
+import Model.Invoices;
 import View.AdminView.DSChuHoView.DSChuHoDialog.FilterLoaiDateDSCHDialog;
 import View.AdminView.DSChuHoView.DSChuHoDialog.SortLoaiStringDSCHDialog;
 import View.AdminView.MainAdminView;
+import View.StaffView.DsHoaDonDienStaffView.DsHoaDonDienStaffViewDialog.SortLoaiStringDSHoaDonStaffViewDialog;
+import View.StaffView.DsHoaDonDienStaffView.DsHoaDonDienStaffViewDialog.insertInvoice;
+import View.StaffView.DsHoaDonDienStaffView.DsHoaDonDienStaffViewDialog.payMethod;
 import View.StaffView.MainStaffView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -27,61 +36,84 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
     private MainStaffView mainStaffView;
     private int idStafflogin;
     private List<Integer>listcusofStaff;
-    public  List<Customers> dsChuHo;  
-    
-    public DSHoaDonStaffView(MainStaffView msv,int idStaff) throws Exception {
+    private  List<Customers> dsChuHo;  
+    private List<Invoices>invoiceses;
+    private List<Double>usageNorm;
+    private int selectedInvoiceId;
+
+    public int getSelectedInvoiceId() {
+        return selectedInvoiceId;
+    }
+   
+    public DSHoaDonStaffView(MainStaffView msv,int idStafflogin) throws Exception {
         initComponents();
         this.mainStaffView = msv;
-        this.idStafflogin=idStaff;
+        this.idStafflogin=idStafflogin;
         this.setSize(mainStaffView.getMainPanel().getSize());
-        
-        this.dsChuHo = new DSChuHo().KhoiTaoListCustomeres();
-        ShowThongTinTuDBS(BangDSChuHo);    
+        this.BangDSChuHo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.dsChuHo =new DSHoaDonStaffviewController().getListCusMagbyIdStaffWrite(this.idStafflogin);
+        this.invoiceses=new InvoicesDAO().getAll();
+        selectedInvoiceId=-1;
+        this.usageNorm=new Usage_NormDAO().getAll();
+        ShowThongTinTuDBS2(BangDSChuHo) ;
     }
-
-    public void ShowThongTinTuDBS(BangDanhSach bangDS) throws Exception{
+    private Customers checkIdCustomer(int customerId){
+        for(Customers tmp : this.dsChuHo){
+            int  tmpId=new CustomerDAO().getIdCustomerbyCCCD(tmp.getCCCD());
+            if(tmpId==customerId){
+                return tmp;
+            }
+        }
+        return null;
+    } 
+    
+    public void ShowThongTinTuDBS2(BangDanhSach bangDs) throws Exception{
         DefaultTableModel model = (DefaultTableModel) BangDSChuHo.getModel();
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged(); 
-        //Th1 nhan vien nhap hoa don co custmomer 
-        //Th2 Nhan vien nhap hoa don ko co customer
-        //Th3 Nhan vien ghi dien 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        //Nhan vien nhap hoa don 
-        if(new PhanCongDAO().getRoleStaffbyId(this.idStafflogin)){
-            if(this.listcusofStaff.isEmpty()){
-               JOptionPane.showMessageDialog(this, "Danh sách chủ hộ rỗng: ");
-            }else{
-                for(Integer tmp:this.listcusofStaff){
-                    Customers tmpcus=new CustomerDAO().getCustomerbyId(tmp);
-                    String hovaten=tmpcus.getLastname()+" "+tmpcus.getMiddleName()+" "+tmpcus.getLastname();
-                    Object[] rowData = {
-                        tmpcus.getCCCD(), hovaten,dateFormat.format(tmpcus.getDOB()), 
-                        tmpcus.getAddress(), tmpcus.getPhone(), tmpcus.getAccount_Username(),
-                        tmpcus.getAccount_Password()
-                    };
-                    model.addRow(rowData);
-                }
-            }
+        if(this.invoiceses.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Danh sách hóa đơn rỗng");
         }else{
-        //Nhan vien ghi dien
-            for(Customers tmp: new CustomerDAO().getAll()){
-                if(tmp.getId_Staff()==this.idStafflogin){
-                   String hovaten=tmp.getLastname()+" "+tmp.getMiddleName()+" "+tmp.getLastname();
-                     Object[] rowData = {
-                        tmp.getCCCD(), hovaten,dateFormat.format(tmp.getDOB()), 
-                        tmp.getAddress(), tmp.getPhone(), tmp.getAccount_Username(),
-                        tmp.getAccount_Password()
-                    };
-                }
-            }
-            if(model.getRowCount()==0){
-                JOptionPane.showMessageDialog(this, "Danh sách chủ hộ rỗng: ");
-            }
+            for(Invoices tmpinvoices:this.invoiceses){
+                int invoiceid=tmpinvoices.getId();
+                String invoiceDate=tmpinvoices.getInvoice_Date();
+                boolean InvoiceStatus=tmpinvoices.isInvoice_Status();
+                int level=tmpinvoices.getLevel();
+                int emeterdetialId=tmpinvoices.getID_E_Meter_Details();
+                E_Meter_Details meterDetails=new DSHoaDonStaffviewController().getEdetailbyInvoiceDetialId(emeterdetialId);
+                int customerId=new DSHoaDonStaffviewController().getIdCustomerbyEdetail(meterDetails);
+                Customers tmpcs=checkIdCustomer(customerId);
+                if(checkIdCustomer(customerId)!=null){
+                    Customers tmp=checkIdCustomer(customerId);
+                    String cccd=tmp.getCCCD();
+                    String hovaten=tmp.getLastname()+" "+tmp.getMiddleName()+" "+tmp.getFirstname();
+                    //Lay so dien da su dung
+                    int UsageElec=new DSHoaDonStaffviewController().getUsageCusNum(emeterdetialId);
+                    //Tinh so tien
+                    Double total=0.0;
+                    List<Double>usageNum=new Usage_NormDAO().getAll();
+                    List<Integer>lstmp=new SplitUsageNum().getListUsage(UsageElec);
+                    for(int i=0;i<lstmp.size();i++){
+                        total+=lstmp.get(i)*usageNum.get(i);
+                    }
+                    
+//                     total=this.usageNorm.get(level-1)*UsageElec;
+                    
+                     Double tongtien=new StringProcessing().castDoubleget2(total);
+               
+                    
+                    Object[] rowData = {
+                         invoiceid, cccd,hovaten,invoiceDate,tongtien,InvoiceStatus ==true?"Đã thanh toán":"Chưa thanh toán"     
+                        };
+                        model.addRow(rowData);       
+                }    
+            } 
         }
-        StringProcessing.StringSortingTable(BangDSChuHo, 0, true);
-        model.fireTableDataChanged();
+       
+        
     }
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -99,7 +131,8 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
         SapXepCkb = new LayMotSoUIdepTaiDay.ComboboxThuong();
         SapXepBt = new LayMotSoUIdepTaiDay.ButtonThuong();
         themBtn = new LayMotSoUIdepTaiDay.ButtonThuong();
-        capNhatBtn = new LayMotSoUIdepTaiDay.ButtonThuong();
+        xoaBtn = new LayMotSoUIdepTaiDay.ButtonThuong();
+        thanhtoanBtn = new LayMotSoUIdepTaiDay.ButtonThuong();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -172,7 +205,7 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
             }
         });
 
-        TimKiemCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CCCD", "Họ và tên", " " }));
+        TimKiemCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CCCD", "Họ và tên", "" }));
         TimKiemCb.setSelectedItem(null
         );
         TimKiemCb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -200,9 +233,26 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
 
         themBtn.setText("Thêm");
         themBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        themBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                themBtnActionPerformed(evt);
+            }
+        });
 
-        capNhatBtn.setText("Cập nhật ");
-        capNhatBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        xoaBtn.setText("Xóa");
+        xoaBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        xoaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xoaBtnActionPerformed(evt);
+            }
+        });
+
+        thanhtoanBtn.setText("Thanh toán");
+        thanhtoanBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thanhtoanBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -225,11 +275,13 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(TimKiemBt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(LamMoiBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(thanhtoanBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(LamMoiBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(themBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(capNhatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(xoaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -260,6 +312,8 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(TimKiemBt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(LamMoiBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(thanhtoanBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +324,7 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
                                 .addComponent(SapXepBt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(themBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(capNhatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(xoaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(BangSrllp, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
         );
@@ -287,17 +341,15 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
     private void BangDSChuHoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BangDSChuHoMousePressed
         int i = BangDSChuHo.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) BangDSChuHo.getModel();
-        Customers cs = DSChuHo.SearchObjCCCD((String) model.getValueAt(i, 0));
-        this.Cs = cs;
-        DangChonTf.setText(Cs.getCCCD());
+        DangChonTf.setText(String.valueOf(model.getValueAt(i, 1)));
+        this.selectedInvoiceId= (Integer) model.getValueAt(i,0);
+        System.out.println("invoice Id selected: "+this.selectedInvoiceId);
     }//GEN-LAST:event_BangDSChuHoMousePressed
 
     private void BangDSChuHoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BangDSChuHoMouseReleased
-        int i = BangDSChuHo.getSelectedRow();
-        DefaultTableModel model = (DefaultTableModel) BangDSChuHo.getModel();
-        Customers cs = DSChuHo.SearchObjCCCD((String) model.getValueAt(i, 0));
-        this.Cs = cs;
-        DangChonTf.setText(Cs.getCCCD());
+       int i = BangDSChuHo.getSelectedRow();
+       DefaultTableModel model = (DefaultTableModel) BangDSChuHo.getModel();
+       DangChonTf.setText(String.valueOf(model.getValueAt(i, 1)));
     }//GEN-LAST:event_BangDSChuHoMouseReleased
 
     private void TimKiemBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimKiemBtActionPerformed
@@ -306,42 +358,83 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
         if(TimKiemTf.getText().replaceAll(" ", "").equals("") || selected == null){
             JOptionPane.showMessageDialog(this, "Vui lòng chọn loại tìm kiếm và không bỏ trống thông tin nhập!!!");            
         }else if(selected.equals("CCCD")){
-            if(!DSHoaDonController.Searching(TimKiemTf.getText(), BangDSChuHo, 2))
+            if(!DSHoaDonStaffviewController.Searching(TimKiemTf.getText(), BangDSChuHo, 1))
                JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng có CCCD: " + TimKiemTf.getText());
             else
                JOptionPane.showMessageDialog(this, "Đã tìm thấy người dùng có CCCD: " + TimKiemTf.getText());  
         }else if(selected.equals("Họ và tên")){
-            if(!DSHoaDonController.Searching(TimKiemTf.getText(), BangDSChuHo, 3))
+            if(!DSHoaDonStaffviewController.Searching(TimKiemTf.getText(), BangDSChuHo, 2))
                JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng có họ tên: " + TimKiemTf.getText());
             else
-               JOptionPane.showMessageDialog(this, "Đã tìm thấy người dùng có họ tên: " + TimKiemTf.getText());              
-//        }else if(selected.equals("Địa chỉ")){
-//            if(!DSChuHo.Searching(TimKiemTf.getText(), BangDSChuHo, 3))
-//               JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng có địa chỉ: " + TimKiemTf.getText());
-//            else
-//               JOptionPane.showMessageDialog(this, "Đã tìm thấy người dùng có địa chỉ: " + TimKiemTf.getText());              
-//        }else if(selected.equals("SĐT")){
-//            if(!DSChuHo.Searching(TimKiemTf.getText(), BangDSChuHo, 4))
-//               JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng có SĐT: " + TimKiemTf.getText());
-//            else
-//               JOptionPane.showMessageDialog(this, "Đã tìm thấy người dùng có SĐT: " + TimKiemTf.getText());              
-//        }else if(selected.equals("Account")){
-//            if(!DSChuHo.Searching(TimKiemTf.getText(), BangDSChuHo, 5))
-//               JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng có Account: " + TimKiemTf.getText());
-//            else
-//               JOptionPane.showMessageDialog(this, "Đã tìm thấy người dùng có Account: " + TimKiemTf.getText());              
+               JOptionPane.showMessageDialog(this, "Đã tìm thấy người dùng có họ tên: " + TimKiemTf.getText());                           
         }
     }//GEN-LAST:event_TimKiemBtActionPerformed
 
     private void SapXepBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SapXepBtActionPerformed
-//        Object selected = SapXepCkb.getSelectedItem();
-//        if(selected == null){
-//            JOptionPane.showMessageDialog(this, "Vui lòng chọn thuộc tính cần sắp xếp!!!");             
-//        }else{
-//            SortLoaiStringDSCHDialog sortLoaiStringDSCHDialog = new SortLoaiStringDSCHDialog(this.MainAdminview, this, true);
-//            sortLoaiStringDSCHDialog.setVisible(true);  
-//        }
+        Object selected = SapXepCkb.getSelectedItem();
+        if(selected == null){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thuộc tính cần sắp xếp!!!");             
+        }else{
+            SortLoaiStringDSHoaDonStaffViewDialog sHoaDonStaffViewDialog = new SortLoaiStringDSHoaDonStaffViewDialog(this.mainStaffView, this, true);
+            sHoaDonStaffViewDialog.setVisible(true);  
+        }
     }//GEN-LAST:event_SapXepBtActionPerformed
+
+    private void thanhtoanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thanhtoanBtnActionPerformed
+         if(this.selectedInvoiceId==-1){
+             JOptionPane.showMessageDialog(null, "Vui lòng chọn hóa đơn cần thanh toán", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int option = JOptionPane.showConfirmDialog(
+                        this,
+                        "Bạn có muốn chắc muốn thanh toán hóa đơn này không ?",
+                        "Xác nhận thanh toán hóa đơn",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+            );
+            if(option==JOptionPane.YES_OPTION){
+                payMethod pay=new payMethod(this,true);
+                pay.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_thanhtoanBtnActionPerformed
+
+    private void themBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themBtnActionPerformed
+        try {
+            insertInvoice view =new insertInvoice(this. mainStaffView);
+            view.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_themBtnActionPerformed
+
+    private void xoaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaBtnActionPerformed
+        if(this.selectedInvoiceId==-1){
+             JOptionPane.showMessageDialog(null, "Vui lòng chọn hóa đơn cần xóa", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int option = JOptionPane.showConfirmDialog(
+                        this,
+                        "Bạn có muốn chắc muốn xóa hóa đơn hay không ? Việc này đồng nghĩa đã xảy ra sự cố với khách hàng",
+                        "Xác nhận xóa hóa đơn",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+            );
+            if(option==JOptionPane.YES_OPTION){
+                try {
+                    boolean result=new DSHoaDonStaffviewController().deleteInvoice(this.selectedInvoiceId);
+                    if(result){
+                        JOptionPane.showMessageDialog(this, "Xóa hóa đơn thành công", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        mainStaffView.setForm(new DSHoaDonStaffView(this.mainStaffView,this.idStafflogin));
+                        
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Xóa hóa đơn thất bại", "Failed", JOptionPane.ERROR_MESSAGE);  
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }    
+            }
+        }
+    }//GEN-LAST:event_xoaBtnActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -355,9 +448,10 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
     private LayMotSoUIdepTaiDay.ButtonThuong TimKiemBt;
     private LayMotSoUIdepTaiDay.ComboboxThuong TimKiemCb;
     private javax.swing.JTextField TimKiemTf;
-    private LayMotSoUIdepTaiDay.ButtonThuong capNhatBtn;
     private javax.swing.JSeparator jSeparator1;
+    private LayMotSoUIdepTaiDay.ButtonThuong thanhtoanBtn;
     private LayMotSoUIdepTaiDay.ButtonThuong themBtn;
+    private LayMotSoUIdepTaiDay.ButtonThuong xoaBtn;
     // End of variables declaration//GEN-END:variables
  
     public ComboboxThuong getSapXepCkb() {
