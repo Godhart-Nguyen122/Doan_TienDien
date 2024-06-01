@@ -62,9 +62,11 @@ public class InvoicesDAO {
                 Invoices tmp =new Invoices();
                 tmp.setId(rs.getInt(1));
                 tmp.setInvoice_Date(DateDBToString.DateToString(rs.getDate(2)));
-                tmp.setCurrentNum(rs.getInt(3));
-                tmp.setLevel(rs.getInt(4));
-                tmp.setStaff_name(rs.getString(5));
+                tmp.setCurrentNum(rs.getInt(4));
+                tmp.setLevel(rs.getInt(3));
+                tmp.setID_Staff_Write(rs.getInt(5));
+                tmp.setID_Staff_Input(rs.getInt(6));
+                tmp.setInvoicePaied_Date(DateDBToString.DateToString(rs.getDate(7)));
                 
                 this.invoiceslist.add(tmp);
             }

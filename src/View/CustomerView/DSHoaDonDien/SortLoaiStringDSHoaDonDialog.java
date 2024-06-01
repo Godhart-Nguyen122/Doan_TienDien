@@ -161,16 +161,20 @@ public class SortLoaiStringDSHoaDonDialog extends javax.swing.JDialog {
         Object selected = this.dSHoaDonDien.getSapXepCkb().getSelectedItem();
         if(selected.equals("Theo ID")){
             DSHoaDonController.Sorting(loaiSapXep, 1, dSHoaDonDien.getBangDSHoaDon());
-        }else if(selected.equals("Theo nhân viên")){
+        }else if(selected.equals("Theo nhân viên lập hóa đơn")){
             DSHoaDonController.Sorting(loaiSapXep, 2, dSHoaDonDien.getBangDSHoaDon());                
         }else if(selected.equals("Theo mức điện")){
-            DSHoaDonController.Sorting(loaiSapXep, 3, dSHoaDonDien.getBangDSHoaDon());                
-        }else if(selected.equals("Theo số kwh")){
-            DSHoaDonController.Sorting(loaiSapXep, 4, dSHoaDonDien.getBangDSHoaDon());                
-        }else if(selected.equals("Theo Ngày ")){
-            DSHoaDonController.Sorting(loaiSapXep, 5, dSHoaDonDien.getBangDSHoaDon());                
-        }else if(selected.equals("Theo Tổng tiền")){
             DSHoaDonController.Sorting(loaiSapXep, 6, dSHoaDonDien.getBangDSHoaDon());                
+        }else if(selected.equals("Theo số kwh")){
+            DSHoaDonController.Sorting(loaiSapXep, 7, dSHoaDonDien.getBangDSHoaDon());                
+        }else if(selected.equals("Theo ngày lập")){
+            DSHoaDonController.Sorting(loaiSapXep, 4, dSHoaDonDien.getBangDSHoaDon());                
+        }else if(selected.equals("Theo tổng tiền")){
+            DSHoaDonController.Sorting(loaiSapXep, 8, dSHoaDonDien.getBangDSHoaDon());                
+        }else if(selected.equals("Theo nhân viên ghi điện")){
+            DSHoaDonController.Sorting(loaiSapXep, 3, dSHoaDonDien.getBangDSHoaDon());                
+        }else if(selected.equals("Theo ngày trả")){
+            DSHoaDonController.Sorting(loaiSapXep, 5, dSHoaDonDien.getBangDSHoaDon());                
         }
     }
 }

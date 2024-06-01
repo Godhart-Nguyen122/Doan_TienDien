@@ -3,10 +3,12 @@ package Model;
 public class Invoices {
     private int id;
     private String Invoice_Date;
+    private String InvoicePaied_Date;
     private boolean Invoice_Status;
     private int ID_E_Meter_Details;
     private int ID_Staff_Write;
-    private String staff_name;
+    private String writing_Staff_Name;
+    private int ID_Staff_Input;
     private int currentNum;
     private int level;
 
@@ -34,11 +36,11 @@ public class Invoices {
     }
 
     public String getStaff_name() {
-        return staff_name;
+        return writing_Staff_Name;
     }
 
     public void setStaff_name(String staff_name) {
-        this.staff_name = staff_name;
+        this.writing_Staff_Name = staff_name;
     }
 
     public void setId(int id) {
@@ -85,6 +87,30 @@ public class Invoices {
 
     public void setInvoice_Status(boolean Invoice_Status) {
         this.Invoice_Status = Invoice_Status;
+    }
+
+    public String getInvoicePaied_Date() {
+        return InvoicePaied_Date;
+    }
+
+    public void setInvoicePaied_Date(String InvoicePaied_Date) {
+        this.InvoicePaied_Date = InvoicePaied_Date;
+    }
+
+    public String getWriting_Staff_Name() {
+        return writing_Staff_Name;
+    }
+
+    public void setWriting_Staff_Name(String writing_Staff_Name) {
+        this.writing_Staff_Name = writing_Staff_Name;
+    }
+
+    public int getID_Staff_Input() {
+        return ID_Staff_Input;
+    }
+
+    public void setID_Staff_Input(int Input_Staff_Name) {
+        this.ID_Staff_Input = Input_Staff_Name;
     }
 
     

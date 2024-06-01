@@ -11,11 +11,14 @@ import javax.swing.JOptionPane;
 public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
     private MainCustomerView mctv;
     private DSHoaDonDien dshd;
+    private int thuocTinh=0;
     
-    public FilterLoaiDateDSHoaDonDialog(MainCustomerView cv, DSHoaDonDien dshd, boolean modal) {
+    public FilterLoaiDateDSHoaDonDialog(MainCustomerView cv, DSHoaDonDien dshd, int thuocTinh, boolean modal) {
         initComponents();
         this.mctv = cv;
         this.dshd = dshd;
+        this.thuocTinh = thuocTinh;
+        
         this.setModalityType(DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -179,19 +182,22 @@ public class FilterLoaiDateDSHoaDonDialog extends javax.swing.JDialog {
     private void OkBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkBtActionPerformed
         boolean check = false;
         if(NgayCkb.isSelected()){
-            DSHoaDonController.Filter((String)NgayCb.getSelectedItem(), 1, 1, this.dshd.getBangDSHoaDon());
+            DSHoaDonController.Filter((String)NgayCb.getSelectedItem(), 1, this.thuocTinh, this.dshd.getBangDSHoaDon());
             check = true;
         }
         if(ThangCkb.isSelected()){
-            DSHoaDonController.Filter((String)ThangCb.getSelectedItem(), 2, 1, dshd.getBangDSHoaDon());
+            DSHoaDonController.Filter((String)ThangCb.getSelectedItem(), 2, this.thuocTinh, dshd.getBangDSHoaDon());
             check = true;
         }
         if(NamCkb.isSelected()){
-            DSHoaDonController.Filter(String.valueOf(NamCb.getYear()), 3, 1, dshd.getBangDSHoaDon());
+            DSHoaDonController.Filter(String.valueOf(NamCb.getYear()), 3, this.thuocTinh, dshd.getBangDSHoaDon());
             check = true;
         }
-        if(check)
-        JOptionPane.showMessageDialog(this, "Đã lọc bảng theo ngày sinh!!!");
+        if(check && this.thuocTinh == 4){
+            JOptionPane.showMessageDialog(this, "Đã lọc bảng theo ngày lập!!!");
+        }else if(check && this.thuocTinh == 5){
+            JOptionPane.showMessageDialog(this, "Đã lọc bảng theo ngày trả!!!");
+        }
     }//GEN-LAST:event_OkBtActionPerformed
 
     private void CancelBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtActionPerformed

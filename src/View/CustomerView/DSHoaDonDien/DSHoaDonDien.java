@@ -1,8 +1,11 @@
 package View.CustomerView.DSHoaDonDien;
 
 import Controller.CustomerView.DSHoaDon.DSHoaDon;
+import Controller.DAO.Usage_NormDAO;
 import View.CustomerView.MainCustomerView;
 import Controller.DSHoaDonController.DSHoaDonController;
+import Controller.SupportFunction.SplitUsageNum;
+import Controller.SupportFunction.StringProcessing;
 import LayMotSoUIdepTaiDay.BangDanhSach;
 import LayMotSoUIdepTaiDay.ComboboxThuong;
 import Model.Invoices;
@@ -56,17 +59,33 @@ public class DSHoaDonDien extends javax.swing.JPanel {
         }else{
             for(Invoices invoices :invoicelist){
                 int id=invoices.getId();
-                String nv = invoices.getStaff_name();
+                int nvl = invoices.getID_Staff_Write();
+                int nvg = invoices.getID_Staff_Input();
                 int level = invoices.getLevel();
                 int kwh = invoices.getCurrentNum();
                 String ngaylap=invoices.getInvoice_Date();
+                String ngaytra=invoices.getInvoicePaied_Date();
+                //Tinh so tien
+                    Double total=0.0;
+                    List<Double>usageNum=new Usage_NormDAO().getAll();
+                    List<Integer>lstmp=new SplitUsageNum().getListUsage(kwh);
+                    for(int i=0;i<lstmp.size();i++){
+                        total+=lstmp.get(i)*usageNum.get(i);
+                    }
+                    
+//                     total=this.usageNorm.get(level-1)*UsageElec;
+                    
+                     Double tongtien=new StringProcessing().castDoubleget2(total);
                 
                 Object[] datarow={
                     id,
-                    nv,
+                    nvl,
+                    nvg,
+                    ngaylap,
+                    ngaytra,
                     level,
                     kwh,
-                    ngaylap
+                    tongtien
                 };      
                 model.addRow(datarow);
             }
@@ -104,7 +123,7 @@ public class DSHoaDonDien extends javax.swing.JPanel {
             }
         });
 
-        SapXepCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo ID", "Theo nhân viên ", "Theo mức điện", "Theo số kwh", "Theo ngày lập" }));
+        SapXepCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo ID", "Theo nhân viên lập hóa đơn", "Theo nhân viên ghi điện", "Theo mức điện", "Theo số kwh", "Theo ngày lập", "Theo ngày trả", "Theo tổng tiền" }));
         SapXepCkb.setSelectedItem(null);
         SapXepCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         SapXepCkb.setLabeText("(Chọn thuộc tính cần sắp xếp)");
@@ -150,20 +169,20 @@ public class DSHoaDonDien extends javax.swing.JPanel {
 
         BangDSHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nhân viên lập", "Mức điện", "Số kwh", "Ngày lập"
+                "ID", "Nhân viên lập hóa đơn", "Nhân viên ghi điện", "Ngày lập", "Ngày trả", "Mức điện", "Số kwh", "Tổng tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -176,14 +195,14 @@ public class DSHoaDonDien extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(BangDSHoaDon);
 
-        TimKiemCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mức điện", "Nhân viên lập hóa đơn", " ", " " }));
+        TimKiemCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mức điện", "Nhân viên lập hóa đơn", "Nhân viên ghi điện", " ", " ", " " }));
         TimKiemCb.setSelectedItem(null
         );
         TimKiemCb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TimKiemCb.setLabeText("(Tìm kiếm theo)");
         TimKiemCb.setLineColor(new java.awt.Color(0, 153, 255));
 
-        LocCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo ngày sinh" }));
+        LocCkb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Theo ngày lập", "Theo ngày trả", " " }));
         LocCkb.setSelectedItem(null);
         LocCkb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         LocCkb.setLabeText("(Chọn thuộc tính cần lọc)");
@@ -224,7 +243,7 @@ public class DSHoaDonDien extends javax.swing.JPanel {
                         .addComponent(LocCkb, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LocBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
@@ -259,15 +278,20 @@ public class DSHoaDonDien extends javax.swing.JPanel {
         if(TimKiemTF.getText().replaceAll(" ", "").equals("") || selected == null){
             JOptionPane.showMessageDialog(this, "Vui lòng chọn loại tìm kiếm và không bỏ trống thông tin nhập!!!");            
         }else if(selected.equals("Mức điện")){
-            if(!DSHoaDonController.Searching(TimKiemTF.getText(), BangDSHoaDon, 3))
-               JOptionPane.showMessageDialog(this, "Không tìm thấy Hóa đơn có Id: " + TimKiemTF.getText());
+            if(!DSHoaDonController.Searching(TimKiemTF.getText(), BangDSHoaDon, 6))
+               JOptionPane.showMessageDialog(this, "Không tìm thấy Hóa đơn có mức điện: " + TimKiemTF.getText());
             else
                JOptionPane.showMessageDialog(this, "Đã tìm thấy Hóa đơn có Id: " + TimKiemTF.getText());  
         }else if(selected.equals("Nhân viên lập hóa đơn")){
             if(!DSHoaDonController.Searching(TimKiemTF.getText(), BangDSHoaDon, 2))
-               JOptionPane.showMessageDialog(this, "Không tìm thấy Chủ hộ có CCCD: " + TimKiemTF.getText());
+               JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên lập hóa đơn có ID: " + TimKiemTF.getText());
             else
-               JOptionPane.showMessageDialog(this, "Đã tìm thấy Chủ hộ có CCCD: " + TimKiemTF.getText());              
+               JOptionPane.showMessageDialog(this, "Đã tìm thấy nhân viên lập hóa đơn có ID: " + TimKiemTF.getText());              
+        }else if(selected.equals("Nhân viên ghi điện")){
+            if(!DSHoaDonController.Searching(TimKiemTF.getText(), BangDSHoaDon, 3))
+               JOptionPane.showMessageDialog(this, "Không tìm thấy Nhân viên ghi điện có ID: " + TimKiemTF.getText());
+            else
+               JOptionPane.showMessageDialog(this, "Đã tìm thấy Nhân viên ghi điện có ID: " + TimKiemTF.getText());              
         }
     }//GEN-LAST:event_TimKiemBTActionPerformed
 
@@ -275,7 +299,7 @@ public class DSHoaDonDien extends javax.swing.JPanel {
         try {
             ctv.setForm(new DSHoaDonDien(ctv));
             DaNhapCTDCB.setSelected(false);
-            ChuaNhapCTDCB.setSelected(true);
+            ChuaNhapCTDCB.setSelected(false);
         } catch (Exception ex) {
             Logger.getLogger(DSHoaDonDien.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -330,8 +354,11 @@ public class DSHoaDonDien extends javax.swing.JPanel {
         Object selected = LocCkb.getSelectedItem();
         if(selected == null){
             JOptionPane.showMessageDialog(this, "Vui lòng chọn thuộc tính cần lọc!!!");
-        }else if(selected.equals("Theo ngày sinh")){
-            FilterLoaiDateDSHoaDonDialog filter = new FilterLoaiDateDSHoaDonDialog (this.ctv, this, true);
+        }else if(selected.equals("Theo ngày lập")){
+            FilterLoaiDateDSHoaDonDialog filter = new FilterLoaiDateDSHoaDonDialog (this.ctv, this, 4, true);
+            filter.setVisible(true);
+        }else if(selected.equals("Theo ngày trả")){
+            FilterLoaiDateDSHoaDonDialog filter = new FilterLoaiDateDSHoaDonDialog (this.ctv, this, 5, true);
             filter.setVisible(true);
         }
     }//GEN-LAST:event_LocBtActionPerformed

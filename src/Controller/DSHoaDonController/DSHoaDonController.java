@@ -104,12 +104,41 @@ public class DSHoaDonController {
                 new StringProcessing().StringSortingTable(bangDanhSach, 5, true);
             else
                 new StringProcessing().StringSortingTable(bangDanhSach, 5, false);             
-        }
-                              
+        }else if(thuocTinh == 7){
+            if(loaiSapXep == 1)
+                new StringProcessing().StringSortingTable(bangDanhSach, 6, true);
+            else
+                new StringProcessing().StringSortingTable(bangDanhSach, 6, false);             
+        }else if(thuocTinh == 8){
+            if(loaiSapXep == 1)
+                new StringProcessing().StringSortingTable(bangDanhSach, 7, true);
+            else
+                new StringProcessing().StringSortingTable(bangDanhSach, 7, false);             
+        }                     
     } 
      
     public static void Filter(String dateString, int loaiLoc, int thuocTinh, BangDanhSach bangDanhSach){
         if(thuocTinh == 1){
+            if(loaiLoc == 1){
+                new StringProcessing().StringDateFilteringTable(bangDanhSach, dateString, 4, "Ngày");
+            }
+            if(loaiLoc == 2){
+                new StringProcessing().StringDateFilteringTable(bangDanhSach, dateString, 4, "Tháng");                
+            }
+            if(loaiLoc == 3){
+                new StringProcessing().StringDateFilteringTable(bangDanhSach, dateString, 4, "Năm");                
+            }
+        }else if(thuocTinh == 4){
+            if(loaiLoc == 1){
+                new StringProcessing().StringDateFilteringTable(bangDanhSach, dateString, 3, "Ngày");
+            }
+            if(loaiLoc == 2){
+                new StringProcessing().StringDateFilteringTable(bangDanhSach, dateString, 3, "Tháng");                
+            }
+            if(loaiLoc == 3){
+                new StringProcessing().StringDateFilteringTable(bangDanhSach, dateString, 3, "Năm");                
+            }
+        }else if(thuocTinh == 5){
             if(loaiLoc == 1){
                 new StringProcessing().StringDateFilteringTable(bangDanhSach, dateString, 4, "Ngày");
             }

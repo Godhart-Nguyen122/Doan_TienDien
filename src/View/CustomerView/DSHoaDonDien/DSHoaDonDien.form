@@ -54,7 +54,7 @@
                       <Component id="LocBt" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="95" max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -109,12 +109,15 @@
     <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="SapXepCkb">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
+          <StringArray count="8">
             <StringItem index="0" value="Theo ID"/>
-            <StringItem index="1" value="Theo nh&#xe2;n vi&#xea;n "/>
-            <StringItem index="2" value="Theo m&#x1ee9;c &#x111;i&#x1ec7;n"/>
-            <StringItem index="3" value="Theo s&#x1ed1; kwh"/>
-            <StringItem index="4" value="Theo ng&#xe0;y l&#x1ead;p"/>
+            <StringItem index="1" value="Theo nh&#xe2;n vi&#xea;n l&#x1ead;p h&#xf3;a &#x111;&#x1a1;n"/>
+            <StringItem index="2" value="Theo nh&#xe2;n vi&#xea;n ghi &#x111;i&#x1ec7;n"/>
+            <StringItem index="3" value="Theo m&#x1ee9;c &#x111;i&#x1ec7;n"/>
+            <StringItem index="4" value="Theo s&#x1ed1; kwh"/>
+            <StringItem index="5" value="Theo ng&#xe0;y l&#x1ead;p"/>
+            <StringItem index="6" value="Theo ng&#xe0;y tr&#x1ea3;"/>
+            <StringItem index="7" value="Theo t&#x1ed5;ng ti&#x1ec1;n"/>
           </StringArray>
         </Property>
         <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -204,16 +207,34 @@
         <Component class="LayMotSoUIdepTaiDay.BangDanhSach" name="BangDSHoaDon">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
-                <Column editable="false" title="ID" type="java.lang.String"/>
-                <Column editable="false" title="Nh&#xe2;n vi&#xea;n l&#x1ead;p" type="java.lang.String"/>
-                <Column editable="false" title="M&#x1ee9;c &#x111;i&#x1ec7;n" type="java.lang.String"/>
-                <Column editable="false" title="S&#x1ed1; kwh" type="java.lang.String"/>
+              <Table columnCount="8" rowCount="4">
+                <Column editable="false" title="ID" type="java.lang.Integer"/>
+                <Column editable="false" title="Nh&#xe2;n vi&#xea;n l&#x1ead;p h&#xf3;a &#x111;&#x1a1;n" type="java.lang.Integer"/>
+                <Column editable="false" title="Nh&#xe2;n vi&#xea;n ghi &#x111;i&#x1ec7;n" type="java.lang.Integer"/>
                 <Column editable="false" title="Ng&#xe0;y l&#x1ead;p" type="java.lang.String"/>
+                <Column editable="false" title="Ng&#xe0;y tr&#x1ea3;" type="java.lang.String"/>
+                <Column editable="false" title="M&#x1ee9;c &#x111;i&#x1ec7;n" type="java.lang.Integer"/>
+                <Column editable="false" title="S&#x1ed1; kwh" type="java.lang.Integer"/>
+                <Column editable="false" title="T&#x1ed5;ng ti&#x1ec1;n" type="java.lang.Double"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -251,11 +272,13 @@
     <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="TimKiemCb">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="6">
             <StringItem index="0" value="M&#x1ee9;c &#x111;i&#x1ec7;n"/>
             <StringItem index="1" value="Nh&#xe2;n vi&#xea;n l&#x1ead;p h&#xf3;a &#x111;&#x1a1;n"/>
-            <StringItem index="2" value=" "/>
+            <StringItem index="2" value="Nh&#xe2;n vi&#xea;n ghi &#x111;i&#x1ec7;n"/>
             <StringItem index="3" value=" "/>
+            <StringItem index="4" value=" "/>
+            <StringItem index="5" value=" "/>
           </StringArray>
         </Property>
         <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -273,8 +296,10 @@
     <Component class="LayMotSoUIdepTaiDay.ComboboxThuong" name="LocCkb">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Theo ng&#xe0;y sinh"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Theo ng&#xe0;y l&#x1ead;p"/>
+            <StringItem index="1" value="Theo ng&#xe0;y tr&#x1ea3;"/>
+            <StringItem index="2" value=" "/>
           </StringArray>
         </Property>
         <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
