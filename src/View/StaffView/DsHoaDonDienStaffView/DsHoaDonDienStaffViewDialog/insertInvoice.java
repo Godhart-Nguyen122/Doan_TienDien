@@ -122,7 +122,7 @@ public class insertInvoice extends javax.swing.JFrame {
                         try {
                             //So sanh vs CreatingDate
                              int idEmeterDetail=selectedDate.getId();
-                             int UsageElec=new DSHoaDonStaffviewController().getUsageCusNum(idEmeterDetail);
+                             int UsageElec=new DSHoaDonStaffviewController().getUsageCusNum(idEmeterDetail,0);
                              usageNumTxt.setText(String.valueOf(UsageElec));
                              int level=new SplitUsageNum().caculateLevel(UsageElec);
                              levelTxt.setText(String.valueOf(level));

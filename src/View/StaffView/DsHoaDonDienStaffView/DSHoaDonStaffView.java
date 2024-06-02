@@ -89,7 +89,7 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
                     String cccd=tmp.getCCCD();
                     String hovaten=tmp.getLastname()+" "+tmp.getMiddleName()+" "+tmp.getFirstname();
                     //Lay so dien da su dung
-                    int UsageElec=new DSHoaDonStaffviewController().getUsageCusNum(emeterdetialId);
+                    int UsageElec=new DSHoaDonStaffviewController().getUsageCusNum(emeterdetialId,0);
                     //Tinh so tien
                     Double total=0.0;
                     List<Double>usageNum=new Usage_NormDAO().getAll();

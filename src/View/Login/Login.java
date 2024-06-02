@@ -223,31 +223,20 @@ public class Login extends javax.swing.JFrame {
                 
                 int privilege=new LoginController().getPrivilege(userName, passWord);
                 if(privilege==0){
+                    //Phân quyền admin
                     this.dispose();
                     MainAdminView mianadAdminView= new MainAdminView();
                     mianadAdminView.setVisible(true);
                     mianadAdminView.setLocationRelativeTo(null);
                 }else if(privilege==1){
+                    //Phân quyền nhân viên
                     this.dispose();
-                    int idStaff=new PhanCongDAO().getIDStaffByUserName(userName);
-                    boolean tmp=new PhanCongDAO().getRoleStaffbyUserName(userName);
-                    if(tmp){
-//                        this.combineLists=new ProgramVariableAndFunction().combineLists();
-//                        List<Integer>tmpcus=this.combineLists.get(idStaff);
-                        MainStaffView mainStaffView=new MainStaffView(idStaff,new ArrayList<>());
-                        mainStaffView.setVisible(true);
-                        mainStaffView.setLocationRelativeTo(null);
-                    }else{
-                        List<Integer>tmpcus=new ArrayList<>();
-                        MainStaffView mainStaffView =new MainStaffView(idStaff,tmpcus);
-                        mainStaffView.setVisible(true);
-                        mainStaffView.setLocationRelativeTo(null);
-                    }
-                   
-                   
-                    
-                
+                    int idStaffLogin=new PhanCongDAO().getIDStaffByUserName(userName);
+                    MainStaffView mainStaffView=new MainStaffView(idStaffLogin);
+                    mainStaffView.setVisible(true);
+                    mainStaffView.setLocationRelativeTo(null);
                 }else if(privilege==2){
+                    //Phân quyền khách hàng
                     this.dispose();
                     MainCustomerView mainCustomerView=new MainCustomerView();
                     mainCustomerView.setVisible(true);

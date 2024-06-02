@@ -73,7 +73,7 @@ public class DSHoaDonMainView extends javax.swing.JPanel {
                 //Get Id emeter detail
                 int iddetail=invoices.getID_E_Meter_Details();
                 //Tinh tien dien
-                int usageNum=new DSHoaDonStaffviewController().getUsageCusNum(iddetail);
+                int usageNum=new DSHoaDonStaffviewController().getUsageCusNum(iddetail,0);
                 List<Double>listusageNum=new Usage_NormDAO().getAll();
                 Double total=0.0;  
                     List<Integer>lstmp=new SplitUsageNum().getListUsage(usageNum);

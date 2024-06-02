@@ -15,6 +15,7 @@ import View.AdminView.TrangChuView.TrangChuMainView;
 import View.Login.Login;
 import View.StaffView.DSChuhoStaffView.DSChuHoStaffView;
 import View.StaffView.DsHoaDonDienStaffView.DSHoaDonStaffView;
+import View.StaffView.GhiChiSoView.GhiChiSoStaffView;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -32,7 +33,7 @@ import javax.swing.JPanel;
 public final class MainStaffView extends javax.swing.JFrame {
     public List<ButtonMenu> ListButton;
     private int idStafflogin;
-    private List<Integer>listcus;
+//    private List<Integer>listcus;
     DecimalFormat decimalFormat = new DecimalFormat("#");
     DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
     
@@ -53,10 +54,9 @@ public final class MainStaffView extends javax.swing.JFrame {
     }
     
     
-    public MainStaffView(int idStafflogin, List<Integer>listcus){
+    public MainStaffView(int idStafflogin){
 //        new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
         setIdStafflogin(idStafflogin);
-        this.listcus=listcus;
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         SimpleMainTitleBar.init(this);
@@ -359,7 +359,7 @@ public final class MainStaffView extends javax.swing.JFrame {
     private void DSChuHoBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DSChuHoBtActionPerformed
             ButtonNhan(DSChuHoBt);
         try {
-            this.setForm(new DSChuHoStaffView(this,this.idStafflogin,this.listcus));
+            this.setForm(new DSChuHoStaffView(this,this.idStafflogin));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -395,7 +395,15 @@ public final class MainStaffView extends javax.swing.JFrame {
     }//GEN-LAST:event_QLThongTinChungBtActionPerformed
 
     private void GhichisoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GhichisoBtnActionPerformed
-        // TODO add your handling code here:
+        ButtonNhan(HoadondienBtn);
+        try {
+            this.setForm(new GhiChiSoStaffView(this,this.idStafflogin));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally{
+            CapNhatBangTrangThai();
+        }
     }//GEN-LAST:event_GhichisoBtnActionPerformed
 
     public void setForm(JComponent com){

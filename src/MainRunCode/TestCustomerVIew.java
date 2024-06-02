@@ -1,10 +1,11 @@
+
 package MainRunCode;
 
+import View.CustomerView.MainCustomerView;
 
-import View.StaffView.MainStaffView;
-import java.text.ParseException;
-public class TestStaffView {
-    private MainStaffView MF = new MainStaffView (4);
+
+public class TestCustomerVIew {
+    private MainCustomerView MF = new MainCustomerView();
     public void MainFormLoadding() {
         MF.setTitle("Demo");
         MF.setLocationRelativeTo(null);
@@ -12,8 +13,6 @@ public class TestStaffView {
         MF.setSize(1500, 700);
     }
     public static void main(String[] args) {
-        new TestStaffView().MainFormLoadding();
+        new TestCustomerVIew().MainFormLoadding();
     }
-    
-
 }

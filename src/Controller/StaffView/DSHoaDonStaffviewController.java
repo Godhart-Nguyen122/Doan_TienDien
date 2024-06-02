@@ -65,7 +65,8 @@ public class DSHoaDonStaffviewController {
     public List<Double>getUsageNormList(){
         return new Usage_NormDAO().getAll();
     }
-    public int getUsageCusNum(int emeterDetailId){
+    public int getUsageCusNum(int emeterDetailId,int type){
+         int previousNum=0;
          int usage = 0;
          int currentNum = 0;
          String idEmeter = "";
@@ -88,7 +89,6 @@ public class DSHoaDonStaffviewController {
          //To Make sure sort this tmpList which has the same ID_E_Meter 
          Collections.sort(tmplist,  (p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
          // Calculate usage
-         System.out.println("Chieu dai cua tmp List: "+tmplist.size());
          if (tmplist.size() == 1) {
              usage = currentNum;
          } else {
@@ -105,13 +105,20 @@ public class DSHoaDonStaffviewController {
              if(dem-1<0){
                 dem=0;
                 usage=currentNum;
+                
              }else{
                 dem=dem-1;
                 E_Meter_Details previousMonth = tmplist.get(dem);
                 int getUsageNumPreviousMonth = previousMonth.getCurrent_num();
+                previousNum=getUsageNumPreviousMonth;
                 usage = currentNum - getUsageNumPreviousMonth;
              }
           
+         }
+         //Type==0 lấy số điện sử dụng 
+         //Type ==1 lấy số điện tháng trước đó
+         if(type==1){
+            usage=previousNum;
          }
          return usage;
     }
