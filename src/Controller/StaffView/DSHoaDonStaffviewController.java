@@ -5,6 +5,7 @@ import Controller.DAO.CustomerDAO;
 import Controller.DAO.E_MeterDAO;
 import Controller.DAO.E_Meter_DetailsDAO;
 import Controller.DAO.InvoicesDAO;
+import Controller.DAO.Paid_InvoiceDAO;
 import Controller.DAO.Usage_NormDAO;
 import Controller.SupportFunction.StringProcessing;
 import LayMotSoUIdepTaiDay.BangDanhSach;
@@ -154,4 +155,9 @@ public class DSHoaDonStaffviewController {
                 new StringProcessing().StringSortingTable(bangDanhSach, 4, false);             
         }
     }
+    
+    public static boolean CheckIfExistInvoiceIDinPaidInvoice(int invoiceId){
+        return new Paid_InvoiceDAO().CheckIfExistIdInvoice(invoiceId);
+    }
+        
 }

@@ -489,9 +489,11 @@ public class insertInvoice extends javax.swing.JFrame {
                 try {
                    boolean result=intsertInvoice();
                    if(result){
-                        JOptionPane.showMessageDialog(null, "Thêm hóa đơn thành công", "Thông báo", JOptionPane.WARNING_MESSAGE); 
+                        JOptionPane.showMessageDialog(null, "Thêm hóa đơn thành công", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                        this.dispose();
                    }else{
                         JOptionPane.showMessageDialog(null, "Thêm hóa đơn thất bại", "Thông báo", JOptionPane.WARNING_MESSAGE); 
+                        this.dispose();
                    }
                     
                 } catch (Exception ex) {

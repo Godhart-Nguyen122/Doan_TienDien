@@ -420,18 +420,31 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
                         JOptionPane.QUESTION_MESSAGE
             );
             if(option==JOptionPane.YES_OPTION){
+                boolean check=true;
                 try {
-                    boolean result=new DSHoaDonStaffviewController().deleteInvoice(this.selectedInvoiceId);
-                    if(result){
-                        JOptionPane.showMessageDialog(this, "Xóa hóa đơn thành công", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        mainStaffView.setForm(new DSHoaDonStaffView(this.mainStaffView,this.idStafflogin));
-                        
-                    }else{
-                        JOptionPane.showMessageDialog(this, "Xóa hóa đơn thất bại", "Failed", JOptionPane.ERROR_MESSAGE);  
-                    }
+                    //Check hóa đơn đã thanh toán thì không cho xóa
+                    check=new DSHoaDonStaffviewController().CheckIfExistInvoiceIDinPaidInvoice(this.selectedInvoiceId);
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                }
+                if(check==false){
+                    try {
+                        boolean result=new DSHoaDonStaffviewController().deleteInvoice(this.selectedInvoiceId);
+                        if(result){
+                            JOptionPane.showMessageDialog(this, "Xóa hóa đơn thành công", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            mainStaffView.setForm(new DSHoaDonStaffView(this.mainStaffView,this.idStafflogin));
+
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Xóa hóa đơn thất bại", "Failed", JOptionPane.ERROR_MESSAGE);  
+                        }
+                    } catch (Exception ex) {
+                    ex.printStackTrace();
                 }    
+                }else{
+                    JOptionPane.showMessageDialog(this, "Hóa đơn đã thanh toán,không được xóa", "Warning", JOptionPane.WARNING_MESSAGE);
+
+                }
+             
             }
         }
     }//GEN-LAST:event_xoaBtnActionPerformed

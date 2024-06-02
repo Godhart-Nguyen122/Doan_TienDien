@@ -117,16 +117,26 @@ public class payMethod extends javax.swing.JDialog {
         if(pay.equals("")){
             JOptionPane.showMessageDialog(null, "Vui lòng chọn hình thức thanh toán", "Warning", JOptionPane.WARNING_MESSAGE);
         }else{
+            boolean check=false;
             try {
-                boolean result=new DSHoaDonStaffviewController().payInvoice(invoiceId, pay);
-                if(result){
-                    JOptionPane.showMessageDialog(null, "Thanh toán thành công hóa đơn", "Warning", JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Thanh toán hóa đơn thất bại", "Warning", JOptionPane.WARNING_MESSAGE);
-                }
+                check=new DSHoaDonStaffviewController().CheckIfExistInvoiceIDinPaidInvoice(this.invoiceId);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            if(check==true){
+                JOptionPane.showMessageDialog(null, "Hóa đơn đã thanh toán, không được thanh toán lần nữa!", "Warning", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                try {
+                    boolean result=new DSHoaDonStaffviewController().payInvoice(invoiceId, pay);
+                    if(result){
+                        JOptionPane.showMessageDialog(null, "Thanh toán thành công hóa đơn", "Warning", JOptionPane.INFORMATION_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Thanh toán hóa đơn thất bại", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }    
         }
     }//GEN-LAST:event_buttonThuong1ActionPerformed
 
