@@ -16,6 +16,7 @@ import View.Login.Login;
 import View.StaffView.DSChuhoStaffView.DSChuHoStaffView;
 import View.StaffView.DsHoaDonDienStaffView.DSHoaDonStaffView;
 import View.StaffView.GhiChiSoView.GhiChiSoStaffView;
+import View.StaffView.QLThongTinChungView.QLTTChungStaffView;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -390,8 +391,12 @@ public final class MainStaffView extends javax.swing.JFrame {
 
     private void QLThongTinChungBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLThongTinChungBtActionPerformed
             ButtonNhan(QLThongTinChungBt);
-//            this.setForm(new QLTTChungMainView(this));
+        try {
+            this.setForm(new QLTTChungStaffView(this,this.idStafflogin));
             CapNhatBangTrangThai();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_QLThongTinChungBtActionPerformed
 
     private void GhichisoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GhichisoBtnActionPerformed

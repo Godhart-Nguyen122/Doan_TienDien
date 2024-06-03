@@ -42,7 +42,7 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
       
  
  
-    public QLTTChungStaffView(MainStaffView msv,int idStaff,List<Integer>liscus) throws Exception {
+    public QLTTChungStaffView(MainStaffView msv,int idStaff) throws Exception {
         initComponents();
         this.mainStaffView = msv;
         this.idStafflogin=idStaff;
@@ -411,7 +411,7 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
     private void LamMoiBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiBtActionPerformed
  
         try {
-            mainStaffView.setForm(new QLTTChungStaffView(this.mainStaffView,this.idStafflogin,new ArrayList<>()));
+            mainStaffView.setForm(new QLTTChungStaffView(this.mainStaffView,this.idStafflogin));
         } catch (Exception ex) {
             Logger.getLogger(QLTTChungStaffView.class.getName()).log(Level.SEVERE, null, ex);
         }

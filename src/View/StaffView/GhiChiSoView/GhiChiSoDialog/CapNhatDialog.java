@@ -5,10 +5,12 @@
 package View.StaffView.GhiChiSoView.GhiChiSoDialog;
 
 import Controller.DAO.E_Meter_DetailsDAO;
+import Controller.StaffView.subFormController.capNhatChiSoController;
 
 import Model.E_Meter_Details;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -22,14 +24,30 @@ public class CapNhatDialog extends javax.swing.JDialog {
     private String cccd_ch;
     private E_Meter_Details _wmd;
     private int _chiSoCu;
+    private List<Object>needtoUpdate;
+    private int idstafflogin;
     /**
      * Creates new form JDialogCapNhatHoaDon
      */
-    public CapNhatDialog(boolean modal) {
-        
-        
+    public CapNhatDialog(boolean modal,List<Object>tmp,int idstafflogin) {
         initComponents();
+        this.needtoUpdate=tmp;
+        this.idstafflogin=idstafflogin;
+        showInfo();
         setLocationRelativeTo(null);
+    }
+    
+    private void showInfo(){
+        this.txtDate.setText((String) this.needtoUpdate.get(6));     
+        this.txtNameCH.setText((String) this.needtoUpdate.get(1));
+        Object idcongto=this.needtoUpdate.get(5);    
+        this.txtIDCongTo.setText(idcongto.toString());
+        this.txtDiaChi.setText(this.needtoUpdate.get(4).toString());
+        this.txtSoDienCu.setText(String.valueOf( this.needtoUpdate.get(2)));
+        this.txtDienMoi.setText(String.valueOf(this.needtoUpdate.get(3)));
+        Object chisocu = this.needtoUpdate.get(2);
+        int chisocuInt = Integer.parseInt(String.valueOf(chisocu));
+        this._chiSoCu=chisocuInt;
     }
 
     /**
@@ -56,8 +74,8 @@ public class CapNhatDialog extends javax.swing.JDialog {
         txtDiaChi = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtSoNuocCu = new javax.swing.JTextField();
-        txtSoNuocMoi = new javax.swing.JTextField();
+        txtSoDienCu = new javax.swing.JTextField();
+        txtDienMoi = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -114,6 +132,8 @@ public class CapNhatDialog extends javax.swing.JDialog {
 
         jLabel8.setText("ĐỊA CHỈ :");
 
+        txtSoDienCu.setEditable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -146,8 +166,8 @@ public class CapNhatDialog extends javax.swing.JDialog {
                                 .addComponent(txtNameCH, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
                             .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtSoNuocCu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                                .addComponent(txtSoNuocMoi, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addComponent(txtSoDienCu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                .addComponent(txtDienMoi, javax.swing.GroupLayout.Alignment.LEADING)))))
                 .addContainerGap(134, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -172,11 +192,11 @@ public class CapNhatDialog extends javax.swing.JDialog {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtSoNuocCu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSoDienCu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtSoNuocMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDienMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(77, 77, 77)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,34 +229,40 @@ public class CapNhatDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btExitActionPerformed
 
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
-        // TODO add your handling code here:
-       
-       String str = txtSoNuocMoi.getText();
-int sonuocmoi = 0;
+        // TODO add your handling code here:      
+       String str = txtDienMoi.getText();
+       int sonuocmoi = 0;
 
-if(str.equals("") || str.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Không được bỏ trống!");
-} else if(!str.matches("-?\\d+(\\.\\d+)?")) {
-    JOptionPane.showMessageDialog(null, "Số nước phải là số!");
-} else {
-    try {
-        sonuocmoi = Integer.parseInt(str);
-        if(_chiSoCu >= sonuocmoi) {
-            JOptionPane.showMessageDialog(null, "Số nước mới phải lớn hơn số nước cũ!");
+        if(str.equals("") || str.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Không được bỏ trống!");
+        } else if(!str.matches("-?\\d+(\\.\\d+)?")) {
+            JOptionPane.showMessageDialog(null, "Số nước phải là số!");
         } else {
-            new E_Meter_DetailsDAO().UpdateSoDien(txtIDCongTo.getText(),Integer.valueOf(txtSoNuocMoi.getText()),txtDate.getText());
-            
-            
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
-//            GhiNuoc ghiNuocFrame = MainNV.ghinuoc;
-//                ghiNuocFrame.refreshTable();
-            this.dispose();
-           
+            try {
+                sonuocmoi = Integer.parseInt(str);
+                if(_chiSoCu >= sonuocmoi) {
+                    JOptionPane.showMessageDialog(null, "Số nước mới phải lớn hơn số nước cũ!");
+                } else {
+                    String creatingDate=(String) this.needtoUpdate.get(6);
+                    String idmeter;    
+                    Object idmeters=this.needtoUpdate.get(5);   
+                    idmeter=idmeters.toString();             
+                    int staffinput=this.idstafflogin;
+                    int currentNum=sonuocmoi;
+                         
+                    boolean result = new capNhatChiSoController().capNhatChiso(creatingDate, idmeter, idstafflogin, currentNum);
+                    if(result){
+                         JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+                         this.dispose();
+                    }else{
+                         JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
+                    }
+
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Số nước phải là số hợp lệ!");
+            }
         }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Số nước phải là số hợp lệ!");
-    }
-}
 
      
        
@@ -247,74 +273,35 @@ if(str.equals("") || str.isEmpty()) {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CapNhatDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CapNhatDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CapNhatDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CapNhatDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CapNhatDialog dialog = new CapNhatDialog(true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-    public void setdataHoaDon(E_Meter_Details wmd){
-        _wmd=wmd;
-        
-          E_Meter_DetailsDAO wmtd= new E_Meter_DetailsDAO();
-           SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-        
-        SimpleDateFormat sp = new SimpleDateFormat("yyyy-MM-dd");
-        String date = sp.format(wmd.getCreating_Date());
-        txtDate.setText(date);
-        txtIDCongTo.setText(wmd.getID_E_Meter());
-        txtSoNuocMoi.setText(String.valueOf(wmd.getCurrent_num()));
-        
-        
-       
-        String cccd=wmtd.getCCCDByIDMeter(wmd.getID_E_Meter());
-       
-        String hoten =wmtd.getHotenByCCCD(cccd);
-         txtNameCH.setText(hoten);
-         
-        String thangcu = wmtd.thangDienCu(date);
-        int sonuoccu=wmtd.getSoDienCu(thangcu,wmd.getID_E_Meter());
-        _chiSoCu=sonuoccu;
-        txtSoNuocCu.setText(String.valueOf(sonuoccu));
-        String address= wmtd.getaddressByIdmeter(wmd.getID_E_Meter());
-        txtDiaChi.setText(address);
-        
-      
-    
-    }
+//    public void setdataHoaDon(E_Meter_Details wmd){
+////        _wmd=wmd;
+////        
+////          E_Meter_DetailsDAO wmtd= new E_Meter_DetailsDAO();
+////           SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+////        
+////        SimpleDateFormat sp = new SimpleDateFormat("yyyy-MM-dd");
+////        String date = sp.format(wmd.getCreating_Date());
+////        txtDate.setText(date);
+////        txtIDCongTo.setText(wmd.getID_E_Meter());
+////        txtSoNuocMoi.setText(String.valueOf(wmd.getCurrent_num()));
+////        
+////        
+////       
+////        String cccd=wmtd.getCCCDByIDMeter(wmd.getID_E_Meter());
+////       
+////        String hoten =wmtd.getHotenByCCCD(cccd);
+////         txtNameCH.setText(hoten);
+////         
+////        String thangcu = wmtd.thangDienCu(date);
+////        int sonuoccu=wmtd.getSoDienCu(thangcu,wmd.getID_E_Meter());
+////        _chiSoCu=sonuoccu;
+////        txtSoNuocCu.setText(String.valueOf(sonuoccu));
+////        String address= wmtd.getaddressByIdmeter(wmd.getID_E_Meter());
+////        txtDiaChi.setText(address);
+////        
+////      
+//    
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btExit;
@@ -330,10 +317,10 @@ if(str.equals("") || str.isEmpty()) {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel txtDate;
     private javax.swing.JLabel txtDiaChi;
+    private javax.swing.JTextField txtDienMoi;
     private javax.swing.JLabel txtIDCongTo;
     private javax.swing.JLabel txtNameCH;
-    private javax.swing.JTextField txtSoNuocCu;
-    private javax.swing.JTextField txtSoNuocMoi;
+    private javax.swing.JTextField txtSoDienCu;
     // End of variables declaration//GEN-END:variables
 
     private String string(float amount) {

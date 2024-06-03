@@ -11,6 +11,7 @@ import Controller.DBS;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -388,25 +389,53 @@ public class E_Meter_DetailsDAO {
           
         return addr;
     }
-       public static void UpdateSoDien(String idmt,int currentnum,String date){
+       public static boolean UpdateSoDien(String CreatingDate,String idmeter,int idstaffInput,int currentNum){
    
-        String SQL = "update E_METER_DETAILS set Current_Num=? where Creating_Date=? and ID_E_METER=?";
+        String SQL = "UPDATE E_METER_DETAILS " +
+             "SET Current_Num = ? " +
+             "WHERE YEAR(Creating_Date) = YEAR(?) " +
+             "AND MONTH(Creating_Date) = MONTH(?) " +
+             "AND ID_E_METER = ? " +
+             "AND ID_Staff_Input = ?";
+        boolean result=false;
+         try{
+                 // Define the date format matching the date string
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                // Parse the string to LocalDate
+                LocalDate localDate = LocalDate.parse(CreatingDate, formatter);
+
+                // Convert LocalDate to java.sql.Date
+                java.sql.Date sqlDate = Date.valueOf(localDate);
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }   
+        
+        
+        
         try {
             Connection con = new DBS().getConnection();
-            PreparedStatement rs = con.prepareStatement(SQL);
-            
-           
-            rs.setInt(1, currentnum);
-              rs.setString(2, date);
-             rs.setString(3, idmt);
+            PreparedStatement rs = con.prepareStatement(SQL); 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            // Parse the string to LocalDate
+            LocalDate localDate = LocalDate.parse(CreatingDate, formatter);
+            // Convert LocalDate to java.sql.Date
+            java.sql.Date sqlDate = Date.valueOf(localDate);
 
+            rs.setInt(1, currentNum);
+            rs.setDate(2, sqlDate);
+            rs.setDate(3, sqlDate);
+            rs.setString(4, idmeter);
+            rs.setInt(5, idstaffInput);
             int rowsAffected = rs.executeUpdate();
-        
-            
+            if(rowsAffected==1){
+                result=true;
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
-//            System.out.println("Lỗi hệ thống!!! (AccountsDAO) - AddDAO");
         }
+        return result;
       }
        
     private List<E_Meter_Details>listEmeterDetail=new ArrayList<>();

@@ -42,12 +42,11 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                      <Component id="updateBtn" min="-2" pref="124" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="LocBt" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
-                          <Component id="SapXepBt" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace pref="104" max="32767" attributes="0"/>
+                      <Component id="ghiChiSoBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -83,13 +82,13 @@
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="TimKiemBt" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="LamMoiBt" alignment="3" max="-2" attributes="0"/>
+                          <Component id="updateBtn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jSeparator1" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="LocBt" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="SapXepBt" min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Component id="ghiChiSoBtn" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -278,7 +277,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="LocBt">
+    <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="updateBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Icon/filter.png"/>
@@ -289,10 +288,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LocBtActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="SapXepBt">
+    <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="ghiChiSoBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Icon/sort.png"/>
@@ -303,7 +302,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SapXepBtActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ghiChiSoBtnActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -408,6 +407,8 @@
                 <StringItem index="11" value="Th&#xe1;ng 12"/>
               </StringArray>
             </Property>
+            <Property name="selectedIndex" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTuThangActionPerformed"/>

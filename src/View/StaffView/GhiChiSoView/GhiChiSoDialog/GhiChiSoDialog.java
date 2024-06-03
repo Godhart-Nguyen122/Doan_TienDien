@@ -326,7 +326,7 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
                         JOptionPane.QUESTION_MESSAGE
             );
       if(option==JOptionPane.YES_OPTION){
-        if(oldNumTxt.getText().equals("")){
+        if(oldNumTxt.getText().equals("")||txtSoNuocMoi.getText().equals("")){
             JOptionPane.showMessageDialog(this,"Vui lòng chọn các thông tin cần thiết để ghi điện","Error",JOptionPane.WARNING_MESSAGE);
         }else{
             

@@ -130,8 +130,8 @@
                               </Group>
                               <Component id="txtDiaChi" min="-2" pref="232" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtSoNuocCu" alignment="0" pref="98" max="32767" attributes="0"/>
-                                  <Component id="txtSoNuocMoi" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtSoDienCu" alignment="0" pref="98" max="32767" attributes="0"/>
+                                  <Component id="txtDienMoi" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -166,12 +166,12 @@
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtSoNuocCu" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSoDienCu" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtSoNuocMoi" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDienMoi" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -238,9 +238,12 @@
             <Property name="text" type="java.lang.String" value="&#x110;&#x1eca;A CH&#x1ec8; :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtSoNuocCu">
+        <Component class="javax.swing.JTextField" name="txtSoDienCu">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtSoNuocMoi">
+        <Component class="javax.swing.JTextField" name="txtDienMoi">
         </Component>
       </SubComponents>
     </Container>
