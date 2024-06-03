@@ -72,6 +72,7 @@ public class DSThongTinChung {
         return null;
     }
 
+    
     public static int SearchIndexCCCD(String CCCD){
         int index = 0;
         for(Personal_Infos Ps : ListPersonal_Infos){

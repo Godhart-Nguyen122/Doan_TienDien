@@ -35,11 +35,10 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class QLTTChungStaffView extends javax.swing.JPanel {
-     private Customers Cs;
+    private Customers Cs;
     private MainStaffView mainStaffView;
     private int idStafflogin;
     private List<Customers>dsChuhoMnStaff;
-      
  
  
     public QLTTChungStaffView(MainStaffView msv,int idStaff) throws Exception {
@@ -48,6 +47,8 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
         this.idStafflogin=idStaff;
         this.setSize(mainStaffView.getMainPanel().getSize());
         dsChuhoMnStaff=new ArrayList<>();
+
+
         ShowThongTinTuDBS(BangDSTTChung);    
     }
 
@@ -56,6 +57,7 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
     }
     public  void devideChuho() throws Exception{
         // Chia danh sách ch? h? theo nhân viên ghi đi?n 0 nhân viên nh?p hóa đơn 1
+    
         List<Customers>danhsach=new DSChuHo().LayDanhSachChuho();
         System.out.println("Danh sach chu ho trong viw :"+danhsach.size());
          for(Customers tmp:danhsach){
@@ -81,6 +83,7 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
         model.fireTableDataChanged(); 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         devideChuho();
+     
         model.setRowCount(0);    
         if(this.dsChuhoMnStaff.isEmpty()){
            JOptionPane.showMessageDialog(this, "Danh sách chủ hộ rỗng: ");
@@ -169,8 +172,6 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
         BangSrllp = new javax.swing.JScrollPane();
         BangDSTTChung = new LayMotSoUIdepTaiDay.BangDanhSach();
         ThemBt = new LayMotSoUIdepTaiDay.ButtonThuong();
-        CapNhatBt = new LayMotSoUIdepTaiDay.ButtonThuong();
-        CapNhatCb = new LayMotSoUIdepTaiDay.ComboboxThuong();
         LamMoiBt = new LayMotSoUIdepTaiDay.ButtonThuong();
         DangChonTf = new javax.swing.JTextField();
         DangChonLbl = new javax.swing.JLabel();
@@ -230,22 +231,6 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
                 ThemBtActionPerformed(evt);
             }
         });
-
-        CapNhatBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/6.png"))); // NOI18N
-        CapNhatBt.setText("Cập nhật thông tin người dùng");
-        CapNhatBt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        CapNhatBt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CapNhatBtActionPerformed(evt);
-            }
-        });
-
-        CapNhatCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cập nhật thông tin chung", "Cập nhật CCCD" }));
-        CapNhatCb.setSelectedItem(null
-        );
-        CapNhatCb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        CapNhatCb.setLabeText("(Chọn loại cập nhật)");
-        CapNhatCb.setLineColor(new java.awt.Color(0, 153, 255));
 
         LamMoiBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Refresh.png"))); // NOI18N
         LamMoiBt.setText("Làm mới");
@@ -338,18 +323,12 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(DangChonTf, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(TimKiemBt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ThemBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(LamMoiBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(CapNhatCb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(CapNhatBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(32, 32, 32)
+                        .addComponent(TimKiemBt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ThemBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(LamMoiBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,7 +352,7 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
                                     .addGap(2, 2, 2)
                                     .addComponent(TimKiemCb, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(TimKiemTf))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(DangChonLbl)
                                 .addComponent(DangChonTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -383,11 +362,7 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
                                 .addComponent(ThemBt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(TimKiemBt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(LamMoiBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(CapNhatBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(CapNhatCb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,31 +393,18 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
         
     }//GEN-LAST:event_LamMoiBtActionPerformed
 
-    private void CapNhatBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapNhatBtActionPerformed
-        Object selected = CapNhatCb.getSelectedItem();
-        if(!(BangDSTTChung.getSelectionModel().isSelectionEmpty()) && (selected != null) && (Cs != null)){          
-            if(selected.equals("Cập nhật thông tin chung")){
-                showCapNhatTTCDialog();
-            }else{
-                showCapNhatCCCDTTCDialog();
-            }                    
-        }else{
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn thông tin người dùng cần cập nhật và loại cập nhật trên bảng!!!");
-        }
-    }//GEN-LAST:event_CapNhatBtActionPerformed
-
     private void BangDSTTChungMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BangDSTTChungMousePressed
         int i = BangDSTTChung.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) BangDSTTChung.getModel();
-        Personal_Infos ps = DSThongTinChung.SearchObjCCCD((String) model.getValueAt(i, 0));
+        Customers Cs = DSChuHo.SearchObjCCCD((String) model.getValueAt(i, 0));
         this.Cs = Cs;
         DangChonTf.setText(Cs.getCCCD());
     }//GEN-LAST:event_BangDSTTChungMousePressed
 
     private void BangDSTTChungMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BangDSTTChungMouseReleased
-        int i = BangDSTTChung.getSelectedRow();
+         int i = BangDSTTChung.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) BangDSTTChung.getModel();
-        Personal_Infos ps = DSThongTinChung.SearchObjCCCD((String) model.getValueAt(i, 0));
+        Customers Cs = DSChuHo.SearchObjCCCD((String) model.getValueAt(i, 0));
         this.Cs = Cs;
         DangChonTf.setText(Cs.getCCCD());
     }//GEN-LAST:event_BangDSTTChungMouseReleased
@@ -506,21 +468,19 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
         themTTChungDialog.setVisible(true);
     }
 
-    private void showCapNhatTTCDialog() {
-        CapNhatTTChungDialog capNhatTTChungDialog = new CapNhatTTChungDialog(this.mainStaffView, this, true);
-        capNhatTTChungDialog.setVisible(true);
-    }    
+//    private void showCapNhatTTCDialog() {
+//        CapNhatTTChungDialog capNhatTTChungDialog = new CapNhatTTChungDialog(this.mainStaffView, this, true);
+//        capNhatTTChungDialog.setVisible(true);
+//    }    
     
-    private void showCapNhatCCCDTTCDialog() {
-        CapNhatCCCDTTChungDialog capNhatCCCDTTChungDialog = new CapNhatCCCDTTChungDialog(this.mainStaffView, this, true);
-        capNhatCCCDTTChungDialog.setVisible(true);
-    }    
+//    private void showCapNhatCCCDTTCDialog() {
+//        CapNhatCCCDTTChungDialog capNhatCCCDTTChungDialog = new CapNhatCCCDTTChungDialog(this.mainStaffView, this, true);
+//        capNhatCCCDTTChungDialog.setVisible(true);
+//    }    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LayMotSoUIdepTaiDay.BangDanhSach BangDSTTChung;
     private javax.swing.JScrollPane BangSrllp;
-    private LayMotSoUIdepTaiDay.ButtonThuong CapNhatBt;
-    private LayMotSoUIdepTaiDay.ComboboxThuong CapNhatCb;
     private javax.swing.JLabel DangChonLbl;
     private javax.swing.JTextField DangChonTf;
     private LayMotSoUIdepTaiDay.ButtonThuong LamMoiBt;
@@ -535,13 +495,9 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-    public Personal_Infos getPs() {
-        return Cs;
-    }
+   
 
-    public void setPs(Personal_Infos Ps) {
-        this.Cs = Cs;
-    }
+   
     
     public BangDanhSach getBangDSTTChung() {
         return BangDSTTChung;

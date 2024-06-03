@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class FilterLoaiDateTTCDialog extends javax.swing.JDialog {
     private MainStaffView mainStaffView;
     private QLTTChungStaffView QlttChungStaffView;
-    public  Personal_Infos Ps;
+//    public  Personal_Infos Ps;
     
     public FilterLoaiDateTTCDialog(MainStaffView mainStaffView, QLTTChungStaffView qLTTChungMainView, boolean modal) {
         initComponents();

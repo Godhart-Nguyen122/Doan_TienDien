@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class SortLoaiStringTTCDialog extends javax.swing.JDialog {
     private MainStaffView MainStaffview;
     private QLTTChungStaffView QlttChungStaffView;
-    public  Personal_Infos Ps;
+//    public  Personal_Infos Ps;
     
     public SortLoaiStringTTCDialog(MainStaffView mainStaffView, QLTTChungStaffView qLTTChungStaffView, boolean modal) {
         initComponents();

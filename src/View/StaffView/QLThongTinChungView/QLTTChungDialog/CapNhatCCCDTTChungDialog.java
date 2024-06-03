@@ -4,6 +4,7 @@ import View.AdminView.QLThongTinChungView.QLTTChungDialog.*;
 import Controller.QLThongTinChungController.DSThongTinChung;
 import Controller.SupportFunction.StringProcessing;
 import Controller.SupportFunction.CheckingDataExist;
+import Model.Customers;
 import Model.Personal_Infos;
 
 import View.StaffView.MainStaffView;
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
 public class CapNhatCCCDTTChungDialog extends javax.swing.JDialog {
   private MainStaffView MainStaffview;
     private QLTTChungStaffView QlttChungStaffView;
-    public  Personal_Infos Ps;
+    private Customers Cs;
     
     public CapNhatCCCDTTChungDialog(MainStaffView mainStaffView, QLTTChungStaffView qLTTChungStaffView, boolean modal) {
         initComponents();
@@ -24,8 +25,8 @@ public class CapNhatCCCDTTChungDialog extends javax.swing.JDialog {
         this.setTitle("Thêm thông tin người dùng");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.Ps = QlttChungStaffView.getPs();
-        CCCDCuTf.setText(Ps.getCCCD());
+        this.Cs = QlttChungStaffView.getCs();
+        CCCDCuTf.setText(Cs.getCCCD());
     }
 
     @SuppressWarnings("unchecked")
@@ -160,7 +161,7 @@ public class CapNhatCCCDTTChungDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ và chính xác!");
         }else if(StringProcessing.CheckCCCD(CCCDMoiTf.getText())){
             JOptionPane.showMessageDialog(this, "Sai định dạng CCCD!!! - Phải là chữ số và đủ 12 ký tự");            
-        }else if(CheckingDataExist.CheckExistCCCD(CCCDMoiTf.getText(), Ps)){
+        }else if(CheckingDataExist.CheckExistCCCD(CCCDMoiTf.getText(), Cs)){
             JOptionPane.showMessageDialog(this, "CCCD này đã tồn tại!!! - Vui lòng nhập CCCD khác");                         
         }else{
             int confirm = JOptionPane.showConfirmDialog(

@@ -231,24 +231,24 @@ public class CapNhatDialog extends javax.swing.JDialog {
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
         // TODO add your handling code here:      
        String str = txtDienMoi.getText();
-       int sonuocmoi = 0;
+       int soDienMoi = 0;
 
         if(str.equals("") || str.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống!");
         } else if(!str.matches("-?\\d+(\\.\\d+)?")) {
-            JOptionPane.showMessageDialog(null, "Số nước phải là số!");
+            JOptionPane.showMessageDialog(null, "Số Điện phải là số!");
         } else {
             try {
-                sonuocmoi = Integer.parseInt(str);
-                if(_chiSoCu >= sonuocmoi) {
-                    JOptionPane.showMessageDialog(null, "Số nước mới phải lớn hơn số nước cũ!");
+                soDienMoi = Integer.parseInt(str);
+                if(_chiSoCu >= soDienMoi) {
+                    JOptionPane.showMessageDialog(null, "Số điện mới phải lớn hơn số điện cũ!");
                 } else {
                     String creatingDate=(String) this.needtoUpdate.get(6);
                     String idmeter;    
                     Object idmeters=this.needtoUpdate.get(5);   
                     idmeter=idmeters.toString();             
                     int staffinput=this.idstafflogin;
-                    int currentNum=sonuocmoi;
+                    int currentNum=soDienMoi;
                          
                     boolean result = new capNhatChiSoController().capNhatChiso(creatingDate, idmeter, idstafflogin, currentNum);
                     if(result){
@@ -260,7 +260,7 @@ public class CapNhatDialog extends javax.swing.JDialog {
 
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Số nước phải là số hợp lệ!");
+                JOptionPane.showMessageDialog(null, "Số điện phải là số hợp lệ!");
             }
         }
 

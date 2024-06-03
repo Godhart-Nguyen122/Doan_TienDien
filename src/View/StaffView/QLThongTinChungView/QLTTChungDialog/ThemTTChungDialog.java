@@ -4,6 +4,7 @@ import View.AdminView.QLThongTinChungView.QLTTChungDialog.*;
 import Controller.QLThongTinChungController.DSThongTinChung;
 import Controller.SupportFunction.StringProcessing;
 import Controller.SupportFunction.CheckingDataExist;
+import Model.Customers;
 import Model.Personal_Infos;
 
 import View.StaffView.MainStaffView;
@@ -221,20 +222,20 @@ public class ThemTTChungDialog extends javax.swing.JDialog {
             JOptionPane.YES_NO_OPTION
             );
             if (confirm == JOptionPane.YES_OPTION) {
-                Personal_Infos Ps = new Personal_Infos();
-                Ps.setCCCD(CCCDTf.getText());
-                Ps.setFirstname(HoTf.getText());
-                Ps.setMiddleName(DemTf.getText());
-                Ps.setLastname(TenTf.getText());
-                Ps.setAddress(DiaChiTf.getText());
-                Ps.setPhone(SdtTf.getText());
+                Customers Cs = new Customers();
+                Cs.setCCCD(CCCDTf.getText());
+                Cs.setFirstname(HoTf.getText());
+                Cs.setMiddleName(DemTf.getText());
+                Cs.setLastname(TenTf.getText());
+                Cs.setAddress(DiaChiTf.getText());
+                Cs.setPhone(SdtTf.getText());
                 if(NamRb.isSelected())
-                    Ps.setSex(true);
+                    Cs.setSex(true);
                 else
-                    Ps.setSex(false);
-                Ps.setDOB(new java.sql.Date(NgSinhTf.getDate().getTime()));
+                    Cs.setSex(false);
+                Cs.setDOB(new java.sql.Date(NgSinhTf.getDate().getTime()));
                 try{
-                    DSThongTinChung.Add(Ps);
+                    DSThongTinChung.Add(Cs);
                     JOptionPane.showMessageDialog(this, "Đã thêm thông tin người dùng có CCCD: " + CCCDTf.getText());
                     this.QlttChungStaffView.ShowThongTinTuDBS(QlttChungStaffView.getBangDSTTChung());
                     this.dispose();

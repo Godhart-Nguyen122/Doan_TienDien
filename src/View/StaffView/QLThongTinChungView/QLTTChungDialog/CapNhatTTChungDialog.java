@@ -4,6 +4,7 @@ import View.AdminView.QLThongTinChungView.QLTTChungDialog.*;
 import Controller.QLThongTinChungController.DSThongTinChung;
 import Controller.SupportFunction.StringProcessing;
 import Controller.SupportFunction.CheckingDataExist;
+import Model.Customers;
 import Model.Personal_Infos;
 
 import View.StaffView.MainStaffView;
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
 public class CapNhatTTChungDialog extends javax.swing.JDialog {
   private MainStaffView MainStaffview;
     private QLTTChungStaffView QlttChungStaffView;
-    public  Personal_Infos Ps;
+    private Customers Cs;
     
     public CapNhatTTChungDialog(MainStaffView mainStaffView, QLTTChungStaffView qLTTChungStaffView, boolean modal) {
         initComponents();
@@ -24,16 +25,16 @@ public class CapNhatTTChungDialog extends javax.swing.JDialog {
         this.setTitle("Thêm thông tin người dùng");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.Ps = QlttChungStaffView.getPs();
+        this.Cs = QlttChungStaffView.getCs();
         
-        CCCDTf.setText(Ps.getCCCD());
-        HoTf.setText(Ps.getFirstname());
-        DemTf.setText(Ps.getMiddleName());
-        TenTf.setText(Ps.getLastname());
-        NgSinhTf.setDate(Ps.getDOB());
-        DiaChiTf.setText(Ps.getAddress());
-        SdtTf.setText(Ps.getPhone());
-        if(Ps.isSex())
+        CCCDTf.setText(Cs.getCCCD());
+        HoTf.setText(Cs.getFirstname());
+        DemTf.setText(Cs.getMiddleName());
+        TenTf.setText(Cs.getLastname());
+        NgSinhTf.setDate(Cs.getDOB());
+        DiaChiTf.setText(Cs.getAddress());
+        SdtTf.setText(Cs.getPhone());
+        if(Cs.isSex())
             NamRb.setSelected(true);
         else
             NuRb.setSelected(true);
@@ -222,7 +223,7 @@ public class CapNhatTTChungDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ và chính xác!");                      
         }else if(StringProcessing.CheckPhone(SdtTf.getText())){
             JOptionPane.showMessageDialog(this, "Sai định dạng SĐT!!! - Phải là chữ số và đủ 10 ký tự");              
-        }else if(CheckingDataExist.CheckExistPhone(SdtTf.getText(), Ps)){
+        }else if(CheckingDataExist.CheckExistPhone(SdtTf.getText(), Cs)){
             JOptionPane.showMessageDialog(this, "SĐT này đã tồn tại!!! - Vui lòng nhập SĐT khác"); 
         }else if(StringProcessing.CheckingDateAge(NgSinhTf.getDate())){
             JOptionPane.showMessageDialog(this, "Phải có ngày sinh đủ 18 tuổi!!! - Vui lòng kiểm tra lại thông tin"); 
@@ -234,20 +235,20 @@ public class CapNhatTTChungDialog extends javax.swing.JDialog {
             JOptionPane.YES_NO_OPTION
             );
             if (confirm == JOptionPane.YES_OPTION) {
-                Personal_Infos Ps = new Personal_Infos();
-                Ps.setCCCD(CCCDTf.getText());
-                Ps.setFirstname(HoTf.getText());
-                Ps.setMiddleName(DemTf.getText());
-                Ps.setLastname(TenTf.getText());
-                Ps.setAddress(DiaChiTf.getText());
-                Ps.setPhone(SdtTf.getText());
+                Customers Cs = new Customers();
+                Cs.setCCCD(CCCDTf.getText());
+                Cs.setFirstname(HoTf.getText());
+                Cs.setMiddleName(DemTf.getText());
+                Cs.setLastname(TenTf.getText());
+                Cs.setAddress(DiaChiTf.getText());
+                Cs.setPhone(SdtTf.getText());
                 if(NamRb.isSelected())
-                    Ps.setSex(true);
+                    Cs.setSex(true);
                 else
-                    Ps.setSex(false);
-                Ps.setDOB(new java.sql.Date(NgSinhTf.getDate().getTime()));
+                    Cs.setSex(false);
+                Cs.setDOB(new java.sql.Date(NgSinhTf.getDate().getTime()));
                 try{
-                    DSThongTinChung.Update_NoCCCD(Ps);
+                    DSThongTinChung.Update_NoCCCD(Cs);
                     JOptionPane.showMessageDialog(this, "Đã cập nhật thông tin người dùng có CCCD: " + CCCDTf.getText());
                     this.QlttChungStaffView.ShowThongTinTuDBS(QlttChungStaffView.getBangDSTTChung());
                     this.dispose();
