@@ -16,35 +16,75 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class E_Meter_DetailsDAO {
-     public  List<E_Meter_Details> getChiTietCongTo(String ngay,int idstaff) {
-        List<E_Meter_Details> listEmeterDetail =new ArrayList<>();
-        String SQL="select * from E_METER_DETAILS where Creating_Date=? and ID_Staff_Input=?";
-           try {           
-             Connection con = new DBS().getConnection();
-             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, ngay);
-            ps.setInt(2,idstaff);
-//               SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//             Date parsedDate = dateFormat.parse(ngay);
-//            java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
-//            
-//            ps.setDate(1, sqlDate);
+//     public  List<E_Meter_Details> getChiTietCongTo(String ngay,int idstaff) {
+//        List<E_Meter_Details> listEmeterDetail =new ArrayList<>();
+//        String SQL="select * from E_METER_DETAILS where Creating_Date=? and ID_Staff_Input=?";
+//           try {           
+//             Connection con = new DBS().getConnection();
+//             PreparedStatement ps = con.prepareStatement(SQL);
+//            ps.setString(1, ngay);
+//            ps.setInt(2,idstaff);
+//            ResultSet rs = ps.executeQuery();
+//            while(rs.next()){
+//                 
+//                  E_Meter_Details tmp =new E_Meter_Details();
+//                  tmp.setID_E_Meter(rs.getString("ID_E_METER"));
+//                  tmp.setCurrent_num(rs.getInt("Current_Num"));
+//                  tmp.setCreating_Date(rs.getDate("Creating_Date"));
+//                  tmp.setID_Staff_Input(rs.getInt("ID_Staff_Input"));
+//                  tmp.setId(rs.getInt("ID"));
+//                  listEmeterDetail.add(tmp);             
+//            }             
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }   
+//        return listEmeterDetail;
+//     }
+     public List<E_Meter_Details>getAlldetailByDate(String date,int idstaffInput){
+          List<E_Meter_Details> detailsList = new ArrayList<>();
+
+        // Define the date format matching the date string
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+
+        String SQL = "SELECT * FROM E_METER_DETAILS " +
+                     "WHERE YEAR(Creating_Date) = YEAR(?) " +
+                     "AND MONTH(Creating_Date) = MONTH(?) " +
+                     "AND ID_Staff_Input = ?";
+
+        try{
+            Connection con = new DBS().getConnection();
+            PreparedStatement ps = con.prepareStatement(SQL);
+
+            // Convert LocalDate to java.sql.Date
+            java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+
+            // Set the parameters
+            ps.setDate(1, sqlDate);
+            ps.setDate(2, sqlDate);
+            ps.setInt(3, idstaffInput);
+
+            // Execute the query
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                 
-                  E_Meter_Details tmp =new E_Meter_Details();
-                  tmp.setID_E_Meter(rs.getString("ID_E_METER"));
-                  tmp.setCurrent_num(rs.getInt("Current_Num"));
-                  tmp.setCreating_Date(rs.getDate("Creating_Date"));
-                  tmp.setID_Staff_Input(rs.getInt("ID_Staff_Input"));
-                  tmp.setId(rs.getInt("ID"));
-                  listEmeterDetail.add(tmp);             
-            }             
+
+            // Process the result set
+            while (rs.next()) {
+                E_Meter_Details detail = new E_Meter_Details();
+                detail.setId(rs.getInt("ID"));
+                detail.setID_E_Meter(rs.getString("ID_E_METER"));
+                detail.setCurrent_num(rs.getInt("Current_Num"));
+                detail.setCreating_Date(rs.getDate("Creating_Date"));
+                detail.setID_Staff_Input(rs.getInt("ID_Staff_Input"));
+                detailsList.add(detail);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }   
-        return listEmeterDetail;
+        }
+
+        return detailsList;
      }
+     
+     
      public int getOnlyMonth(String date){
         String[] parts = date.split("-");
        int k= Integer.parseInt(parts[1]);

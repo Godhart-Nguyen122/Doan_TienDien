@@ -173,7 +173,7 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
         });
         BangSrllp.setViewportView(BangDSChuHo);
 
-        LamMoiBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Refresh.png"))); // NOI18N
+        LamMoiBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/rsz_refresh.png"))); // NOI18N
         LamMoiBt.setText("Làm mới");
         LamMoiBt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LamMoiBt.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +231,7 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
             }
         });
 
+        themBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/rsz_1plus.png"))); // NOI18N
         themBtn.setText("Thêm");
         themBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         themBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +240,7 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
             }
         });
 
+        xoaBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/rsz_delete.png"))); // NOI18N
         xoaBtn.setText("Xóa");
         xoaBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         xoaBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -247,6 +249,7 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
             }
         });
 
+        thanhtoanBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/rsz_payment-method.png"))); // NOI18N
         thanhtoanBtn.setText("Thanh toán");
         thanhtoanBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,7 +291,7 @@ public class DSHoaDonStaffView extends javax.swing.JPanel {
                         .addComponent(SapXepCkb, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(SapXepBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 7, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

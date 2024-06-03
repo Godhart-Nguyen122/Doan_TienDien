@@ -149,7 +149,7 @@ public class DSChuHoStaffView extends javax.swing.JPanel {
         });
         BangSrllp.setViewportView(BangDSChuHo);
 
-        LamMoiBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Refresh.png"))); // NOI18N
+        LamMoiBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/rsz_refresh.png"))); // NOI18N
         LamMoiBt.setText("Làm mới");
         LamMoiBt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LamMoiBt.addActionListener(new java.awt.event.ActionListener() {
@@ -253,7 +253,7 @@ public class DSChuHoStaffView extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(LocBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(SapXepBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 19, Short.MAX_VALUE)))
+                        .addGap(0, 15, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

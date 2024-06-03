@@ -55,7 +55,7 @@
                       <Component id="SapXepCkb" min="-2" pref="220" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="SapXepBt" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -184,7 +184,7 @@
     <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="LamMoiBt">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/Refresh.png"/>
+          <Image iconType="3" name="/Icon/rsz_refresh.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
@@ -319,6 +319,9 @@
     </Component>
     <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="themBtn">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Icon/rsz_1plus.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
@@ -328,6 +331,9 @@
     </Component>
     <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="xoaBtn">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Icon/rsz_delete.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
@@ -337,6 +343,9 @@
     </Component>
     <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="thanhtoanBtn">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Icon/rsz_payment-method.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n"/>
       </Properties>
       <Events>

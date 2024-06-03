@@ -130,6 +130,7 @@ public class payMethod extends javax.swing.JDialog {
                     boolean result=new DSHoaDonStaffviewController().payInvoice(invoiceId, pay);
                     if(result){
                         JOptionPane.showMessageDialog(null, "Thanh toán thành công hóa đơn", "Warning", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(null, "Thanh toán hóa đơn thất bại", "Warning", JOptionPane.WARNING_MESSAGE);
                     }

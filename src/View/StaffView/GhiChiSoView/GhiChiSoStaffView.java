@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import static org.apache.poi.hssf.usermodel.HeaderFooter.date;
 
@@ -51,6 +52,7 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
         this.dsChuhoMnStaff=new ArrayList<>();
         this.listdanhsachghidien=new ArrayList<>();
         this.SendtoCapnhatDialog=new  ArrayList<>();
+        BangDSChuHo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         LocKetQua("2024-02-10", "Chưa thanh toán");
         ShowThongTinTuDBS(BangDSChuHo);    
     }
@@ -63,8 +65,6 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
         List<Customers>danhsach=new DSChuHo().LayDanhSachChuho();
          for(Customers tmp:danhsach){
              boolean roleStaff=new PhanCongDAO().getRoleStaffbyId(this.idStafflogin);
-             System.out.println("Id nhan vien "+this.idStafflogin);
-             System.out.println("Vai tro cua nhan vien :"+roleStaff);
              if(roleStaff==false){
                  if(tmp.getId_Staff()==this.idStafflogin){
                      this.dsChuhoMnStaff.add(tmp);
@@ -84,9 +84,7 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
         if(this.dsChuhoMnStaff.isEmpty()){
                JOptionPane.showMessageDialog(this, "Danh sách chủ hộ của nhân viên ghi điện là rỗng: ");
         }
-           System.out.println("Listdanhsachghidien: "+this.listdanhsachghidien.size());
-            for(E_Meter_Details tmp:this.listdanhsachghidien){
-                
+            for(E_Meter_Details tmp:this.listdanhsachghidien){              
                 String Id_E_Meter=tmp.getID_E_Meter();
                 Customers cs=new GhiChiSo().getCustomerbyIdEmeter(Id_E_Meter);
                 String cccd=cs.getCCCD();
@@ -101,16 +99,7 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
                     oldUsageNum=0;
                 }
                 String address=new GhiChiSo().getAddressbyIdMeter(Id_E_Meter);
-                
-//                System.out.println("----Nhung thong tin can show ---");
-//                System.out.println("cccd: " +cccd);               
-//                System.out.println("hovaten: "+hovaten);
-//                System.out.println("oldUsageNum: "+oldUsageNum);
-//                System.out.println("newUsageNum: "+newUsageNum);
-//                System.out.println("address: "+address);
-//                System.out.println("Id_E_Meter: "+Id_E_Meter);
-
-             
+   
                 Object[] rowData = {
                          cccd,hovaten,oldUsageNum,newUsageNum,address, Id_E_Meter
                         };
@@ -228,7 +217,7 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        updateBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/filter.png"))); // NOI18N
+        updateBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/rsz_updated.png"))); // NOI18N
         updateBtn.setText("Cập Nhật");
         updateBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -237,7 +226,7 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
             }
         });
 
-        ghiChiSoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/sort.png"))); // NOI18N
+        ghiChiSoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/rsz_1plus.png"))); // NOI18N
         ghiChiSoBtn.setText("Ghi Chỉ Số");
         ghiChiSoBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ghiChiSoBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -357,10 +346,10 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
                             .addComponent(LamMoiBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(45, 45, 45)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ghiChiSoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ghiChiSoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -388,11 +377,12 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
                             .addComponent(TimKiemBt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(LamMoiBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(ghiChiSoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(ghiChiSoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -428,18 +418,14 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
         txtTuThang.setSelectedIndex(wmd.getOnlyMonth(datenow));
         txtTuNam.setYear(wmd.getOnlyYear(datenow));
  }
- private Date LayNgayThangTu() {
-        int tuthang = txtTuThang.getSelectedIndex() + 1;
+ private String LayNgayThangTu() {
+        int tuthang = txtTuThang.getSelectedIndex()+ 1;
         int tunam = txtTuNam.getYear();
-        String tungay = tunam + "-" + tuthang + "-10";
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = formatter.parse(String.valueOf(tungay));
-        } catch (Exception e) {
+        String tungay=tungay = tunam + "-" + tuthang + "-10";
+        if(tuthang<10){
+            tungay = tunam + "-0" + tuthang + "-10"; 
         }
-        return date;
+        return tungay;     
     }
     private void BangDSChuHoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BangDSChuHoMouseReleased
         int i = BangDSChuHo.getSelectedRow();
@@ -469,7 +455,6 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
         }
         if((int)selected==1){
            this.listdanhsachghidien= wmd.getChiTietCongToByCCCD(textTimKiem,date,this.idStafflogin);
-            System.out.println("text + date + id stagffg "+ textTimKiem+date+this.idStafflogin);
              try {
                  ShowThongTinTuDBS(BangDSChuHo);
              } catch (Exception ex) {
@@ -491,15 +476,6 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng đơn ghi để cập nhật chỉ số điện mới");
         } else {
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//            String tungay = formatter.format(LayNgayThangTu());
-//              CapNhatDialog capnhathd = new CapNhatDialog(true);
-//                i = BangDSChuHo.getSelectedRow();
-//                DefaultTableModel model = (DefaultTableModel) BangDSChuHo.getModel();
-//                String idCongTo=(String) model.getValueAt(i, 5);
-//                E_Meter_Details wmd =new E_Meter_DetailsDAO().getaddressByIdmeter(idCongTo,tungay);
-//                capnhathd.setdataHoaDon(wmd);
-//                capnhathd.setVisible(true);
                 CapNhatDialog capnhathd;
                 try {
                     capnhathd = new CapNhatDialog(true,this.SendtoCapnhatDialog,this.idStafflogin);
@@ -533,12 +509,9 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
                         tmp="0"+tmp;
                     }
                     String creatingDate=String.valueOf(txtTuNam.getYear())+"-"+tmp+"-02";
-                    System.out.println("Creating Date trong Staffview :"+creatingDate);
-
                     if(!SendtoCapnhatDialog.isEmpty()){
                         SendtoCapnhatDialog.clear();
-                    }
-                    
+                    }      
                     SendtoCapnhatDialog.add(cccd);                   
                     SendtoCapnhatDialog.add(hovaten);
                     SendtoCapnhatDialog.add(sodiencu);
@@ -579,22 +552,15 @@ public class GhiChiSoStaffView extends javax.swing.JPanel {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_txtTuNamMousePressed
- 
-      private void LocKetQua(String tungay, String trangthai) {
-        this.listdanhsachghidien = new GhiChiSo().KhoiTaoListCongTo(tungay,this.idStafflogin);
+
+    private void LocKetQua(String tungay, String trangthai) {
+        this.listdanhsachghidien = new GhiChiSo().getAlldetailByDate(tungay,this.idStafflogin);
       }
     private void btnLocKetQuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocKetQuaActionPerformed
-        // TODO add your handling code here:
-        //        if (LayNgayThangTu().compareTo(LayNgayThangDen()) > 0) {
-            //            JOptionPane.showMessageDialog(null, "Ngày bắt đầu lọc lớn hơn ngày kết thúc lọc. Vui lòng nhập lại!");
-            //        } else {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String tungay = formatter.format(LayNgayThangTu());
-            // String denngay = formatter.format(LayNgayThangDen());
-            //      System.out.println("lay ngay -ghinuoc = "+tungay);
-            //  String maphong = txtCCCD_CH.getText();
-            String trangthai="Chưa thanh toán";
 
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");         
+            String tungay = LayNgayThangTu();          
+            String trangthai="Chưa thanh toán";
             LocKetQua(tungay, trangthai);
         try {
             ShowThongTinTuDBS(BangDSChuHo);

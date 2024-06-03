@@ -333,9 +333,18 @@ public final class MainCustomerView extends javax.swing.JFrame {
     }//GEN-LAST:event_HoaDonDienBtActionPerformed
 
     private void DangXuatBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtActionPerformed
-            ButtonNhan(DangXuatBt);
+        int option = JOptionPane.showConfirmDialog(
+                        this,
+                        "Bạn đăng xuất hay không?",
+                        "Xác nhận đăng xuất",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+        );
+        ButtonNhan(DangXuatBt);
+        if(option==JOptionPane.YES_OPTION){
             this.dispose();
             new Login().setVisible(true);
+        }  
     }//GEN-LAST:event_DangXuatBtActionPerformed
 
     private void ThongtinCaNhanbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongtinCaNhanbtnActionPerformed

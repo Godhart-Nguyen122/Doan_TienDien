@@ -26,12 +26,19 @@ public class GhiChiSo {
     private List <E_Meter_Details> listWM=new ArrayList<>();
     private List <E_Meters>e_Meters=new ArrayList<>();
     
-    public static List <E_Meter_Details> KhoiTaoListCongTo(String ngay,int idstafflogin) {
+//    public static List <E_Meter_Details> KhoiTaoListCongTo(String ngay,int idstafflogin) {
+//        try {
+//            List <E_Meter_Details> listWM = new E_Meter_DetailsDAO().getChiTietCongTo(ngay,idstafflogin);
+//            return listWM;
+//        } catch (Exception ex) {
+//            Logger.getLogger(DSTaiKhoanPhanQuyen.class.getName()).log(Level.SEVERE, null, ex);
+//            return null;
+//        }
+//    }
+    public static List <E_Meter_Details> getAlldetailByDate(String ngay,int idstafflogin) {
+        List <E_Meter_Details> listWM=new ArrayList<>();
         try {
-//            Date date =new Date();
-//            SimpleDateFormat sp = new SimpleDateFormat("yyyy-MM-dd");
-//            String datestr=sp.format(date);
-            List <E_Meter_Details> listWM = new E_Meter_DetailsDAO().getChiTietCongTo(ngay,idstafflogin);
+            listWM = new E_Meter_DetailsDAO().getAlldetailByDate(ngay,idstafflogin);
             return listWM;
         } catch (Exception ex) {
             Logger.getLogger(DSTaiKhoanPhanQuyen.class.getName()).log(Level.SEVERE, null, ex);

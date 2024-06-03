@@ -44,10 +44,10 @@
                       </Group>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="updateBtn" min="-2" pref="124" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="ghiChiSoBtn" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateBtn" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -87,12 +87,14 @@
                           <Component id="LamMoiBt" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="updateBtn" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="ghiChiSoBtn" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="ghiChiSoBtn" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="updateBtn" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jSeparator1" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jSeparator1" min="-2" pref="100" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -283,7 +285,7 @@
     <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="updateBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/filter.png"/>
+          <Image iconType="3" name="/Icon/rsz_updated.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -297,7 +299,7 @@
     <Component class="LayMotSoUIdepTaiDay.ButtonThuong" name="ghiChiSoBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/sort.png"/>
+          <Image iconType="3" name="/Icon/rsz_1plus.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Ghi Ch&#x1ec9; S&#x1ed1;"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

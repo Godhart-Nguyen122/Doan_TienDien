@@ -1,5 +1,6 @@
 package View.StaffView;
 
+import Controller.DAO.PhanCongDAO;
 import View.AdminView.*;
 import Controller.DSChuHoController.DSChuHo;
 import Controller.DSNhanVienController.DSNhanVien;
@@ -34,14 +35,11 @@ import javax.swing.JPanel;
 public final class MainStaffView extends javax.swing.JFrame {
     public List<ButtonMenu> ListButton;
     private int idStafflogin;
-//    private List<Integer>listcus;
     DecimalFormat decimalFormat = new DecimalFormat("#");
     DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
+    boolean roleStaff=true;
     
     public void CapNhatBangTrangThai(){        
-//        SoChuhoTrangThai.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.CustomerQuantity()));
-//        HoaDonThanhToanTrangthai.setSoLuong(decimalFormat.format(DSTaiKhoanPhanQuyen.StaffQuantity()));
-//        TrangThaiTien.setSoLuong(decimalFormat2.format(new InvoiceController().getTotalprice()) + " VNĐ");
         this.repaint();
         this.revalidate();
     }
@@ -55,13 +53,13 @@ public final class MainStaffView extends javax.swing.JFrame {
     }
     
     
-    public MainStaffView(int idStafflogin){
-//        new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
+    public MainStaffView(int idStafflogin) throws Exception{
         setIdStafflogin(idStafflogin);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         SimpleMainTitleBar.init(this);
         ListButton = new ArrayList<>();
+        this.roleStaff=new PhanCongDAO().getRoleStaffbyId(this.idStafflogin);
         SoChuhoTrangThai.setLabel("Số chủ hộ: ");
         HoaDonThanhToanTrangthai.setLabel("Số nhân viên: ");       
         HoaDonChuaThanhToanTrangthai.setLabel("Tổng doanh thu: ");
@@ -80,16 +78,6 @@ public final class MainStaffView extends javax.swing.JFrame {
         ListButton.add(GhichisoBtn);
         ListButton.add(HoadondienBtn);
         ListButton.add(DangXuatBt);
-      
-       
-        //Khởi tạo các list
-//        new DSThongTinChung().KhoiTaoListPersonal_Infos();
-//        new DSTaiKhoanPhanQuyen().KhoiTaoListAccount();
-//        new DSChuHo().KhoiTaoListCustomeres();
-//        new DSNhanVien().KhoiTaoListStaffs();
-        
-        //Xử lý chart
-//        this.XuLyChart();
         
         //Xử lý đăng xuất
         SimpleMainTitleBar.getSimpleButtonBar().getCmdClose().addActionListener(new ActionListener() {
@@ -358,7 +346,7 @@ public final class MainStaffView extends javax.swing.JFrame {
 
     
     private void DSChuHoBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DSChuHoBtActionPerformed
-            ButtonNhan(DSChuHoBt);
+        ButtonNhan(DSChuHoBt);
         try {
             this.setForm(new DSChuHoStaffView(this,this.idStafflogin));
         } catch (Exception ex) {
@@ -371,43 +359,64 @@ public final class MainStaffView extends javax.swing.JFrame {
     }//GEN-LAST:event_DSChuHoBtActionPerformed
 
     private void HoadondienBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HoadondienBtnActionPerformed
-            ButtonNhan(HoadondienBtn);
-        try {
-            this.setForm(new DSHoaDonStaffView(this,this.idStafflogin));
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        ButtonNhan(HoadondienBtn);
+        if(this.roleStaff==false){
+            JOptionPane.showMessageDialog(this,"Bạn không có quyền vào trang này !","Warning",JOptionPane.WARNING_MESSAGE); 
+        }else{    
+            try {
+                this.setForm(new DSHoaDonStaffView(this,this.idStafflogin));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            finally{
+                CapNhatBangTrangThai();
+            }
         }
-        finally{
-            CapNhatBangTrangThai();
-        }
-         
     }//GEN-LAST:event_HoadondienBtnActionPerformed
 
     private void DangXuatBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtActionPerformed
-            ButtonNhan(DangXuatBt);
+        int option = JOptionPane.showConfirmDialog(
+                        this,
+                        "Bạn đăng xuất hay không?",
+                        "Xác nhận đăng xuất",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+        );
+        ButtonNhan(DangXuatBt);
+        if(option==JOptionPane.YES_OPTION){
             this.dispose();
             new Login().setVisible(true);
+        }    
     }//GEN-LAST:event_DangXuatBtActionPerformed
 
     private void QLThongTinChungBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLThongTinChungBtActionPerformed
-            ButtonNhan(QLThongTinChungBt);
-        try {
-            this.setForm(new QLTTChungStaffView(this,this.idStafflogin));
-            CapNhatBangTrangThai();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        ButtonNhan(QLThongTinChungBt);
+        if(this.roleStaff==false){
+            JOptionPane.showMessageDialog(this,"Bạn không có quyền vào trang này !","Warning",JOptionPane.WARNING_MESSAGE);
+        }else{
+            try {
+                this.setForm(new QLTTChungStaffView(this,this.idStafflogin));
+                CapNhatBangTrangThai();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }    
+        
     }//GEN-LAST:event_QLThongTinChungBtActionPerformed
 
     private void GhichisoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GhichisoBtnActionPerformed
-        ButtonNhan(HoadondienBtn);
-        try {
-            this.setForm(new GhiChiSoStaffView(this,this.idStafflogin));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        finally{
-            CapNhatBangTrangThai();
+        ButtonNhan(GhichisoBtn);
+        if(this.roleStaff==true){
+            JOptionPane.showMessageDialog(this,"Bạn không có quyền vào trang này !","Warning",JOptionPane.WARNING_MESSAGE);
+        }else{
+            try {
+                this.setForm(new GhiChiSoStaffView(this,this.idStafflogin));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            finally{
+                CapNhatBangTrangThai();
+            }
         }
     }//GEN-LAST:event_GhichisoBtnActionPerformed
 

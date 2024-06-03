@@ -1,7 +1,5 @@
 package View.StaffView.QLThongTinChungView;
 
-
-
 import Controller.DAO.CustomerDAO;
 import Controller.DAO.Personal_InfosDAO;
 import Controller.DAO.PhanCongDAO;
@@ -108,59 +106,10 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
                         tmp.getCCCD(), Ten, dateFormat.format(tmp.getDOB()), 
                         tmp.getAddress(), tmp.getPhone(), Gioi_tinh
                         };
-//                    String hovaten=tmp.getLastname()+" "+tmp.getMiddleName()+" "+tmp.getLastname();
-//                    Object[] rowData = {
-//                        tmp.getCCCD(), hovaten,dateFormat.format(tmp.getDOB()), 
-//                        tmp.getAddress(), tmp.getPhone(), usernameCus,
-//                        passCus,
-//                    };
-                        
+   
                     model.addRow(rowData);
                 }
         }
-        
-//         if(new PhanCongDAO().getRoleStaffbyId(this.idStafflogin)){
-//             if(this.listcusofStaff.isEmpty()){
-//               JOptionPane.showMessageDialog(this, "Danh sách chủ hộ rỗng: ");
-//            }
-//             else{
-//                 for(Integer tmp:this.listcusofStaff){
-//                      
-//                      Personal_Infos tmpPs =new Personal_InfosDAO().getStaffInfosbyID(tmp);
-//                      String Gioi_tinh;
-//                     String name = tmpPs.getFirstname() + " " + tmpPs.getMiddleName()+ " " + tmpPs.getLastname();
-//                    String Ten = new StringProcessing().Name(name);
-//                    if(tmpPs.isSex())
-//                        Gioi_tinh = "Nam";
-//                    else
-//                        Gioi_tinh = "Nữ";
-//            Object[] rowData = {
-//                tmpPs.getCCCD(), Ten, dateFormat.format(tmpPs.getDOB()), 
-//                tmpPs.getAddress(), tmpPs.getPhone(), Gioi_tinh
-//                    };
-//
-//            model.addRow(rowData);
-//                 }
-//                 
-//                 for(Personal_Infos ps : dsInfos){
-//                    String Gioi_tinh;
-//                     String name = ps.getFirstname() + " " + ps.getMiddleName()+ " " + ps.getLastname();
-//                    String Ten = new StringProcessing().Name(name);
-//                    if(ps.isSex())
-//                        Gioi_tinh = "Nam";
-//                    else
-//                        Gioi_tinh = "Nữ";
-//            Object[] rowData = {
-//                ps.getCCCD(), Ten, dateFormat.format(ps.getDOB()), 
-//                ps.getAddress(), ps.getPhone(), Gioi_tinh
-//                    };
-//
-//            model.addRow(rowData);
-//                }   
-//            }
-//             
-//         }
-       
         StringProcessing.StringSortingTable(BangDSTTChung, 0, true);
         model.fireTableDataChanged();
     }
@@ -384,7 +333,6 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
     }//GEN-LAST:event_ThemBtActionPerformed
 
     private void LamMoiBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LamMoiBtActionPerformed
- 
         try {
             mainStaffView.setForm(new QLTTChungStaffView(this.mainStaffView,this.idStafflogin));
         } catch (Exception ex) {
@@ -467,16 +415,7 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
         ThemTTChungDialog themTTChungDialog = new ThemTTChungDialog(this.mainStaffView, this, true);
         themTTChungDialog.setVisible(true);
     }
-
-//    private void showCapNhatTTCDialog() {
-//        CapNhatTTChungDialog capNhatTTChungDialog = new CapNhatTTChungDialog(this.mainStaffView, this, true);
-//        capNhatTTChungDialog.setVisible(true);
-//    }    
-    
-//    private void showCapNhatCCCDTTCDialog() {
-//        CapNhatCCCDTTChungDialog capNhatCCCDTTChungDialog = new CapNhatCCCDTTChungDialog(this.mainStaffView, this, true);
-//        capNhatCCCDTTChungDialog.setVisible(true);
-//    }    
+  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LayMotSoUIdepTaiDay.BangDanhSach BangDSTTChung;
@@ -494,10 +433,6 @@ public class QLTTChungStaffView extends javax.swing.JPanel {
     private javax.swing.JTextField TimKiemTf;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
-
-   
-
-   
     
     public BangDanhSach getBangDSTTChung() {
         return BangDSTTChung;
