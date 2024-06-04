@@ -174,6 +174,7 @@ public final class MainAdminView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NHÂN VIÊN ");
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1300, 883));
         setResizable(false);
 
         MainBorder.setBackground(new java.awt.Color(232, 232, 232));

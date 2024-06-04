@@ -10,6 +10,8 @@ import Controller.DAO.PhanCongDAO;
 import Controller.DSChuHoController.DSChuHo;
 import Controller.StaffView.GhiChiSo;
 import Controller.StaffView.subFormController.GhiChiSoDialogController;
+import Controller.SupportFunction.StringProcessing;
+import static Controller.SupportFunction.StringProcessing.isAllNumbers;
 import Model.Customers;
 import Model.E_Meter_Details;
 import Model.E_Meters;
@@ -58,6 +60,7 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // Format the java.sql.Date to a string
         String dateString = dateFormatter.format(currentDate);
+        dateString=dateString.substring(0,8)+"02";
         // Print the formatted date string
         txtDate.setText(dateString);
     }
@@ -163,7 +166,7 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
         txtDate = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         oldNumTxt = new javax.swing.JTextField();
-        txtSoNuocMoi = new javax.swing.JTextField();
+        txtsodienmoi = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnGhi1 = new javax.swing.JButton();
         chuhoCB = new LayMotSoUIdepTaiDay.ComboboxThuong();
@@ -248,7 +251,7 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
                     .addComponent(jLabel5))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSoNuocMoi, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                    .addComponent(txtsodienmoi, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(oldNumTxt)
                     .addComponent(chuhoCB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cbCongto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -288,7 +291,7 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
                     .addComponent(oldNumTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSoNuocMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtsodienmoi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -326,21 +329,43 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
                         JOptionPane.QUESTION_MESSAGE
             );
       if(option==JOptionPane.YES_OPTION){
-        if(oldNumTxt.getText().equals("")||txtSoNuocMoi.getText().equals("")){
+        if(oldNumTxt.getText().equals("")||txtsodienmoi.getText().equals("")){
             JOptionPane.showMessageDialog(this,"Vui lòng chọn các thông tin cần thiết để ghi điện","Error",JOptionPane.WARNING_MESSAGE);
-        }else{
-            
+        }else if(new StringProcessing().CheckStringSpace(txtsodienmoi.getText())){
+            JOptionPane.showMessageDialog(this,"Không được chứa ký tự trống!","Error",JOptionPane.WARNING_MESSAGE);
+        }else if(new StringProcessing().isAllNumbers(txtsodienmoi.getText())){
+            JOptionPane.showMessageDialog(this,"Phải là ký tự số!","Error",JOptionPane.WARNING_MESSAGE);
+        }else if (new StringProcessing().isLengthLessThanOrEqualToFive(txtsodienmoi.getText())){
+            JOptionPane.showMessageDialog(this,"Số chữ số phải nhỏ hơn 5!","Error",JOptionPane.WARNING_MESSAGE);
+        }
+        else{        
             String date =txtDate.getText();
             String dateStr = txtDate.getText();
             Date creatingDate;
             creatingDate = Date.valueOf(dateStr);
             
+             // Convert java.sql.Date to LocalDate
+            LocalDate localDate = creatingDate.toLocalDate();
+
+            // Subtract one month from the LocalDate
+            LocalDate previousMonthDate = localDate.minusMonths(1);
+
+            // Convert the LocalDate back to java.sql.Date
+            Date previousMonthSqlDate = Date.valueOf(previousMonthDate);
+
             String idemeter=cbCongto.getSelectedItem().toString();
-            int currentNum=Integer.parseInt(txtSoNuocMoi.getText().trim());
+            //Các chỉ số này là của tháng trước 
+            int currentNum=Integer.parseInt(txtsodienmoi.getText().trim());
             int previousNum=Integer.parseInt(oldNumTxt.getText().trim());
             
+            //Kiểm tra đã có ghi điện tháng trước chưa 
+            E_Meter_Details previousMonth=new E_Meter_Details(0,idemeter, currentNum, previousMonthSqlDate, this.idstafflogin);
+            if(!new GhiChiSoDialogController().checkifExistDetail(previousMonth)){
+                JOptionPane.showMessageDialog(this,"Chỉ điện tháng trước chưa được ghi !Cần phải thêm tháng trước","Warning",JOptionPane.WARNING_MESSAGE);
+                creatingDate=previousMonthSqlDate;
+            }  
             if(currentNum<previousNum){
-                JOptionPane.showMessageDialog(this,"Số điện mới phải nhỏ hơn số điện cũ","Error",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Số điện mới phải lớn hơn số điện cũ","Error",JOptionPane.WARNING_MESSAGE);
             }else{
                 E_Meter_Details tmp=new E_Meter_Details(0,idemeter, currentNum, creatingDate, this.idstafflogin);
                 
@@ -357,54 +382,7 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
                 }
             }
         }
-      }
-//        E_Meter_DetailsDAO hdd = new E_Meter_DetailsDAO();
-//    
-//
-//            String sonuoccu = oldNumTxt.getText().trim();
-//            String sonuocmoi = txtSoNuocMoi.getText().trim();
-//            int sonuocmoiINT= Integer.valueOf(sonuocmoi);
-//
-//            String kiemtraso = "^[0-9.+]+$";
-//            if (!hdd.checkExistEMetter(txtChuHo.getText())) {
-//                JOptionPane.showMessageDialog(this, "Không tìm thấy Công tơ Điện!");
-//            } 
-//
-//             else if (sonuocmoi.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Không được để trống số điện. Vui lòng nhập lại!");
-//            }
-//            else if (!sonuoccu.matches(kiemtraso)) {
-//                JOptionPane.showMessageDialog(this, "Định dạng số điện sai. Vui lòng nhập lại!");
-//            } else if (!sonuocmoi.matches(kiemtraso)) {
-//                JOptionPane.showMessageDialog(this, "Định dạng số điện sai. Vui lòng nhập lại!");
-//            }  else {
-//
-//              
-//                float sonuoccuf = Float.parseFloat(oldNumTxt.getText().trim());
-//                float sonuocmoif = Float.parseFloat(txtSoNuocMoi.getText().trim());
-//
-//                if (sonuocmoif < sonuoccuf) {
-//                    JOptionPane.showMessageDialog(this, "Số nước mới không thể thấp hơn số điện cũ. Vui lòng nhập lại!");
-//                } else {
-//                    int test = JOptionPane.showConfirmDialog(null, "Bạn chắc có muốn thêm số điện  hay không?", "Thông báo", JOptionPane.YES_NO_OPTION);
-//                    if (test == JOptionPane.YES_OPTION) {
-////                        AddDichVu();
-////                        AddHoaDonPhong();
-////                        CapNhatDichVuPhong();
-////                        showTable();
-//                    
-////                        hdd.addBangSDNuoc(date_, txtChuHo.getText(), txtSoNuocCu.getText().trim(), txtSoNuocMoi.getText().trim());
-////                        hdd.addHoaDonNuoc(date_, txtChuHo.getText(), txtSoNuocCu.getText().trim(), txtSoNuocMoi.getText().trim());
-//                           hdd.AddEmetter(txtChuHo.getText(),sonuocmoiINT,idstaflogn,_date);
-//                           this.dispose();
-//                    } else if (test == JOptionPane.NO_OPTION) {
-//                        JOptionPane.showMessageDialog(this, "Bạn đã hủy cập nhật thành công");
-//                    }
-//                }
-//            }
-//        
-        
-        
+      }   
     }//GEN-LAST:event_btnGhiActionPerformed
 
     private void btnGhi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhi1ActionPerformed
@@ -416,44 +394,7 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-// /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(JDialogGhiSoNuoc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(JDialogGhiSoNuoc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(JDialogGhiSoNuoc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(JDialogGhiSoNuoc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-////                GhiChiSoDialog dialog = new GhiChiSoDialog(true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGhi;
@@ -470,7 +411,7 @@ public class GhiChiSoDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField oldNumTxt;
     private javax.swing.JLabel txtDate;
-    private javax.swing.JTextField txtSoNuocMoi;
+    private javax.swing.JTextField txtsodienmoi;
     // End of variables declaration//GEN-END:variables
 
 //    public void setData(Map data)

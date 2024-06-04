@@ -52,7 +52,6 @@ public final class MainStaffView extends javax.swing.JFrame {
         this.idStafflogin = idStafflogin;
     }
     
-    
     public MainStaffView(int idStafflogin) throws Exception{
         setIdStafflogin(idStafflogin);
         initComponents();
@@ -73,11 +72,20 @@ public final class MainStaffView extends javax.swing.JFrame {
         HoaDonChuaThanhToanTrangthai.setIcon(imageTien);
         
         //Thêm button nào thì add vào list
-        ListButton.add(QLThongTinChungBt);
-        ListButton.add(DSChuHoBt);
-        ListButton.add(GhichisoBtn);
-        ListButton.add(HoadondienBtn);
-        ListButton.add(DangXuatBt);
+        if(roleStaff==false){
+            ListButton.add(DSChuHoBt);  
+            ListButton.add(GhichisoBtn);
+            ListButton.add(DangXuatBt);
+        }else{
+            ListButton.add(QLThongTinChungBt);
+            ListButton.add(DSChuHoBt);
+            ListButton.add(HoadondienBtn);
+        }
+//        ListButton.add(QLThongTinChungBt);
+//        ListButton.add(DSChuHoBt);
+//        ListButton.add(GhichisoBtn);
+//        ListButton.add(HoadondienBtn);
+//        ListButton.add(DangXuatBt);
         
         //Xử lý đăng xuất
         SimpleMainTitleBar.getSimpleButtonBar().getCmdClose().addActionListener(new ActionListener() {

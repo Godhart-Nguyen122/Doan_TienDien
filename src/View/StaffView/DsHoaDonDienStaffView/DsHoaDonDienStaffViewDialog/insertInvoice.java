@@ -164,12 +164,12 @@ public class insertInvoice extends javax.swing.JFrame {
         }else{
             result= new insertController().addNewInvoice(tmp);
         }
-        System.out.println("----INSERT INVOICE--------------");
-        System.out.println("currentDate :"+currentDate);
-        System.out.println("invoiceStatus :"+invoiceStatus);
-        System.out.println("detialId :"+detialId);
-        System.out.println("level :"+level);
-        System.out.println("idStaffWrite :"+idStaffWrite);
+//        System.out.println("----INSERT INVOICE--------------");
+//        System.out.println("currentDate :"+currentDate);
+//        System.out.println("invoiceStatus :"+invoiceStatus);
+//        System.out.println("detialId :"+detialId);
+//        System.out.println("level :"+level);
+//        System.out.println("idStaffWrite :"+idStaffWrite);
         return result;
         
     }
