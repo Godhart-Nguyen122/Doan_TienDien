@@ -581,5 +581,20 @@ public class E_Meter_DetailsDAO {
         }
         return result;
     }
+    public static boolean checkIfexistPreviousMonth(String idmeter,Date previvous){
+        boolean result =false;
+         String SQL = "SELECT CASE " +
+                         "WHEN EXISTS (" +
+                         "    SELECT 1 " +
+                         "    FROM [dbo].[E_METER_DETAILS] " +
+                         "    WHERE [ID_E_METER] = ? " +
+                         "          AND YEAR([Creating_Date]) = YEAR(?) " +
+                         "          AND MONTH([Creating_Date]) = MONTH(?)" +
+                         ") " +
+                         "THEN CAST(1 AS BIT) " +
+                         "ELSE CAST(0 AS BIT) " +
+                         "END AS RecordExists";
+        return result;
+    }
 }
 

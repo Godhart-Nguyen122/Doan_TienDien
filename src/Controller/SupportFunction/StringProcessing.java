@@ -174,4 +174,22 @@ public class StringProcessing {
         Double formattedValue = bd.doubleValue();   
          return formattedValue;
     }
+    public static boolean isAllNumbers(String input) {
+        if (input == null || input.isEmpty()) {
+            return false;
+        }
+        for (char c : input.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //Công tơ điện phải có 5 chữ số 
+    public static boolean isLengthLessThanOrEqualToFive(String str) {
+        if (str == null) {
+            return false; // Or handle null case as needed
+        }
+        return str.length() <= 5;
+    }
 }
